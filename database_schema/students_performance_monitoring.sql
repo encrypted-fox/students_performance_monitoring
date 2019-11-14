@@ -29,127 +29,93 @@ USE `students_performance_monitoring`;
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `educational_programs`
+-- Структура таблиц
 --
 
-CREATE TABLE IF NOT EXISTS `educational_programs` (
-  `id` int(11) NOT NULL,
-  `faculty_id` int(11) NOT NULL,
-  `name` varchar(120) NOT NULL
+CREATE TABLE `educational_programs` (
+	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`faculty_id` int(11) NOT NULL,
+	`name` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `faculties`
---
 
 CREATE TABLE IF NOT EXISTS `faculties` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `groups`
---
 
 CREATE TABLE IF NOT EXISTS `groups` (
-  `id` varchar(10) NOT NULL,
-  `term` varchar(11) NOT NULL,
+  `id` varchar(10) NOT NULL PRIMARY KEY,
   `specialization_id` int(11) NOT NULL,
   `term_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `marks`
---
 
 CREATE TABLE IF NOT EXISTS `marks` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `records`
---
 
 CREATE TABLE IF NOT EXISTS `records` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `student_id` varchar(20) NOT NULL,
   `subject_id` int(11) NOT NULL,
+  `group_id` varchar(11) NOT NULL,
   `teacher_id` int(11) NOT NULL,
-  `term` varchar(11) NOT NULL,
   `control_type` enum('Зачёт','Дифференциальный зачёт','Экзамен','Курсовая работа') NOT NULL DEFAULT 'Зачёт',
-  `date` datetime NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mark_id` int(11) DEFAULT NULL,
-  `retake_count` int(11) NOT NULL
+  `retake_count` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `specializations`
---
 
 CREATE TABLE IF NOT EXISTS `specializations` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `educational_program_id` int(11) NOT NULL,
   `name` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `start_years`
---
 
 CREATE TABLE IF NOT EXISTS `start_years` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `year` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `students`
---
 
 CREATE TABLE IF NOT EXISTS `students` (
-  `id` varchar(20) NOT NULL COMMENT 'Gradeook number',
+  `id` varchar(20) NOT NULL PRIMARY KEY COMMENT 'Gradeook number',
   `email` varchar(60) DEFAULT NULL,
   `first_name` varchar(60) NOT NULL,
   `fathers_name` varchar(60) DEFAULT NULL,
   `last_name` varchar(60) NOT NULL,
   `group_number` varchar(10) NOT NULL,
   `average_rating` float(1,1) NOT NULL,
-  `update_date` timestamp NOT NULL
+  `update_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `subjects`
---
 
 CREATE TABLE IF NOT EXISTS `subjects` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
---
--- Структура таблицы `teachers`
---
+CREATE TABLE `subject_blocks` (
+	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`name` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `subjects_subject_blocks` (
+	`subject_id` int(11) NOT NULL,
+	`subject_block_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE IF NOT EXISTS `teachers` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `login` varchar(60) NOT NULL,
   `password` varchar(60) NOT NULL,
   `email` varchar(60) DEFAULT NULL,
@@ -160,203 +126,58 @@ CREATE TABLE IF NOT EXISTS `teachers` (
   `token` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `terms`
---
 
 CREATE TABLE IF NOT EXISTS `terms` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `start_year_id` int(11) NOT NULL,
   `number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Индексы сохранённых таблиц
---
-
---
--- Индексы таблицы `educational_programs`
---
-ALTER TABLE `educational_programs`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `faculty_id` (`faculty_id`);
-
---
--- Индексы таблицы `faculties`
---
-ALTER TABLE `faculties`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `groups`
---
-ALTER TABLE `groups`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `specialization` (`specialization_id`),
-  ADD KEY `term_id` (`term_id`);
-
---
--- Индексы таблицы `marks`
---
-ALTER TABLE `marks`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `records`
---
-ALTER TABLE `records`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `subject_id` (`subject_id`),
-  ADD KEY `teacher_id` (`teacher_id`),
-  ADD KEY `student_id` (`student_id`),
-  ADD KEY `mark_id` (`mark_id`);
-
---
--- Индексы таблицы `specializations`
---
-ALTER TABLE `specializations`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `educational_program_id` (`educational_program_id`);
-
---
--- Индексы таблицы `start_years`
---
-ALTER TABLE `start_years`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `students`
---
-ALTER TABLE `students`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `group_number` (`group_number`);
-
---
--- Индексы таблицы `subjects`
---
-ALTER TABLE `subjects`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `teachers`
---
-ALTER TABLE `teachers`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `login` (`login`);
-
---
--- Индексы таблицы `terms`
---
-ALTER TABLE `terms`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `start_year_id` (`start_year_id`);
-
-
---
--- AUTO_INCREMENT для сохранённых таблиц
---
-
---
--- AUTO_INCREMENT для таблицы `educational_programs`
---
-ALTER TABLE `educational_programs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `faculties`
---
-ALTER TABLE `faculties`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `marks`
---
-ALTER TABLE `marks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `records`
---
-ALTER TABLE `records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `specializations`
---
-ALTER TABLE `specializations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `start_years`
---
-ALTER TABLE `start_years`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `subjects`
---
-ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `teachers`
---
-ALTER TABLE `teachers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `terms`
---
-ALTER TABLE `terms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+-- --------------------------------------------------------
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
 
---
--- Ограничения внешнего ключа таблицы `educational_programs`
---
 ALTER TABLE `educational_programs`
-  ADD CONSTRAINT `educational_programs_ibfk_1` FOREIGN KEY (`faculty_id`) REFERENCES `faculties` (`id`);
+  ADD CONSTRAINT `educational_programs_ibfk_1` FOREIGN KEY (`faculty_id`) REFERENCES `faculties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Ограничения внешнего ключа таблицы `groups`
---
+
 ALTER TABLE `groups`
-  ADD CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`specialization_id`) REFERENCES `specializations` (`id`),
-  ADD CONSTRAINT `groups_ibfk_2` FOREIGN KEY (`term_id`) REFERENCES `terms` (`id`);
+  ADD CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`specialization_id`) REFERENCES `specializations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `groups_ibfk_2` FOREIGN KEY (`term_id`) REFERENCES `terms` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Ограничения внешнего ключа таблицы `records`
---
+
 ALTER TABLE `records`
-  ADD CONSTRAINT `records_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`),
-  ADD CONSTRAINT `records_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`),
-  ADD CONSTRAINT `records_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
-  ADD CONSTRAINT `records_ibfk_4` FOREIGN KEY (`mark_id`) REFERENCES `marks` (`id`);
+  ADD CONSTRAINT `records_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `records_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `records_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `records_ibfk_4` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `records_ibfk_5` FOREIGN KEY (`mark_id`) REFERENCES `marks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Ограничения внешнего ключа таблицы `specializations`
---
+
 ALTER TABLE `specializations`
-  ADD CONSTRAINT `specializations_ibfk_1` FOREIGN KEY (`educational_program_id`) REFERENCES `educational_programs` (`id`);
+  ADD CONSTRAINT `specializations_ibfk_1` FOREIGN KEY (`educational_program_id`) REFERENCES `educational_programs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Ограничения внешнего ключа таблицы `students`
---
+
 ALTER TABLE `students`
-  ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`group_number`) REFERENCES `groups` (`id`);
-COMMIT;
+  ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`group_number`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+ALTER TABLE `subjects_subject_blocks`
+  ADD CONSTRAINT `subjects_subject_blocks_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `subjects_subject_blocks_ibfk_2` FOREIGN KEY (`subject_block_id`) REFERENCES `subject_blocks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+ALTER TABLE `terms`
+  ADD CONSTRAINT `terms_ibfk_1` FOREIGN KEY (`start_year_id`) REFERENCES `start_years` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- --------------------------------------------------------
 
 --
--- Ограничения внешнего ключа таблицы `terms`
+-- Views
 --
-ALTER TABLE `terms`
-  ADD CONSTRAINT `terms_ibfk_1` FOREIGN KEY (`start_year_id`) REFERENCES `start_years` (`id`);
-COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
