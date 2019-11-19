@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'knox',
+    'departments',
+    'information',
+    'people',
+    'university_structure',
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,7 @@
 from django.db import models
 from people.models import Students, Teachers
-from university_structure.models import Subjects, Groups
+from university_structure.models import Groups
+from departments.models import Subjects
 
 # Create your models here.
 
