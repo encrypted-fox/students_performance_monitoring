@@ -32,13 +32,18 @@ USE `students_performance_monitoring`;
 -- Структура таблиц
 --
 
-CREATE TABLE `departments` (
+CREATE TABLE IF NOT EXISTS `control_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(40) NOT NULL
+)
+
+CREATE TABLE IF NOT EXISTS `departments` (
 	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`faculty_id` int(11) NOT NULL,
 	`name` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `educational_programs` (
+CREATE TABLE IF NOT EXISTS `educational_programs` (
 	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`faculty_id` int(11) NOT NULL,
 	`name` varchar(120) NOT NULL
@@ -70,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `records` (
   `group_id` varchar(11) NOT NULL,
   `teacher_id` int(11) NOT NULL,
   `term_id` int(11) NOT NULL,
-  `control_type` enum('Зачёт','Дифференциальный зачёт','Экзамен','Курсовая работа') NOT NULL DEFAULT 'Зачёт',
+  `control_type_id` int(11) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mark_id` int(11) DEFAULT NULL,
   `retake_count` int(11) NOT NULL DEFAULT 0
@@ -110,13 +115,13 @@ CREATE TABLE IF NOT EXISTS `subjects` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `subject_blocks` (
+CREATE TABLE IF NOT EXISTS `subject_blocks` (
 	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`name` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `subjects_subject_blocks` (
+CREATE TABLE IF NOT EXISTS `subjects_subject_blocks` (
 	`subject_id` int(11) NOT NULL,
 	`subject_block_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -143,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `terms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
 	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`password` varchar(128) NOT NULL,
 	`last_login` datetime NULL DEFAULT NULL,
@@ -177,7 +182,8 @@ ALTER TABLE `records`
   ADD CONSTRAINT `records_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `records_ibfk_4` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `records_ibfk_5` FOREIGN KEY (`mark_id`) REFERENCES `marks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `records_ibfk_6` FOREIGN KEY (`term_id`) REFERENCES `terms` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `records_ibfk_6` FOREIGN KEY (`control_type_id`) REFERENCES `control_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `records_ibfk_7` FOREIGN KEY (`term_id`) REFERENCES `terms` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 ALTER TABLE `specializations`
