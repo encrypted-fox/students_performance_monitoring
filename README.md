@@ -18,7 +18,52 @@
 
 ------------
 
- [trello board](https://trello.com/b/UXrKkLRL/%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3-%D1%83%D1%81%D0%BF%D0%B5%D0%B2%D0%B0%D0%B5%D0%BC%D0%BE%D1%81%D1%82%D0%B8 "trello board")
+
+Отслеживание задач - в [доске трелло](https://trello.com/b/UXrKkLRL/%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3-%D1%83%D1%81%D0%BF%D0%B5%D0%B2%D0%B0%D0%B5%D0%BC%D0%BE%D1%81%D1%82%D0%B8 "trello board").
+ 
+
+------------
+
+
+## API. Руководство для пользователя
+### Установка
+1. Установите PostgreSQL и создайте сервер.
+2. Создайте базу данных.
+3. В файле settings.py поменяйте следующие строки:
+```python
+# /students_performance_monitoring/settings.py
+...
+
+# Database
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        ...
+        'NAME': 'students_performance_monitoring', # имя вашей базы данных
+        'USER': 'postgres', # ваше имя пользователя базы данных с привелегиями на внесение изменений
+        'PASSWORD': 'root', # ваш пароль к базе данных для данного пользователя
+        'HOST': 'localhost', # ваш хост базы данных
+        'PORT': '5433', # порт на котором находится база данных
+    }
+}
+```
+4. Откройте терминал и, находясь в корне проекта, запустите последовательно приведенные команды:
+```python
+# /
+
+pipenv shell
+pipenv install
+python manage.py migrate
+python manage.py createsuperuser
+```
+5. Введите любые данные, они потом будут использоваться для доступа к панели создания пользователей и групп пользователей.
+6. Запутите следующую команду:
+```python
+# /
+
+python manage.py runserver
+```
 
 
 ___
