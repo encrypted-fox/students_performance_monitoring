@@ -3,7 +3,7 @@ from rest_framework import viewsets, permissions
 from .serializers import *
 
 
-class Departments(viewsets.ModelViewSet):
+class DepartmentsViewSet(viewsets.ModelViewSet):
     queryset = Departments.objects.all()
     permission_classes = [
         permissions.AllowAny
@@ -11,7 +11,7 @@ class Departments(viewsets.ModelViewSet):
     serializer_class = DepartmentsSerializer
 
 
-class Subjects(viewsets.ModelViewSet):
+class SubjectsViewSet(viewsets.ModelViewSet):
     queryset = Subjects.objects.all()
     permission_classes = [
         permissions.AllowAny
@@ -19,7 +19,7 @@ class Subjects(viewsets.ModelViewSet):
     serializer_class = SubjectsSerializer
 
 
-class SubjectBlocks(viewsets.ModelViewSet):
+class SubjectBlocksViewSet(viewsets.ModelViewSet):
     queryset = SubjectBlocks.objects.all()
     permission_classes = [
         permissions.AllowAny
@@ -27,7 +27,7 @@ class SubjectBlocks(viewsets.ModelViewSet):
     serializer_class = SubjectBlocksSerializer
 
 
-class SubjectsSubjectBlocks(viewsets.ModelViewSet):
+class SubjectsSubjectBlocksViewSet(viewsets.ModelViewSet):
     queryset = SubjectsSubjectBlocks.objects.all()
     permission_classes = [
         permissions.AllowAny
