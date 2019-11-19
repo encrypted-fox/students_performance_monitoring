@@ -4,10 +4,9 @@ from .api import *
 
 router = routers.DefaultRouter()
 
-router.register('api/v0/terms', TermsViewSet)
-router.register('api/v0/marks', MarksViewSet)
-router.register('api/v0/control_types', ControlTypesViewSet)
-router.register('api/v0/records', RecordsViewSet)
-
+router.register('terms', TermsViewSet)
+router.register('marks', MarksViewSet)
+router.register('control_types', ControlTypesViewSet)
+router.register('records', RecordsViewSet)
 
 urlpatterns = router.urls

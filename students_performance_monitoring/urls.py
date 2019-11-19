@@ -14,12 +14,52 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from rest_framework import routers
 from django.urls import path, include
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
+
+class DocsView(APIView):
+
+    @staticmethod
+    def get(request, *args, **kwargs):
+        api_docs = response = {
+            "api/v0/": {
+                "information": {
+                    "terms": request.build_absolute_uri("api/v0/terms/"),
+                    "marks": request.build_absolute_uri("api/v0/marks/"),
+                    "control_types": request.build_absolute_uri("api/v0/control_types/"),
+                    "records": request.build_absolute_uri("api/v0/records/"),
+                },
+                "people": {
+                    "students": request.build_absolute_uri("api/v0/students/"),
+                    "teachers": request.build_absolute_uri("api/v0/teachers/"),
+                },
+                "university_structure": {
+                    "faculties": request.build_absolute_uri("api/v0/faculties/"),
+                    "educational_programs": request.build_absolute_uri("api/v0/educational_programs/"),
+                    "specializations": request.build_absolute_uri("api/v0/specializations/"),
+                    "groups": request.build_absolute_uri("api/v0/groups/"),
+                },
+                "departments": {
+                    "departments": request.build_absolute_uri("api/v0/departments/"),
+                    "subjects": request.build_absolute_uri("api/v0/subjects/"),
+                    "subject_blocks": request.build_absolute_uri("api/v0/subject_blocks/"),
+                    "subjects_subject_blocks": request.build_absolute_uri("api/v0/subjects_subject_blocks/"),
+                },
+                "admin_page": request.build_absolute_uri("api/v0/admin/")
+            }
+        }
+        return Response(api_docs)
+
+
+router = routers.DefaultRouter()
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include("information.urls")),
-    path('', include("departments.urls")),
-    path('', include("people.urls")),
-    path('', include("university_structure.urls")),
+    path('', DocsView.as_view()),
+    path('api/v0/admin/', admin.site.urls),
+    path('api/v0/', include("information.urls")),
+    path('api/v0/', include("departments.urls")),
+    path('api/v0/', include("people.urls")),
+    path('api/v0/', include("university_structure.urls")),
 ]

@@ -4,7 +4,7 @@ from .api import *
 
 router = routers.DefaultRouter()
 
-router.register('api/v0/students', StudentsViewSet)
-router.register('api/v0/teachers', TeachersViewSet)
+router.register('students', StudentsViewSet)
+router.register('teachers', TeachersViewSet)
 
 urlpatterns = router.urls
