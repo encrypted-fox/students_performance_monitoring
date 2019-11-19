@@ -26,16 +26,7 @@ class DocsView(APIView):
     def get(request, *args, **kwargs):
         api_docs = response = {
             "api/v0/": {
-                "information": {
-                    "terms": request.build_absolute_uri("api/v0/terms/"),
-                    "marks": request.build_absolute_uri("api/v0/marks/"),
-                    "control_types": request.build_absolute_uri("api/v0/control_types/"),
-                    "records": request.build_absolute_uri("api/v0/records/"),
-                },
-                "people": {
-                    "students": request.build_absolute_uri("api/v0/students/"),
-                    "teachers": request.build_absolute_uri("api/v0/teachers/"),
-                },
+                "admin_page": request.build_absolute_uri("api/v0/admin/"),
                 "university_structure": {
                     "faculties": request.build_absolute_uri("api/v0/faculties/"),
                     "educational_programs": request.build_absolute_uri("api/v0/educational_programs/"),
@@ -48,7 +39,16 @@ class DocsView(APIView):
                     "subject_blocks": request.build_absolute_uri("api/v0/subject_blocks/"),
                     "subjects_subject_blocks": request.build_absolute_uri("api/v0/subjects_subject_blocks/"),
                 },
-                "admin_page": request.build_absolute_uri("api/v0/admin/")
+                "people": {
+                    "students": request.build_absolute_uri("api/v0/students/"),
+                    "teachers": request.build_absolute_uri("api/v0/teachers/"),
+                },
+                "information": {
+                    "terms": request.build_absolute_uri("api/v0/terms/"),
+                    "marks": request.build_absolute_uri("api/v0/marks/"),
+                    "control_types": request.build_absolute_uri("api/v0/control_types/"),
+                    "records": request.build_absolute_uri("api/v0/records/"),
+                },
             }
         }
         return Response(api_docs)
