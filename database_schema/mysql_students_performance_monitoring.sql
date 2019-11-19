@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `records` (
 CREATE TABLE IF NOT EXISTS `specializations` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `educational_program_id` int(11) NOT NULL,
+	`faculty_id` int(11) NOT NULL,
   `name` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -130,8 +131,6 @@ CREATE TABLE IF NOT EXISTS `subjects_subject_blocks` (
 CREATE TABLE IF NOT EXISTS `teachers` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `user_id` int(11) NOT NULL,
-  `login` varchar(60) NOT NULL,
-  `password` varchar(60) NOT NULL,
   `email` varchar(60) DEFAULT NULL,
   `first_name` varchar(30) NOT NULL,
   `fathers_name` varchar(60) DEFAULT NULL,
@@ -187,7 +186,9 @@ ALTER TABLE `records`
 
 
 ALTER TABLE `specializations`
-  ADD CONSTRAINT `specializations_ibfk_1` FOREIGN KEY (`educational_program_id`) REFERENCES `educational_programs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `specializations_ibfk_1` FOREIGN KEY (`educational_program_id`) REFERENCES `educational_programs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `specializations_ibfk_2` FOREIGN KEY (`faculty_id`) REFERENCES `faculties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 
 ALTER TABLE `students`
