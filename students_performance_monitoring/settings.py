@@ -24,7 +24,11 @@ SECRET_KEY = 'r11f#l#v$l(q!17e^*0chs@j*qa0-=tdr4$it^91^92zhlu9ng'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'monitor.std-240.ist.mospolytech.ru',
+]
+
 
 # Application definition
 
@@ -35,12 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'oauth2_provider',
     'rest_framework',
-    'knox',
+    'drf_yasg',
     'departments',
     'information',
     'people',
     'university_structure',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -74,18 +80,70 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'students_performance_monitoring.wsgi.application'
 
-# Database
+# Database (!!!!!!!!LOCALHOST_DEFAULTS)!!!!!!!!)
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'students_performance_monitoring',
+#         'USER': 'postgres',
+#         'PASSWORD': 'root',
+#         'HOST': 'localhost',
+#         'PORT': '5433',
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'std_240',
+#         'USER': 'std_240',
+#         'PASSWORD': '00000000',
+#         'HOST': 'std-mysql',
+#         'PORT': '3306',
+#     }
+# }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'students_performance_monitoring',
-        'USER': 'postgres',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '5433',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+}
+
+# Rest Framework
+# https://www.django-rest-framework.org/
+
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
+}
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'SECURITY_DEFINITIONS': {
+        'GIPP': {
+            'type': 'oauth2',
+            'authorizationUrl': '/api/v0/o/authorize/',
+            'tokenUrl': '/api/v0/o/token/',
+            'flow': 'application',
+        }
+    },
+    'OAUTH2_CONFIG': {
+        'clientId': 'OaXbJZ1k6u2zfT75PuRrcYzM5iv5XwcSdnlBFrYt',
+        'clientSecret': 'xq1uztzS3J43NuDTBDpxpO4rKkVnh8IWBTHjto2t7UeDor0leCFUoyLys901KYRqHsk2osDfW7KqobKqeRkDV1kK3zIe0DgivTdfr0gBEhHp2SfdwaaXwS0mOPkkcyv7',
+        'appName': 'GIPP'
+    },
 }
 
 # Password validation
@@ -122,4 +180,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_ROOT = "/home/std/python/students_performance_monitoring/static/"
+STATIC_URL = "/static/"
+

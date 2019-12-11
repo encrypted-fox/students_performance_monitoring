@@ -13,53 +13,39 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+from django.conf.urls import url
 from django.contrib import admin
-from rest_framework import routers
-from django.urls import path, include
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import routers, permissions
+from django.urls import include
 
+from students_performance_monitoring.views import DocsView
 
-class DocsView(APIView):
-
-    @staticmethod
-    def get(request, *args, **kwargs):
-        api_docs = response = {
-            "api/v0/": {
-                "admin_page": request.build_absolute_uri("api/v0/admin/"),
-                "university_structure": {
-                    "faculties": request.build_absolute_uri("api/v0/faculties/"),
-                    "educational_programs": request.build_absolute_uri("api/v0/educational_programs/"),
-                    "specializations": request.build_absolute_uri("api/v0/specializations/"),
-                    "groups": request.build_absolute_uri("api/v0/groups/"),
-                },
-                "departments": {
-                    "departments": request.build_absolute_uri("api/v0/departments/"),
-                    "subjects": request.build_absolute_uri("api/v0/subjects/"),
-                    "subject_blocks": request.build_absolute_uri("api/v0/subject_blocks/"),
-                    "subjects_subject_blocks": request.build_absolute_uri("api/v0/subjects_subject_blocks/"),
-                },
-                "people": {
-                    "students": request.build_absolute_uri("api/v0/students/"),
-                    "teachers": request.build_absolute_uri("api/v0/teachers/"),
-                },
-                "information": {
-                    "terms": request.build_absolute_uri("api/v0/terms/"),
-                    "marks": request.build_absolute_uri("api/v0/marks/"),
-                    "control_types": request.build_absolute_uri("api/v0/control_types/"),
-                    "records": request.build_absolute_uri("api/v0/records/"),
-                },
-            }
-        }
-        return Response(api_docs)
-
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Snippets API",
+        default_version='v1',
+        description="Test description",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 router = routers.DefaultRouter()
 urlpatterns = [
-    path('', DocsView.as_view()),
-    path('api/v0/admin/', admin.site.urls),
-    path('api/v0/', include("information.urls")),
-    path('api/v0/', include("departments.urls")),
-    path('api/v0/', include("people.urls")),
-    path('api/v0/', include("university_structure.urls")),
+    url(r'^$', DocsView.as_view()),
+    url(r'^api/v0/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url('api/v0/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url('api/v0/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    url('api/v0/admin/', admin.site.urls),
+    url('api/v0/', include("authentication.urls")),
+    url('api/v0/', include("information.urls")),
+    url('api/v0/', include("departments.urls")),
+    url('api/v0/', include("people.urls")),
+    url('api/v0/', include("university_structure.urls")),
 ]

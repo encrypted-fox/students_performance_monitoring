@@ -3,20 +3,24 @@ from .models import *
 
 
 class DepartmentsSerializer(serializers.ModelSerializer):
-    model = Departments
-    fields = "__all__"
+    class Meta:
+        model = Departments
+        fields = "__all__"
 
 
 class SubjectsSerializer(serializers.ModelSerializer):
-    model = Subjects
-    fields = "__all__"
+    class Meta:
+        model = Subjects
+        fields = "__all__"
 
 
 class SubjectBlocksSerializer(serializers.ModelSerializer):
-    model = SubjectBlocks
-    fields = "__all__"
+    class Meta:
+        model = SubjectBlocks
+        fields = "__all__"
 
 
 class SubjectsSubjectBlocksSerializer(serializers.ModelSerializer):
-    model = SubjectsSubjectBlocks
-    fields = "__all__"
+    class Meta:
+        model = SubjectsSubjectBlocks
+        fields = "__all__"

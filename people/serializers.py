@@ -3,11 +3,13 @@ from .models import *
 
 
 class StudentsSerializer(serializers.ModelSerializer):
-    model = Students
-    fields = "__all__"
+    class Meta:
+        model = Students
+        fields = "__all__"
 
 
 class TeachersSerializer(serializers.ModelSerializer):
-    model = Teachers
-    fields = "__all__"
+    class Meta:
+        model = Teachers
+        fields = "__all__"
 
