@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import generics, permissions
 from .serializers import *
 
@@ -22,7 +24,7 @@ class RegisterAPI(generics.GenericAPIView):
             serializer.save()
             # Then we get a token for the created user.
             # This could be done differentley
-            response = requests.post("http://monitor.std-240.ist.mospolytech.ru/api/v0/auth/login",
+            response = requests.post("http://monitor.std-240.ist.mospolytech.ru/api/v0/o/token/",
                                      data={
                                          'grant_type': 'password',
                                          'username': request.data['username'],
