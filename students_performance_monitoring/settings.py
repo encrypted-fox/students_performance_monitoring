@@ -117,7 +117,11 @@ DATABASES = {
 
 OAUTH2_PROVIDER = {
     # this is the list of available scopes
-    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+    'SCOPES': {
+        'read': 'Read scope',
+        'write': 'Write scope',
+        'groups': 'Access to your groups'
+    }
 }
 
 REST_FRAMEWORK = {
@@ -132,7 +136,7 @@ REST_FRAMEWORK = {
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
     'SECURITY_DEFINITIONS': {
-        'GIPP': {
+        'swagger': {
             'type': 'oauth2',
             'authorizationUrl': '/api/v0/o/authorize/',
             'tokenUrl': '/api/v0/o/token/',
@@ -140,9 +144,9 @@ SWAGGER_SETTINGS = {
         }
     },
     'OAUTH2_CONFIG': {
-        'clientId': 'OaXbJZ1k6u2zfT75PuRrcYzM5iv5XwcSdnlBFrYt',
-        'clientSecret': 'xq1uztzS3J43NuDTBDpxpO4rKkVnh8IWBTHjto2t7UeDor0leCFUoyLys901KYRqHsk2osDfW7KqobKqeRkDV1kK3zIe0DgivTdfr0gBEhHp2SfdwaaXwS0mOPkkcyv7',
-        'appName': 'GIPP'
+        'clientId': 'FFkBdq6jhLkR8E9fZ2yXT1TWqchqfs0KHvA4QpmZ',
+        'clientSecret': 'jVUu2AllmRbYdvSGbPCDKzwfVWzViEUpwcilEuy0eI3wteFM2ol8XLwNA3CQb9E0wW9S1aJ14TKeS5X3xaezRnaIazkOD13gZT0iaBdu9ZBWQ5NRLzNMmHp5fpqN6nr7',
+        'appName': 'swagger'
     },
 }
 
