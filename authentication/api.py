@@ -24,6 +24,19 @@ class RegisterAPI(generics.GenericAPIView):
             serializer.save()
             # Then we get a token for the created user.
             # This could be done differentley
+            # payload = "grant_type=password&client_secret={}&client_id={}&username={}&password={}" \
+            #     .format(CLIENT_SECRET,
+            #             CLIENT_ID,
+            #             serializer.validated_data['username'],
+            #             serializer.validated_data['password'])
+            # headers = {
+            #     'content-type': "application/json",
+            #     'cache-control': "no-cache",
+            # }
+            # response = requests.request("POST",
+            #                             "http://monitor.std-240.ist.mospolytech.ru/api/v0/o/token/",
+            #                             data=payload,
+            #                             headers=headers)
             response = requests.post("http://monitor.std-240.ist.mospolytech.ru/api/v0/o/token/",
                                      data={
                                          'grant_type': 'password',
@@ -33,6 +46,7 @@ class RegisterAPI(generics.GenericAPIView):
                                          'client_secret': CLIENT_SECRET,
                                      },
                                      )
+            # response = serializer.data
             return Response(response.json())
         return Response(serializer.errors)
 
@@ -68,7 +82,6 @@ class RefreshTokenAPI(generics.GenericAPIView):
         {"refresh_token": "<token>"}
         '''
         response = requests.post("http://monitor.std-240.ist.mospolytech.ru/api/v0/o/token/",
-
                                  data={
                                      'grant_type': 'refresh_token',
                                      'refresh_token': request.data['refresh_token'],
