@@ -27,17 +27,22 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'monitor.std-240.ist.mospolytech.ru',
+    'mospolytech.ru',
+    'jest.gq',
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1',
     'http://monitor.std-240.ist.mospolytech.ru',
-
+    'http://mospolytech.ru',
+    'https://jest.gq',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     '127.0.0.1',
     'monitor.std-240.ist.mospolytech.ru',
+    'mospolytech.ru',
+    'jest.gq',
 ]
 
 CORS_ALLOW_METHODS = [
