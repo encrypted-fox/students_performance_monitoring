@@ -29,6 +29,38 @@ ALLOWED_HOSTS = [
     'monitor.std-240.ist.mospolytech.ru',
 ]
 
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1',
+    'http://monitor.std-240.ist.mospolytech.ru',
+
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    '127.0.0.1',
+    'monitor.std-240.ist.mospolytech.ru',
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +73,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'rest_framework',
     'drf_yasg',
+    'corsheaders',
     'departments',
     'information',
     'people',
@@ -49,6 +82,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'oauth2_provider.middleware.OAuth2TokenMiddleware',
