@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     'monitor.std-240.ist.mospolytech.ru',
     'mospolytech.ru',
     'jest.gq',
+    'students-monitor.herokuapp.com',
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -36,6 +37,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://monitor.std-240.ist.mospolytech.ru',
     'http://mospolytech.ru',
     'https://jest.gq',
+    'https://students-monitor.herokuapp.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -43,6 +45,7 @@ CSRF_TRUSTED_ORIGINS = [
     'monitor.std-240.ist.mospolytech.ru',
     'mospolytech.ru',
     'jest.gq',
+    'students-monitor.herokuapp.com',
 ]
 
 CORS_ALLOW_METHODS = [
@@ -229,5 +232,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_ROOT = "/home/std/python/students_performance_monitoring/static/"
+STATIC_ROOT = "/home/static/"
 STATIC_URL = "/static/"
