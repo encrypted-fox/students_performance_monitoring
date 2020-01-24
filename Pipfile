@@ -13,6 +13,7 @@ drf_yasg = "*"
 django-oauth-toolkit = "*"
 django-cors-headers = "*"
 gunicorn = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.7"
