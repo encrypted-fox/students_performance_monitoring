@@ -42,5 +42,7 @@
 ## Маршруты API - API Map
 Для получения доступа к списку маршрутов и моделям в текстовом виде, пройдите по ссылке ```/api/v0/swagger/```, или ```/api/v0/redoc/```
 
+To get access to API map and models in text view, follow the link ```/api/v0/swagger/```, or ```/api/v0/redoc/```
+
 ___
 MPU 2019 - 2020
