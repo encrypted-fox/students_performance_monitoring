@@ -32,7 +32,7 @@
     python manage.py collectstatic
     python manage.py createsuperuser
     ```
-5. Введите любые данные, они потом будут использоваться для доступа к панели создания пользователей и групп пользователей. - Enter any data - they will be used to get access to users and groups modifying.
+5. Введите любые данные, они потом будут использоваться для доступа к панели создания пользователей и групп пользователей. - Enter any data - it will be used to get access to users and groups modifying.
 6. Для запуска сервера на локальном устройстве, запустите команду: - For local run use the following command:
 
     ```bash
