@@ -1,8 +1,8 @@
 # API. Руководство для пользователя - API. User guide
 ## Установка - Installation
-1. Установите PostgreSQL и создайте сервер. - Install PostgreSQL and create server.
-2. Создайте базу данных. - Create database.
-3. В файле settings.py поменяйте следующие строки: - In file settings.py change the following words.
+1. Установите PostgreSQL и создайте сервер. – Install PostgreSQL and create server.
+2. Создайте базу данных. – Create database.
+3. В файле settings.py поменяйте следующие строки: – In file settings.py change the following words.
     ```
     # /students_performance_monitoring/settings.py
     ...
@@ -21,7 +21,7 @@
         }
     }
     ```
-4. Откройте терминал и, находясь в корне проекта, запустите последовательно приведенные команды: - Open terminal  in project root and run following commands:
+4. Откройте терминал и, находясь в корне проекта, запустите последовательно приведенные команды: – Open terminal  in project root and run following commands:
 
     ```bash
     # /
@@ -32,13 +32,23 @@
     python manage.py collectstatic
     python manage.py createsuperuser
     ```
-5. Введите любые данные, они потом будут использоваться для доступа к панели создания пользователей и групп пользователей. - Enter any data - it will be used to get access to users and groups modifying.
-6. Для запуска сервера на локальном устройстве, запустите команду: - For local run use the following command:
+5. Введите любые данные, они потом будут использоваться для доступа к панели создания пользователей и групп пользователей. – Enter any data – it will be used to get access to users and groups modifying.
+6. Для запуска сервера на локальном устройстве, запустите команду: – For local run use the following command:
 
     ```bash
     # /
     python manage.py runserver
     ```
+7. Перейдите на страницу ```/admin ```. Авторизируйтесь. – Go to page ```/admin ``` and perform authorization.
+8. Перейдите на страницу ```/api/v0/o/applications ```. Создайте там новое приложение oauth2 со следующими данными – Go to page ```/api/v0/o/applications ``` and create a new oauth2 application with the follofing data:
+
+```
+Name: app, 
+Client ID: FFkBdq6jhLkR8E9fZ2yXT1TWqchqfs0KHvA4QpmZ, 
+Client Secret: jVUu2AllmRbYdvSGbPCDKzwfVWzViEUpwcilEuy0eI3wteFM2ol8XLwNA3CQb9E0wW9S1aJ14TKeS5X3xaezRnaIazkOD13gZT0iaBdu9ZBWQ5NRLzNMmHp5fpqN6nr7, 
+Authorization Type: resource-owner passeord based
+```
+
 ## Маршруты API - API Map
 Для получения доступа к списку маршрутов и моделям в текстовом виде, пройдите по ссылке ```/api/v0/swagger/```, или ```/api/v0/redoc/```
 
