@@ -86,7 +86,7 @@ INSTALLED_APPS = [
     'information',
     'people',
     'university_structure',
-    'authentication',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -189,7 +189,7 @@ SWAGGER_SETTINGS = {
             'type': 'oauth2',
             'authorizationUrl': '/api/v0/o/authorize/',
             'tokenUrl': '/api/v0/o/token/',
-            'flow': 'application',
+            'flow': 'app',
         }
     },
     'OAUTH2_CONFIG': {
