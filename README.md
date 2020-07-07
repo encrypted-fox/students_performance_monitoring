@@ -17,16 +17,16 @@ Push делайте только в свои ветки. Назовите их �
 
 ## Важное из ВК
 
-Предлагаю дизайн – https://www.figma.com/file/687IPxcFUw0BjZM2txCywU
+Предлагаю дизайн – [буп](https://www.figma.com/file/687IPxcFUw0BjZM2txCywU)
 
-Трело – https://vk.com/away.php?to=https%3A%2F%2Ftrello.com%2Finvite%2Fb%2F0AtfdCL7%2F2def16655bccf8c423c281810dfa2855%2F%25D0%25BC%25D0%25BE%25D0%25BD%25D0%25B8%25D1%2582%25D0%25BE%25D1%2580%25D0%25B8%25D0%25BD%25D0%25B3-20&cc_key=
+Трело – [буп](https://vk.com/away.php?to=https%3A%2F%2Ftrello.com%2Finvite%2Fb%2F0AtfdCL7%2F2def16655bccf8c423c281810dfa2855%2F%25D0%25BC%25D0%25BE%25D0%25BD%25D0%25B8%25D1%2582%25D0%25BE%25D1%2580%25D0%25B8%25D0%25BD%25D0%25B3-20&cc_key=)
 
 GitHub – отправил всем доступ, жду почту Марины Владимировны и ответ на доступ ото всех
 
 GitHub + правила –
-https://github.com/encrypted-fox/students_performance_monitoring/wiki/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B8-%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0
+[буп](https://github.com/encrypted-fox/students_performance_monitoring/wiki/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D0%B8-%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0)
 
-Бэкенд лежит тут https://students-monitor.herokuapp.com/
+Бэкенд лежит [тут](https://students-monitor.herokuapp.com/)
 
 # API. Руководство для пользователя - API. User guide
 
