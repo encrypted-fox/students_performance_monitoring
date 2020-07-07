@@ -16,10 +16,10 @@ Including another URLconf
 
 from django.conf.urls import url
 from django.contrib import admin
+from django.urls import include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
-from django.urls import include
 
 from students_performance_monitoring.views import DocsView
 
@@ -43,7 +43,7 @@ urlpatterns = [
     url('api/v0/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url('api/v0/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     url('api/v0/admin/', admin.site.urls),
-    url('api/v0/', include("authentication.urls")),
+    url('api/v0/auth/', include("users.urls")),
     url('api/v0/', include("information.urls")),
     url('api/v0/', include("departments.urls")),
     url('api/v0/', include("people.urls")),

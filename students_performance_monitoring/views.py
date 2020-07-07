@@ -15,10 +15,10 @@ class DocsView(APIView):
                 },
                 "admin": request.build_absolute_uri("api/v0/admin"),
                 "authentication": {
-                    "auth/register": request.build_absolute_uri("api/v0/auth/register"),
-                    "auth/login": request.build_absolute_uri("api/v0/auth/login"),
-                    "auth/refresh": request.build_absolute_uri("api/v0/auth/refresh"),
-                    "auth/revoke": request.build_absolute_uri("api/v0/auth/revoke"),
+                    "auth/register": request.build_absolute_uri("api/v0/auth/register/"),
+                    "auth/token": request.build_absolute_uri("api/v0/auth/token/"),
+                    "auth/token/refresh": request.build_absolute_uri("api/v0/auth/token/refresh/"),
+                    "auth/token/revoke": request.build_absolute_uri("api/v0/auth/token/revoke/"),
                 },
                 "university_structure": {
                     "faculties": request.build_absolute_uri("api/v0/faculties/"),

@@ -1,5 +1,7 @@
 from django.db import models
+
 from university_structure.models import Groups
+
 
 # Create your models here.
 
@@ -14,6 +16,9 @@ class Students(models.Model):
     average_rating = models.FloatField(null=False, default=None)
     update_date = models.DateTimeField(null=False, default=None)
 
+    class Meta:
+        db_table = 'students'
+
 
 class Teachers(models.Model):
     id = models.AutoField(primary_key=True)
@@ -24,3 +29,6 @@ class Teachers(models.Model):
     email = models.EmailField(null=True, default=None)
     degree = models.CharField(max_length=150, null=True, default=None)
     token = models.CharField(max_length=120, null=True, default=None)
+
+    class Meta:
+        db_table = 'teachers'
