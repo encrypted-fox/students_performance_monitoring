@@ -33,3 +33,11 @@ class RecordsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = RecordsSerializer
+
+
+class RetakesViewSet(viewsets.ModelViewSet):
+    queryset = Retakes.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = RecordsSerializer

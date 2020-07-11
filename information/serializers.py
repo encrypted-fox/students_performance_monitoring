@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import *
 
 
@@ -29,4 +30,10 @@ class ControlTypesSerializer(serializers.ModelSerializer):
 class RecordsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Records
+        fields = '__all__'
+
+
+class RetakesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Retakes
         fields = '__all__'
