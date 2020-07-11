@@ -1,3 +1,35 @@
-from django.shortcuts import render
+from rest_framework import viewsets, permissions
 
-# Create your views here.
+from .serializers import *
+
+
+class DepartmentsViewSet(viewsets.ModelViewSet):
+    queryset = Departments.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = DepartmentsSerializer
+
+
+class SubjectsViewSet(viewsets.ModelViewSet):
+    queryset = Subjects.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = SubjectsSerializer
+
+
+class SubjectBlocksViewSet(viewsets.ModelViewSet):
+    queryset = SubjectBlocks.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = SubjectBlocksSerializer
+
+
+class SubjectsSubjectBlocksViewSet(viewsets.ModelViewSet):
+    queryset = SubjectsSubjectBlocks.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = SubjectsSubjectBlocksSerializer
