@@ -25,11 +25,3 @@ class SubjectBlocksViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = SubjectBlocksSerializer
-
-
-class SubjectsSubjectBlocksViewSet(viewsets.ModelViewSet):
-    queryset = SubjectsSubjectBlocks.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
-    serializer_class = SubjectsSubjectBlocksSerializer
