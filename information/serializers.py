@@ -31,9 +31,3 @@ class RecordsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Records
         fields = '__all__'
-
-
-class RetakesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Retakes
-        fields = '__all__'
