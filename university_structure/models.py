@@ -14,7 +14,7 @@ class Faculties(models.Model):
 
 class EducationalPrograms(models.Model):
     id = models.AutoField(primary_key=True)
-    faculty_id = models.ForeignKey(Faculties, on_delete=models.CASCADE, null=False)
+    faculty_id = models.ForeignKey(Faculties, on_delete=models.CASCADE, null=False, db_column='faculty_id')
     name = models.CharField(max_length=120, null=False)
 
     class Meta:
@@ -23,7 +23,8 @@ class EducationalPrograms(models.Model):
 
 class Specializations(models.Model):
     id = models.AutoField(primary_key=True)
-    educational_program_id = models.ForeignKey(EducationalPrograms, on_delete=models.CASCADE, null=False)
+    educational_program_id = models.ForeignKey(EducationalPrograms, on_delete=models.CASCADE, null=False,
+                                               db_column='educational_program_id')
     name = models.CharField(max_length=120, null=False)
 
     class Meta:
@@ -32,7 +33,8 @@ class Specializations(models.Model):
 
 class Groups(models.Model):
     id = models.CharField(max_length=10, primary_key=True, null=False)
-    specialization_id = models.ForeignKey(Specializations, on_delete=models.CASCADE, null=False)
+    specialization_id = models.ForeignKey(Specializations, on_delete=models.CASCADE, null=False,
+                                          db_column='specialization_id')
 
     class Meta:
         db_table = 'groups'

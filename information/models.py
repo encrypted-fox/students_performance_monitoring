@@ -18,7 +18,7 @@ class StartYears(models.Model):
 
 class Terms(models.Model):
     id = models.AutoField(primary_key=True)
-    start_year_id = models.ForeignKey(StartYears, on_delete=models.CASCADE, null=False)
+    start_year_id = models.ForeignKey(StartYears, on_delete=models.CASCADE, null=False, db_column='start_year_id')
     number = models.IntegerField(null=False)
 
     class Meta:
@@ -43,13 +43,13 @@ class ControlTypes(models.Model):
 
 class Records(models.Model):
     id = models.AutoField(primary_key=True)
-    student_id = models.ForeignKey(Students, on_delete=models.CASCADE, null=False)
-    subject_id = models.ForeignKey(Subjects, on_delete=models.CASCADE, null=False)
-    group_id = models.ForeignKey(Groups, on_delete=models.CASCADE, null=False)
-    teacher_id = models.ForeignKey(Teachers, on_delete=models.CASCADE, null=False)
-    term_id = models.ForeignKey(Terms, on_delete=models.CASCADE, null=False)
-    control_type_id = models.ForeignKey(ControlTypes, on_delete=models.CASCADE, null=False)
-    mark_id = models.ForeignKey(Marks, on_delete=models.CASCADE, null=False)
+    student_id = models.ForeignKey(Students, on_delete=models.CASCADE, null=False, db_column='student_id')
+    subject_id = models.ForeignKey(Subjects, on_delete=models.CASCADE, null=False, db_column='subject_id')
+    group_id = models.ForeignKey(Groups, on_delete=models.CASCADE, null=False, db_column='group_id')
+    teacher_id = models.ForeignKey(Teachers, on_delete=models.CASCADE, null=False, db_column='teacher_id')
+    term_id = models.ForeignKey(Terms, on_delete=models.CASCADE, null=False, db_column='term_id')
+    control_type_id = models.ForeignKey(ControlTypes, on_delete=models.CASCADE, null=False, db_column='control_type_id')
+    mark_id = models.ForeignKey(Marks, on_delete=models.CASCADE, null=False, db_column='mark_id')
     datetime = models.DateTimeField(null=False, default=None)
     retake_count = models.SmallIntegerField(null=False, default=0)
 
@@ -59,13 +59,13 @@ class Records(models.Model):
 
 class Retakes(models.Model):
     id = models.AutoField(primary_key=True)
-    student_id = models.ForeignKey(Students, on_delete=models.CASCADE, null=False)
-    subject_id = models.ForeignKey(Subjects, on_delete=models.CASCADE, null=False)
-    group_id = models.ForeignKey(Groups, on_delete=models.CASCADE, null=False)
-    teacher_id = models.ForeignKey(Teachers, on_delete=models.CASCADE, null=False)
-    term_id = models.ForeignKey(Terms, on_delete=models.CASCADE, null=False)
-    control_type_id = models.ForeignKey(ControlTypes, on_delete=models.CASCADE, null=False)
-    mark_id = models.ForeignKey(Marks, on_delete=models.CASCADE, null=False)
+    student_id = models.ForeignKey(Students, on_delete=models.CASCADE, null=False, db_column='student_id')
+    subject_id = models.ForeignKey(Subjects, on_delete=models.CASCADE, null=False, db_column='subject_id')
+    group_id = models.ForeignKey(Groups, on_delete=models.CASCADE, null=False, db_column='group_id')
+    teacher_id = models.ForeignKey(Teachers, on_delete=models.CASCADE, null=False, db_column='teacher_id')
+    term_id = models.ForeignKey(Terms, on_delete=models.CASCADE, null=False, db_column='term_id')
+    control_type_id = models.ForeignKey(ControlTypes, on_delete=models.CASCADE, null=False, db_column='control_type_id')
+    mark_id = models.ForeignKey(Marks, on_delete=models.CASCADE, null=False, db_column='mark_id')
     datetime = models.DateTimeField(null=False, default=None)
     retake_count = models.SmallIntegerField(null=False, default=0)
 
