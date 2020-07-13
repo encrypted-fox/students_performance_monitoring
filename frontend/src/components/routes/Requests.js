@@ -36,7 +36,7 @@ class Requests extends Component {
                         <th scope="col">Описание</th>
                         <th scope="col">Применение</th>
                         <th scope="col">Статус</th>
-                        <th scope="col" collspan="3" className="text-left">Дата</th>
+                        <th scope="col" className="text-left">Дата</th>
                         <th/>
                         <th/>
                     </tr>

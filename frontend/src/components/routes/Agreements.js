@@ -28,7 +28,7 @@ class Agreements extends Component {
                         <th scope="col">№ менеджера</th>
                         <th scope="col">№ юриста</th>
                         <th scope="col">№ запроса</th>
-                        <th scope="col" collspan="3" className="text-left">Статус</th>
+                        <th scope="col" className="text-left">Статус</th>
                         <th/>
                         <th/>
                     </tr>

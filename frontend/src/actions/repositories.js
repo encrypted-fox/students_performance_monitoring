@@ -18,7 +18,7 @@ export const getRepositories = () => (dispatch, getState) => {
 
 export const deleteReposirory = (id) => (dispatch, getState) => {
     axios.delete(`/api/repositories/${id}/`, tokenConfig(getState))
-        .then(res => {
+        .then(() => {
             dispatch(createMessages({deleteReposirory: 'Reposirory Deleted'}));
             dispatch({
                 type: DELETE_REPOSITORY,

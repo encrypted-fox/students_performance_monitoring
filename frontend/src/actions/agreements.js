@@ -18,7 +18,7 @@ export const getAgreements = () => (dispatch, getState) => {
 
 export const deleteAgreement = (id) => (dispatch, getState) => {
     axios.delete(`/api/agreements/${id}/`, tokenConfig(getState))
-        .then(res => {
+        .then(() => {
             dispatch(createMessages({deleteAgreement: 'Agreement Deleted'}));
             dispatch({
                 type: DELETE_AGREEMENT,

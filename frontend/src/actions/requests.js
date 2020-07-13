@@ -18,7 +18,7 @@ export const getRequests = () => (dispatch, getState) => {
 
 export const deleteRequest = (id) => (dispatch, getState) => {
     axios.delete(`/api/requests/${id}/`, tokenConfig(getState))
-        .then(res => {
+        .then(() => {
             dispatch(createMessages({deleteRequest: 'Request Deleted'}));
             dispatch({
                 type: DELETE_REQUEST,

@@ -26,7 +26,7 @@ class Employees extends Component {
                         <th scope="col">#</th>
                         <th scope="col">Имя</th>
                         <th scope="col">Логин</th>
-                        <th scope="col" collspan="3" className="text-left">Уровень доступа</th>
+                        <th scope="col" className="text-left">Уровень доступа</th>
                         <th/>
                         <th/>
                     </tr>

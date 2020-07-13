@@ -18,7 +18,7 @@ export const getEmployees = () => (dispatch, getState) => {
 
 export const deleteEmployee = (id) => (dispatch, getState) => {
     axios.delete(`/api/employees/${id}/`, tokenConfig(getState))
-        .then(res => {
+        .then(() => {
             dispatch(createMessages({deleteEmployee: 'Employee Deleted'}));
             dispatch({
                 type: DELETE_EMPLOYEE,

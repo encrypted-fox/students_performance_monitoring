@@ -7,7 +7,7 @@ const initialState = {
 const edit = (state, action) => {
     let arr = state.agreements;
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i].id == action.payload.id) {
+        if (arr[i].id === action.payload.id) {
             arr[i] = action.payload
         }
     }
