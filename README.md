@@ -76,12 +76,13 @@ GitHub + правила –
     ```
 
 7. Перейдите на страницу ```/api/v0/admin ```. Авторизируйтесь.
-8. Перейдите на страницу ```/api/v0/o/applications ```. Создайте там новое приложение oauth2 со следующими данными:
+8. Перейдите на страницу ```/api/v0/auth/o/applications ```. Создайте там новое приложение oauth2 со следующими данными:
 
 ```
 Name: app, 
 Client ID: FFkBdq6jhLkR8E9fZ2yXT1TWqchqfs0KHvA4QpmZ, 
 Client Secret: jVUu2AllmRbYdvSGbPCDKzwfVWzViEUpwcilEuy0eI3wteFM2ol8XLwNA3CQb9E0wW9S1aJ14TKeS5X3xaezRnaIazkOD13gZT0iaBdu9ZBWQ5NRLzNMmHp5fpqN6nr7, 
+Client Type: Confidential,
 Authorization Type: resource-owner passeord based
 ```
 
