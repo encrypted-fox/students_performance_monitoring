@@ -14,9 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.conf.urls import url
 from django.contrib import admin
-from django.urls import include
+from django.urls import include, path, re_path
+from django.views.generic import RedirectView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
@@ -38,14 +38,16 @@ schema_view = get_schema_view(
 
 router = routers.DefaultRouter()
 urlpatterns = [
-    url(r'^$', DocsView.as_view()),
-    url(r'^api/v0/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    url('api/v0/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    url('api/v0/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    url('api/v0/admin/', admin.site.urls),
-    url('api/v0/auth/', include("users.urls")),
-    url('api/v0/', include("information.urls")),
-    url('api/v0/', include("departments.urls")),
-    url('api/v0/', include("people.urls")),
-    url('api/v0/', include("university_structure.urls")),
+    re_path(r'^api/v0/$', DocsView.as_view()),
+    re_path(r'^api/v0/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('api/v0/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('api/v0/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('api/v0/admin/', admin.site.urls),
+    path('api/v0/auth/', include("users.urls")),
+    path('api/v0/', include("information.urls")),
+    path('api/v0/', include("departments.urls")),
+    path('api/v0/', include("people.urls")),
+    path('api/v0/', include("university_structure.urls")),
+    path('front/', include('frontend.urls')),
+    re_path(r'^$', RedirectView.as_view(url='/front', permanent=False), name='index'),
 ]
