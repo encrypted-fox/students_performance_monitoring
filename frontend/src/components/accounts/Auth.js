@@ -3,18 +3,17 @@ import { Link } from "react-router-dom";
 import "./Auth.scss";
 import { connect } from "react-redux";
 
-class Auth extends Component {
-	render() {
-		const svg = (
-			<svg
-				onClick={() => alert("ЗоглушкА")}
-				width="100"
-				height="100"
-				viewBox="0 0 100 100"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-				style={{
-					position: "absolute",
+function Auth(props) {
+	const svg = (
+		<svg
+			onClick={() => alert("ЗоглушкА")}
+			width="100"
+			height="100"
+			viewBox="0 0 100 100"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			style={{
+				position: "absolute",
 					alignSelf: "flex-end",
 					marginLeft: 50,
 					cursor: "pointer",
@@ -32,9 +31,9 @@ class Auth extends Component {
 			<div className="Auth">
 				<h1>Sign In Form</h1>
 				<form>
-					<input placeholder="Username" type="text" />
-					<hr />
-					<input placeholder="Password" type="password" />
+					<input placeholder="username" type="text"/>
+					<hr/>
+					<input placeholder="password" type="password"/>
 					{svg}
 				</form>
 				<p>
@@ -42,7 +41,6 @@ class Auth extends Component {
 				</p>
 			</div>
 		);
-	}
 }
 
 export default connect()(Auth);

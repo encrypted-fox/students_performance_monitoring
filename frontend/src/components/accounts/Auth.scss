@@ -2,6 +2,10 @@ $form-color: #16171b;
 $input-text-color: #a3a4a8;
 $background-color: #202125;
 
+body {
+	margin: 0; //fix awkward behaviour
+}
+
 .Auth {
 	width: 100vw;
 	height: 100vh;

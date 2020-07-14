@@ -1,16 +1,10 @@
 import React, { Component, Fragment } from "react";
 import ReactDOM from "react-dom";
-import {
-	BrowserRouter as Router,
-	Redirect,
-	Route,
-	Switch,
-} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 
 import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 
-import Header from "./layout/Header";
 import Alerts from "./layout/Alerts";
 import Register from "./accounts/Register";
 import Auth from "./accounts/Auth";

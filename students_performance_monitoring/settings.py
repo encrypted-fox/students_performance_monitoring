@@ -127,16 +127,16 @@ WSGI_APPLICATION = 'students_performance_monitoring.wsgi.application'
 # Database (!!!!!!!!LOCALHOST_DEFAULTS)!!!!!!!!)
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd4t0301efrg17s',
-        'USER': 'fqoylitufgzxoi',
-        'PASSWORD': '06fd8b82f1e5eb46309427a24170af1acd718115c6d6ac7ed82983825de0c15d',
-        'HOST': 'ec2-54-228-237-40.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd4t0301efrg17s',
+#         'USER': 'fqoylitufgzxoi',
+#         'PASSWORD': '06fd8b82f1e5eb46309427a24170af1acd718115c6d6ac7ed82983825de0c15d',
+#         'HOST': 'ec2-54-228-237-40.eu-west-1.compute.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -149,12 +149,12 @@ DATABASES = {
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 # Rest Framework
 # https://www.django-rest-framework.org/
