@@ -56,6 +56,23 @@ body {
 			outline: none;
 			border: none;
 		}
+
+		input:-webkit-autofill,
+		input:-webkit-autofill:hover,
+		input:-webkit-autofill:focus,
+		textarea:-webkit-autofill,
+		textarea:-webkit-autofill:hover,
+		textarea:-webkit-autofill:focus,
+		select:-webkit-autofill,
+		select:-webkit-autofill:hover,
+		select:-webkit-autofill:focus {
+			outline: none;
+			font-size: 24px;
+			border: none;
+			-webkit-text-fill-color: $input-text-color;
+			-webkit-box-shadow: 0 0 0px 1000px $form-color inset;
+			transition: background-color 5000s ease-in-out 0s;
+		}
 	}
 }
 
@@ -72,16 +89,16 @@ body {
 		p {
 			display: flex;
 			align-items: center;
-            text-align: center;
-            flex-direction: column;
+			text-align: center;
+			flex-direction: column;
 		}
 	}
 }
 
 @media screen and (max-width: 330px) {
-    .Auth {
+	.Auth {
 		form {
 			width: 65%;
-        }
-    }
+		}
+	}
 }
