@@ -32,7 +32,8 @@ class Specializations(models.Model):
 
 
 class Groups(models.Model):
-    id = models.CharField(max_length=10, primary_key=True, null=False)
+    id = models.AutoField(primary_key=True)
+    number = models.CharField(max_length=10, unique=True, null=False)
     specialization_id = models.ForeignKey(Specializations, on_delete=models.CASCADE, null=False,
                                           db_column='specialization_id')
 
