@@ -80,7 +80,10 @@ body {
 			transition: background-color 5000s ease-in-out 0s;
 		}
 
-		.Auth__svg {
+		.svg {
+			position: absolute;
+			align-self: flex-end;
+			margin-left: 37.5px;
 			cursor: pointer;
 		}
 	}
