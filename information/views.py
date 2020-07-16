@@ -25,12 +25,3 @@ class ControlTypesViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = ControlTypesSerializer
-
-
-class RecordsViewSet(viewsets.ModelViewSet):
-    queryset = Records.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
-    serializer_class = RecordsSerializer
-

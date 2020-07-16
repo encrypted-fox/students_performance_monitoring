@@ -8,9 +8,9 @@ class FacultiesSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class EducationalProgramsSerializer(serializers.ModelSerializer):
+class DepartmentsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = EducationalPrograms
+        model = Departments
         fields = "__all__"
 
 
@@ -20,8 +20,13 @@ class SpecializationsSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class EducationProgramsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EducationPrograms
+        fields = "__all__"
+
+
 class GroupsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Groups
         fields = "__all__"
-

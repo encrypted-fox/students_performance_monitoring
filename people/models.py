@@ -1,6 +1,6 @@
 from django.db import models
 
-from university_structure.models import Groups
+from university_structure.models import Groups, Departments
 
 
 # Create your models here.
@@ -23,12 +23,12 @@ class Students(models.Model):
 
 class Teachers(models.Model):
     id = models.AutoField(primary_key=True)
+    department_id = models.ForeignKey(Departments, on_delete=models.CASCADE, null=False, db_column='department_id')
     first_name = models.CharField(max_length=30, null=False)
     fathers_name = models.CharField(max_length=60, null=True, default=None)
     last_name = models.CharField(max_length=150, null=False)
     email = models.EmailField(null=True, default=None)
     degree = models.CharField(max_length=150, null=True, default=None)
-    token = models.CharField(max_length=120, null=True, default=None)
 
     class Meta:
         db_table = 'teachers'

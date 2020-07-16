@@ -25,9 +25,3 @@ class ControlTypesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ControlTypes
         fields = '__all__'
-
-
-class RecordsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Records
-        fields = '__all__'

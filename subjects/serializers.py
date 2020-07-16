@@ -3,12 +3,6 @@ from rest_framework import serializers
 from .models import *
 
 
-class DepartmentsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Departments
-        fields = "__all__"
-
-
 class SubjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subjects
@@ -19,3 +13,15 @@ class SubjectBlocksSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubjectBlocks
         fields = "__all__"
+
+
+class SubjectsSubjectBlocksSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubjectsSubjectBlocks
+        fields = "__all__"
+
+
+class RecordsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Records
+        fields = '__all__'

@@ -11,12 +11,12 @@ class FacultiesViewSet(viewsets.ModelViewSet):
     serializer_class = FacultiesSerializer
 
 
-class EducationalProgramsViewSet(viewsets.ModelViewSet):
-    queryset = EducationalPrograms.objects.all()
+class DepartmentsViewSet(viewsets.ModelViewSet):
+    queryset = Departments.objects.all()
     permission_classes = [
         permissions.AllowAny
     ]
-    serializer_class = EducationalProgramsSerializer
+    serializer_class = DepartmentsSerializer
 
 
 class SpecializationsViewSet(viewsets.ModelViewSet):
@@ -25,6 +25,14 @@ class SpecializationsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = SpecializationsSerializer
+
+
+class EducationProgramsViewSet(viewsets.ModelViewSet):
+    queryset = EducationPrograms.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = EducationProgramsSerializer
 
 
 class GroupsViewSet(viewsets.ModelViewSet):

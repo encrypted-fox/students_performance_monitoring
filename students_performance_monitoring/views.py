@@ -22,15 +22,16 @@ class DocsView(APIView):
                 },
                 "university_structure": {
                     "faculties": request.build_absolute_uri("faculties/"),
-                    "educational_programs": request.build_absolute_uri("educational_programs/"),
+                    "departments": request.build_absolute_uri("departments/"),
                     "specializations": request.build_absolute_uri("specializations/"),
+                    "education_programs": request.build_absolute_uri("education_programs/"),
                     "groups": request.build_absolute_uri("groups/"),
                 },
-                "departments": {
-                    "departments": request.build_absolute_uri("departments/"),
+                "subjects": {
                     "subjects": request.build_absolute_uri("subjects/"),
                     "subject_blocks": request.build_absolute_uri("subject_blocks/"),
                     "subjects_subject_blocks": request.build_absolute_uri("subjects_subject_blocks/"),
+                    "records": request.build_absolute_uri("records/"),
                 },
                 "people": {
                     "students": request.build_absolute_uri("students/"),
@@ -40,7 +41,6 @@ class DocsView(APIView):
                     "terms": request.build_absolute_uri("terms/"),
                     "marks": request.build_absolute_uri("marks/"),
                     "control_types": request.build_absolute_uri("control_types/"),
-                    "records": request.build_absolute_uri("records/"),
                 },
             }
         }
