@@ -17,6 +17,8 @@ call py -m pip install -r requirements.txt
 
 call py manage.py collectstatic 
 
+call py manage.py makemigrations
+
 call py manage.py migrate
 
 pause
