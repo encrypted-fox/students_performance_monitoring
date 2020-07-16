@@ -20,6 +20,12 @@ class SpecializationsSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class EducationLevelsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EducationLevels
+        fields = "__all__"
+
+
 class EducationProgramsSerializer(serializers.ModelSerializer):
     class Meta:
         model = EducationPrograms

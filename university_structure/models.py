@@ -32,7 +32,7 @@ class Specializations(models.Model):
         db_table = 'specializations'
 
 
-class EducationLevel(models.Model):
+class EducationLevels(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=120, null=False)
 
@@ -46,6 +46,8 @@ class EducationPrograms(models.Model):
                                           db_column='specialization_id')
     main_department_id = models.ForeignKey(Departments, on_delete=models.CASCADE, null=False,
                                            db_column='main_department_id')
+    education_level_id = models.ForeignKey(EducationLevels, on_delete=models.CASCADE, null=False,
+                                           db_column='education_level_id')
     start_year_id = models.ForeignKey(StartYears, on_delete=models.CASCADE, null=False, db_column='start_year_id')
     name = models.CharField(max_length=120, null=False)
 

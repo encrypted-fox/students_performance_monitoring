@@ -27,6 +27,14 @@ class SpecializationsViewSet(viewsets.ModelViewSet):
     serializer_class = SpecializationsSerializer
 
 
+class EducationLevelsViewSet(viewsets.ModelViewSet):
+    queryset = EducationLevels.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = EducationLevelsSerializer
+
+
 class EducationProgramsViewSet(viewsets.ModelViewSet):
     queryset = EducationPrograms.objects.all()
     permission_classes = [
