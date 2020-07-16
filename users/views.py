@@ -8,7 +8,7 @@ from .serializers import CreateUserSerializer
 
 CLIENT_ID = os.getenv('SP_OAUTH2_CLIENT_ID')
 CLIENT_SECRET = os.getenv('SP_OAUTH2_CLIENT_SECRET')
-HOST = 'http://127.0.0.1:8000/api/v0/auth/'
+HOST = 'https://students-monitor.herokuapp.com/api/v0/auth/'
 
 
 @api_view(['POST'])
