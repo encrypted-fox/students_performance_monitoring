@@ -135,11 +135,11 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': os.getenv('SP_MySQL_DATABASE_NAME'),
-#         'USER': os.getenv('SP_MySQL_DATABASE_USER'),
-#         'PASSWORD': os.getenv('SP_MySQL_DATABASE_PASSWORD'),
-#         'HOST': os.getenv('SP_MySQL_DATABASE_HOST'),
-#         'PORT': os.getenv('SP_MySQL_DATABASE_PORT'),
+#         'NAME': os.getenv('SP_MYSQL_DATABASE_NAME'),
+#         'USER': os.getenv('SP_MYSQL_DATABASE_USER'),
+#         'PASSWORD': os.getenv('SP_MYSQL_DATABASE_PASSWORD'),
+#         'HOST': os.getenv('SP_MYSQL_DATABASE_HOST'),
+#         'PORT': os.getenv('SP_MYSQL_DATABASE_PORT'),
 #     }
 # }
 
