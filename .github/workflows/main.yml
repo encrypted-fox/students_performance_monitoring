@@ -1,0 +1,20 @@
+name: CI
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: set environment variables
+        env:
+          SP_DJANGO_SECRET_KEY: ${{ secrets.SP_DJANGO_SECRET_KEY }}
+          SP_POSTGRESQL_DATABASE_NAME: ${{ secrets.SP_POSTGRESQL_DATABASE_NAME }}
+          SP_POSTGRESQL_DATABASE_USER: ${{ secrets.SP_POSTGRESQL_DATABASE_USER }}
+          SP_POSTGRESQL_DATABASE_PASSWORD: ${{ secrets.SP_POSTGRESQL_DATABASE_PASSWORD }}
+          SP_POSTGRESQL_DATABASE_HOST: ${{ secrets.SP_POSTGRESQL_DATABASE_HOST }}
+          SP_POSTGRESQL_DATABASE_PORT: ${{ secrets.SP_POSTGRESQL_DATABASE_PORT}}
+          SP_OAUTH2_CLIENT_ID: ${{ secrets.SP_OAUTH2_CLIENT_ID}}
+          SP_OAUTH2_CLIENT_SECRET: ${{ secrets.SP_OAUTH2_CLIENT_SECRET}}
