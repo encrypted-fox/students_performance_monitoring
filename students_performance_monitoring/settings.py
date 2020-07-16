@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'r11f#l#v$l(q!17e^*0chs@j*qa0-=tdr4$it^91^92zhlu9ng'
+SECRET_KEY = os.getenv('SP_DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -27,24 +27,18 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'monitor.std-240.ist.mospolytech.ru',
-    'mospolytech.ru',
-    'jest.gq',
     'students-monitor.herokuapp.com',
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1',
     'http://monitor.std-240.ist.mospolytech.ru',
-    'http://mospolytech.ru',
-    'https://jest.gq',
     'https://students-monitor.herokuapp.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     '127.0.0.1',
     'monitor.std-240.ist.mospolytech.ru',
-    'mospolytech.ru',
-    'jest.gq',
     'students-monitor.herokuapp.com',
 ]
 
@@ -130,22 +124,22 @@ WSGI_APPLICATION = 'students_performance_monitoring.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd4t0301efrg17s',
-        'USER': 'fqoylitufgzxoi',
-        'PASSWORD': '06fd8b82f1e5eb46309427a24170af1acd718115c6d6ac7ed82983825de0c15d',
-        'HOST': 'ec2-54-228-237-40.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        'NAME': os.getenv('SP_POSTGRESQL_DATABASE_NAME'),
+        'USER': os.getenv('SP_POSTGRESQL_DATABASE_USER'),
+        'PASSWORD': os.getenv('SP_POSTGRESQL_DATABASE_PASSWORD'),
+        'HOST': os.getenv('SP_POSTGRESQL_DATABASE_HOST'),
+        'PORT': os.getenv('SP_POSTGRESQL_DATABASE_PORT'),
     }
 }
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'std_240',
-#         'USER': 'std_240',
-#         'PASSWORD': '00000000',
-#         'HOST': 'std-mysql',
-#         'PORT': '3306',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.getenv('SP_MySQL_DATABASE_NAME'),
+#         'USER': os.getenv('SP_MySQL_DATABASE_USER'),
+#         'PASSWORD': os.getenv('SP_MySQL_DATABASE_PASSWORD'),
+#         'HOST': os.getenv('SP_MySQL_DATABASE_HOST'),
+#         'PORT': os.getenv('SP_MySQL_DATABASE_PORT'),
 #     }
 # }
 
@@ -194,8 +188,8 @@ SWAGGER_SETTINGS = {
         }
     },
     'OAUTH2_CONFIG': {
-        'clientId': 'FFkBdq6jhLkR8E9fZ2yXT1TWqchqfs0KHvA4QpmZ',
-        'clientSecret': 'jVUu2AllmRbYdvSGbPCDKzwfVWzViEUpwcilEuy0eI3wteFM2ol8XLwNA3CQb9E0wW9S1aJ14TKeS5X3xaezRnaIazkOD13gZT0iaBdu9ZBWQ5NRLzNMmHp5fpqN6nr7',
+        'clientId': os.getenv('SP_OAUTH2_CLIENT_ID'),
+        'clientSecret': os.getenv('SP_OAUTH2_CLIENT_SECRET'),
         'appName': 'swagger'
     },
 }

@@ -102,5 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+#other
 /database_schema/postgresql_students_performance_monitoring.sql
 /node_modules/

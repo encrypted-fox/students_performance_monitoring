@@ -1,3 +1,4 @@
+import os
 import requests
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -5,8 +6,8 @@ from rest_framework.response import Response
 
 from .serializers import CreateUserSerializer
 
-CLIENT_ID = 'FFkBdq6jhLkR8E9fZ2yXT1TWqchqfs0KHvA4QpmZ'
-CLIENT_SECRET = 'jVUu2AllmRbYdvSGbPCDKzwfVWzViEUpwcilEuy0eI3wteFM2ol8XLwNA3CQb9E0wW9S1aJ14TKeS5X3xaezRnaIazkOD13gZT0iaBdu9ZBWQ5NRLzNMmHp5fpqN6nr7'
+CLIENT_ID = os.getenv('SP_OAUTH2_CLIENT_ID')
+CLIENT_SECRET = os.getenv('SP_OAUTH2_CLIENT_SECRET')
 HOST = 'http://127.0.0.1:8000/api/v0/auth/'
 
 
