@@ -7,7 +7,8 @@ from university_structure.models import Groups
 
 
 class Students(models.Model):
-    id = models.CharField(max_length=20, primary_key=True, null=False)
+    id = models.AutoField(primary_key=True)
+    number = models.CharField(max_length=20, unique=True, null=False)
     group_id = models.ForeignKey(Groups, on_delete=models.CASCADE, null=False, db_column='group_id')
     first_name = models.CharField(max_length=30, null=False)
     fathers_name = models.CharField(max_length=60, null=True, default=None)
