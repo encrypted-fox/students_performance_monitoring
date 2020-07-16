@@ -9,6 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: set environment variables
+        uses: allenevans/set-env@v1.0.0
         env:
           SP_DJANGO_SECRET_KEY: ${{ secrets.SP_DJANGO_SECRET_KEY }}
           SP_POSTGRESQL_DATABASE_NAME: ${{ secrets.SP_POSTGRESQL_DATABASE_NAME }}
