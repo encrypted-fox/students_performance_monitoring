@@ -48,6 +48,7 @@ class Records(models.Model):
     mark_id = models.ForeignKey(Marks, on_delete=models.CASCADE, null=False, db_column='mark_id')
     datetime = models.DateTimeField(null=False, default=None)
     retake_count = models.SmallIntegerField(null=False, default=0)
+    is_final = models.BooleanField(null=False, default=False)
 
     class Meta:
         db_table = 'records'
