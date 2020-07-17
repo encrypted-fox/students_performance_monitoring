@@ -2,11 +2,6 @@ $form-color: #16171b;
 $input-text-color: #a3a4a8;
 $background-color: #202125;
 
-@font-face {
-	font-family: RobotoBold;
-	src: url("../../../templates/fonts/roboto/Roboto-Bold.ttf");
-}
-
 body {
 	margin: 0; //fix awkward behaviour
 }
@@ -25,7 +20,7 @@ body {
 		margin-bottom: 100px;
 		font-size: 48px;
 		text-align: center;
-		font-family: RobotoBold, sans-serif;
+		font-family: "Roboto", sans-serif;
 	}
 
 	p {
@@ -51,6 +46,7 @@ body {
 		height: 200px;
 		border-radius: 20px;
 		background: $form-color;
+		position: relative;
 
 		hr {
 			border: 3px solid $background-color;
@@ -86,8 +82,7 @@ body {
 
 		.svg {
 			position: absolute;
-			align-self: flex-end;
-			margin-left: 37.5px;
+			right: -37.5px;
 			cursor: pointer;
 		}
 	}
