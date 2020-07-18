@@ -20,11 +20,11 @@ class SubjectBlocksViewSet(viewsets.ModelViewSet):
 
 
 class SubjectsSubjectBlocksViewSet(viewsets.ModelViewSet):
-    queryset = SubjectBlocks.objects.all()
+    queryset = SubjectsSubjectBlocks.objects.all()
     permission_classes = [
         permissions.AllowAny
     ]
-    serializer_class = SubjectBlocksSerializer
+    serializer_class = SubjectsSubjectBlocksSerializer
 
 
 class RecordsViewSet(viewsets.ModelViewSet):

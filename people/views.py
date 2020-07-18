@@ -8,7 +8,7 @@ class StudentsViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.AllowAny
     ]
-    serializer_class = TeachersSerializer
+    serializer_class = StudentsSerializer
 
 
 class TeachersViewSet(viewsets.ModelViewSet):
