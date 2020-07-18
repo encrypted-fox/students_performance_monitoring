@@ -1,4 +1,4 @@
-import {combineReducers} from "redux";
+import {combineReducers} from 'redux';
 import requests from './requests';
 import agreements from './agreements';
 import employees from './employees';
@@ -14,5 +14,5 @@ export default combineReducers({
     repositories,
     errors,
     messages,
-    auth
-})
+    auth,
+});

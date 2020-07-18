@@ -1,53 +1,69 @@
 import axios from 'axios';
-import {createMessages, returnErrors} from "./messages";
-import {tokenConfig} from "./auth";
+import {createMessages, returnErrors} from './messages';
+import {tokenConfig} from './auth';
 
-import {ADD_REPOSITORY, DELETE_REPOSITORY, EDIT_REPOSITORY, GET_REPOSITORIES} from "./types";
+import {
+    ADD_REPOSITORY,
+    DELETE_REPOSITORY,
+    EDIT_REPOSITORY,
+    GET_REPOSITORIES,
+} from './types';
 
 export const getRepositories = () => (dispatch, getState) => {
-    axios.get('/api/repositories/', tokenConfig(getState))
-        .then(res => {
+    axios
+        .get('/api/repositories/', tokenConfig(getState))
+        .then((res) => {
             dispatch({
                 type: GET_REPOSITORIES,
-                payload: res.data
+                payload: res.data,
             });
         })
-        .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
-
+        .catch((err) =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        );
 };
 
 export const deleteReposirory = (id) => (dispatch, getState) => {
-    axios.delete(`/api/repositories/${id}/`, tokenConfig(getState))
+    axios
+        .delete(`/api/repositories/${id}/`, tokenConfig(getState))
         .then(() => {
-            dispatch(createMessages({deleteReposirory: 'Reposirory Deleted'}));
+            dispatch(
+                createMessages({deleteReposirory: 'Reposirory Deleted'})
+            );
             dispatch({
                 type: DELETE_REPOSITORY,
-                payload: id
+                payload: id,
             });
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
 };
 
 export const addReposirory = (repository) => (dispatch, getState) => {
-    axios.post("/api/repositories/", repository, tokenConfig(getState))
-        .then(res => {
+    axios
+        .post('/api/repositories/', repository, tokenConfig(getState))
+        .then((res) => {
             dispatch(createMessages({addReposirory: 'Reposirory Added'}));
             dispatch({
                 type: ADD_REPOSITORY,
-                payload: res.data
+                payload: res.data,
             });
         })
-        .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+        .catch((err) =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        );
 };
 
 export const editRepository = (id, repository) => (dispatch, getState) => {
-    axios.put(`/api/repositories/${id}/`, repository, tokenConfig(getState))
-        .then(res => {
+    axios
+        .put(`/api/repositories/${id}/`, repository, tokenConfig(getState))
+        .then((res) => {
             dispatch(createMessages({editRepository: 'Repository Edited'}));
             dispatch({
                 type: EDIT_REPOSITORY,
-                payload: res.data
+                payload: res.data,
             });
         })
-        .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+        .catch((err) =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        );
 };
