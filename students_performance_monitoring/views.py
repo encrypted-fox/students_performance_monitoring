@@ -39,6 +39,7 @@ class DocsView(APIView):
                     "teachers": request.build_absolute_uri("teachers/"),
                 },
                 "information": {
+                    "start_years": request.build_absolute_uri("start_years/"),
                     "terms": request.build_absolute_uri("terms/"),
                     "marks": request.build_absolute_uri("marks/"),
                     "control_types": request.build_absolute_uri("control_types/"),
