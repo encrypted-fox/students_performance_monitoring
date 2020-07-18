@@ -24,6 +24,7 @@ class DocsView(APIView):
                     "faculties": request.build_absolute_uri("faculties/"),
                     "departments": request.build_absolute_uri("departments/"),
                     "specializations": request.build_absolute_uri("specializations/"),
+                    "education_levels": request.build_absolute_uri("education_levels/"),
                     "education_programs": request.build_absolute_uri("education_programs/"),
                     "groups": request.build_absolute_uri("groups/"),
                 },
