@@ -27,6 +27,7 @@ class Specializations(models.Model):
     faculty_id = models.ForeignKey(Faculties, on_delete=models.CASCADE, null=False,
                                    db_column='faculty_id')
     name = models.CharField(max_length=120, null=False)
+    code = models.CharField(max_length=20, null=False)
 
     class Meta:
         db_table = 'specializations'
