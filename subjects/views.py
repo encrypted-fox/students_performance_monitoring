@@ -9,6 +9,9 @@ class SubjectsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = SubjectsSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class SubjectBlocksViewSet(viewsets.ModelViewSet):
@@ -17,6 +20,9 @@ class SubjectBlocksViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = SubjectBlocksSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class SubjectsSubjectBlocksViewSet(viewsets.ModelViewSet):
@@ -25,6 +31,9 @@ class SubjectsSubjectBlocksViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = SubjectsSubjectBlocksSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class RecordsViewSet(viewsets.ModelViewSet):
@@ -33,3 +42,6 @@ class RecordsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = RecordsSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'

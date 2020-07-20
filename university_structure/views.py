@@ -9,6 +9,9 @@ class FacultiesViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = FacultiesSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class DepartmentsViewSet(viewsets.ModelViewSet):
@@ -17,6 +20,9 @@ class DepartmentsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = DepartmentsSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class SpecializationsViewSet(viewsets.ModelViewSet):
@@ -25,6 +31,9 @@ class SpecializationsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = SpecializationsSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class EducationLevelsViewSet(viewsets.ModelViewSet):
@@ -33,6 +42,9 @@ class EducationLevelsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = EducationLevelsSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class EducationProgramsViewSet(viewsets.ModelViewSet):
@@ -41,6 +53,9 @@ class EducationProgramsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = EducationProgramsSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class GroupsViewSet(viewsets.ModelViewSet):
@@ -49,3 +64,6 @@ class GroupsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = GroupsSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'

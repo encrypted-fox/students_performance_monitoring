@@ -9,6 +9,9 @@ class StudentsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = StudentsSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class TeachersViewSet(viewsets.ModelViewSet):
@@ -17,3 +20,6 @@ class TeachersViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = TeachersSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'

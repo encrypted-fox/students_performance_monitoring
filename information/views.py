@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, permissions
 
 from .serializers import *
@@ -9,6 +10,9 @@ class StartYearsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = StartYearsSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class TermsViewSet(viewsets.ModelViewSet):
@@ -17,6 +21,9 @@ class TermsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = TermsSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class MarksViewSet(viewsets.ModelViewSet):
@@ -25,6 +32,9 @@ class MarksViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = MarksSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
 
 
 class ControlTypesViewSet(viewsets.ModelViewSet):
@@ -33,3 +43,6 @@ class ControlTypesViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = ControlTypesSerializer
+    filter_fields = '__all__'
+    ordering_fields = '__all__'
+    search_fields = '__all__'
