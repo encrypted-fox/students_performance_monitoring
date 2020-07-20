@@ -134,7 +134,7 @@ DATABASES = {
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': os.getenv('SP_MYSQL_DATABASE_NAME'),
 #         'USER': os.getenv('SP_MYSQL_DATABASE_USER'),
 #         'PASSWORD': os.getenv('SP_MYSQL_DATABASE_PASSWORD'),
