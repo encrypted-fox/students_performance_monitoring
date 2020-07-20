@@ -154,7 +154,6 @@ DATABASES = {
 # https://www.django-rest-framework.org/
 
 OAUTH2_PROVIDER = {
-    # this is the list of available scopes
     'SCOPES': {
         'read': 'Read scope',
         'write': 'Write scope',
@@ -163,7 +162,7 @@ OAUTH2_PROVIDER = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',  # To keep the Browsable API
+    'django.contrib.auth.backends.ModelBackend',
     'oauth2_provider.backends.OAuth2Backend',
 )
 
