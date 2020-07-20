@@ -14,6 +14,7 @@ django-oauth-toolkit = "*"
 django-cors-headers = "*"
 gunicorn = "*"
 whitenoise = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.8.3"
