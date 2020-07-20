@@ -3,113 +3,113 @@ $input-text-color: #a3a4a8;
 $background-color: #202125;
 
 body {
-  margin: 0; //fix awkward behaviour
+    margin: 0; //fix awkward behaviour
 }
 
 .Auth {
-  width: 100vw;
-  height: 100vh;
-  background: $background-color;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  h1 {
-    color: #e5e5e5;
-    margin-bottom: 100px;
-    font-size: 48px;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-  }
-
-  p {
-    color: #a3a4a8;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
-
-    a {
-      color: #00b376;
-      text-decoration: none;
-    }
-
-    margin-top: 30px;
-  }
-
-  form {
+    width: 100vw;
+    height: 100vh;
+    background: $background-color;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 65%;
-    height: 200px;
-    border-radius: 20px;
-    background: $form-color;
-    position: relative;
-
-    hr {
-      border: 3px solid $background-color;
-      width: 85%;
-    }
-
-    input {
-      width: 85%;
-      height: 35%;
-      font-size: 24px;
-      color: $input-text-color;
-      background: $form-color;
-      outline: none;
-      border: none;
-    }
-
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    textarea:-webkit-autofill,
-    textarea:-webkit-autofill:hover,
-    textarea:-webkit-autofill:focus,
-    select:-webkit-autofill,
-    select:-webkit-autofill:hover,
-    select:-webkit-autofill:focus {
-      outline: none;
-      font-size: 24px;
-      border: none;
-      -webkit-text-fill-color: $input-text-color;
-      -webkit-box-shadow: 0 0 0px 1000px $form-color inset;
-      transition: background-color 5000s ease-in-out 0s;
-    }
-
-    .svg {
-      position: absolute;
-      right: -37.5px;
-      cursor: pointer;
-    }
-  }
-}
-
-@media screen and (min-width: 330px) {
-  .Auth {
-    form {
-      width: 70%;
-    }
-  }
-}
-
-@media screen and (min-width: 700px) {
-  .Auth {
-    form {
-      width: 600px;
-    }
 
     h1 {
-      font-size: 64px;
+        color: #e5e5e5;
+        margin-bottom: 100px;
+        font-size: 48px;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
     }
 
     p {
-      display: block;
+        color: #a3a4a8;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+
+        a {
+            color: #00b376;
+            text-decoration: none;
+        }
+
+        margin-top: 30px;
     }
-  }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 65%;
+        height: 200px;
+        border-radius: 20px;
+        background: $form-color;
+        position: relative;
+
+        hr {
+            border: 3px solid $background-color;
+            width: 85%;
+        }
+
+        input {
+            width: 85%;
+            height: 35%;
+            font-size: 24px;
+            color: $input-text-color;
+            background: $form-color;
+            outline: none;
+            border: none;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            outline: none;
+            font-size: 24px;
+            border: none;
+            -webkit-text-fill-color: $input-text-color;
+            -webkit-box-shadow: 0 0 0px 1000px $form-color inset;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        .svg {
+            position: absolute;
+            right: -37.5px;
+            cursor: pointer;
+        }
+    }
+}
+
+@media screen and (min-width: 330px) {
+    .Auth {
+        form {
+            width: 70%;
+        }
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .Auth {
+        form {
+            width: 600px;
+        }
+
+        h1 {
+            font-size: 64px;
+        }
+
+        p {
+            display: block;
+        }
+    }
 }
