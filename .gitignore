@@ -105,3 +105,4 @@ venv.bak/
 
 #other
 /node_modules/
+/.scripts/setSecretKeys.bat
