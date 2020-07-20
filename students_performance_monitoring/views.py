@@ -10,10 +10,10 @@ class DocsView(APIView):
         api_docs = response = {
             "api/v0/": {
                 "documentation": {
-                    "swagger": request.build_absolute_uri("swagger"),
-                    "redoc": request.build_absolute_uri("redoc"),
+                    "swagger": request.build_absolute_uri("swagger/"),
+                    "redoc": request.build_absolute_uri("redoc/"),
                 },
-                "admin": request.build_absolute_uri("admin"),
+                "admin": request.build_absolute_uri("admin/"),
                 "authentication": {
                     "auth/register": request.build_absolute_uri("auth/register/"),
                     "auth/token": request.build_absolute_uri("auth/token/"),
