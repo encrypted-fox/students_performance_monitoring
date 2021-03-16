@@ -48,7 +48,6 @@ urlpatterns = [
     path('api/v0/', include("subjects.urls")),
     path('api/v0/', include("people.urls")),
     path('api/v0/', include("university_structure.urls")),
-    path('', include('frontend.urls')),
     # re_path(r'^$', RedirectView.as_view(url='/front', permanent=False), name='index'),
 
 ]
