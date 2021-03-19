@@ -26,19 +26,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'monitor.std-240.ist.mospolytech.ru',
+    '45.84.226.161',
     'students-monitor.herokuapp.com',
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1',
-    'http://monitor.std-240.ist.mospolytech.ru',
+    'http://45.84.226.161/login',
     'https://students-monitor.herokuapp.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     '127.0.0.1',
-    'monitor.std-240.ist.mospolytech.ru',
+    '45.84.226.161',
     'students-monitor.herokuapp.com',
 ]
 
