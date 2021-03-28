@@ -20,7 +20,6 @@ def register(request):
     '''
     # Put the data from the request into the serializer 
     serializer = CreateUserSerializer(data=request.data)
-    # Validate the data
     if serializer.is_valid():
         # If it is valid, save the data (creates a user).
         serializer.save()
