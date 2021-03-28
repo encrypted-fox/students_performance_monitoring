@@ -30,8 +30,8 @@ def register(request):
         r = requests.post(HOST + 'o/token/',
                           data={
                               'grant_type': 'password',
-                              'username': json.loads(request.data['username']),
-                              'password': json.loads(request.data['password']),
+                              'username': json.loads(request.data)['username'],
+                              'password': json.loads(request.data)['password'],
                               'client_id': CLIENT_ID,
                               'client_secret': CLIENT_SECRET,
                           },
@@ -51,8 +51,8 @@ def token(request):
         HOST + 'o/token/',
         data={
             'grant_type': 'password',
-            'username': json.loads(request.data['username']),
-            'password': json.loads(request.data['password']),
+            'username': json.loads(request.data)['username'],
+            'password': json.loads(request.data)['password'],
             'client_id': CLIENT_ID,
             'client_secret': CLIENT_SECRET,
         },
@@ -71,7 +71,7 @@ def refresh_token(request):
         HOST + 'o/token/',
         data={
             'grant_type': 'refresh_token',
-            'refresh_token': json.loads(request.data['refresh_token']),
+            'refresh_token': json.loads(request.data)['refresh_token'],
             'client_id': CLIENT_ID,
             'client_secret': CLIENT_SECRET,
         },
@@ -89,7 +89,7 @@ def revoke_token(request):
     r = requests.post(
         HOST + 'o/revoke_token/',
         data={
-            'token': json.loads(request.data['token']),
+            'token': json.loads(request.data)['token'],
             'client_id': CLIENT_ID,
             'client_secret': CLIENT_SECRET,
         },
