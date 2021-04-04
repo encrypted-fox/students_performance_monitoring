@@ -1,5 +1,5 @@
 from rest_framework import routers
-from django.urls import path
+from django.urls import url
 
 from .views import *
 
@@ -12,4 +12,4 @@ router.register('control_types', ControlTypesViewSet)
 
 urlpatterns = router.urls
 
-urlpatterns.append(path('list_excellent_students/', ListExcellentStudents.asView(), name='list_excellent_students'))
+urlpatterns.append(url('list_excellent_students/', ListExcellentStudents.asView(), name='list_excellent_students'))

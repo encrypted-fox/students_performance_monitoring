@@ -50,8 +50,10 @@ class ControlTypesViewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     search_fields = '__all__'
 
+
 class ListExcellentStudents(generics.ListAPIView):
     serializer_class = StudentsSerializer
+
     def get_queryset(self):
         """
         This view should return a list of all the purchases for
