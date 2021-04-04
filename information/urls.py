@@ -13,4 +13,4 @@ router.register('control_types', ControlTypesViewSet)
 
 urlpatterns = router.urls
 
-urlpatterns[len(urlpatterns)] = path('list_excellent_students/', views.list_excellent_students)
+urlpatterns.append(path('list_excellent_students/', views.list_excellent_students))
