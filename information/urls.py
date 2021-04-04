@@ -12,4 +12,4 @@ router.register('control_types', ControlTypesViewSet)
 
 urlpatterns = router.urls
 
-urlpatterns += path('list_excellent_students', ListAllStudentsWithExcellentMarks.as_view(), name='list_excellent_students')
+urlpatterns += path('list_excellent_students', ListAllStudentsWithExcellentMarks.as_view({'get': 'get'}), name='list_excellent_students')
