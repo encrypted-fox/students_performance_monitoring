@@ -50,6 +50,6 @@ class ControlTypesViewSet(viewsets.ModelViewSet):
     search_fields = '__all__'
 
 @api_view(['GET'])
-def list_all_students_with_excellent_marks(request):
+def list_excellent_students(request):
     students = [student for student in Students.objects.filter('average_rating'==5)]
     return Response(usernames)
