@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .serializers import *
 from people.models import Students
+from people.serializers import StudentsSerializer
 
 
 class StartYearsViewSet(viewsets.ModelViewSet):
@@ -49,7 +50,12 @@ class ControlTypesViewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     search_fields = '__all__'
 
-@api_view(['GET'])
-def list_excellent_students(request):
-    students = [student for student in Students.objects.filter(average_rating=5.0)]
-    return Response(students)
+class ListExcellentStudents(generics.ListAPIView):
+serializer_class = StudentsSerializer
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        username = self.kwargs['username']
+        return students = Students.objects.filter(average_rating=5.0)
