@@ -58,4 +58,4 @@ class ListExcellentStudents(generics.ListAPIView):
         the user as determined by the username portion of the URL.
         """
         username = self.kwargs['username']
-        return students = Students.objects.filter(average_rating=5.0)
+        return Students.objects.filter(average_rating=5.0)
