@@ -26,19 +26,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '45.84.226.161',
+    'encrypted-fox.ru',
     'students-monitor.herokuapp.com',
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1',
-    'http://45.84.226.161/login',
+    'http://45.84.226.161',
+    'http://encrypted-fox.ru',
     'https://students-monitor.herokuapp.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     '127.0.0.1',
     '45.84.226.161',
+    'encrypted-fox.ru',
     'students-monitor.herokuapp.com',
 ]
 
