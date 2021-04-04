@@ -82,7 +82,6 @@ INSTALLED_APPS = [
     'people',
     'university_structure',
     'users',
-    'frontend',
 ]
 
 MIDDLEWARE = [
