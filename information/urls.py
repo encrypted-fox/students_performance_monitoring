@@ -12,4 +12,4 @@ router.register('control_types', ControlTypesViewSet)
 
 urlpatterns = router.urls
 
-urlpatterns.append(path('list_excellent_students/', ListExcellentStudents.asView()))
+urlpatterns.append(path('list_excellent_students/', ListExcellentStudents.asView(), name='list_excellent_students'))
