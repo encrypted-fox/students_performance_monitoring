@@ -51,12 +51,28 @@ class ControlTypesViewSet(viewsets.ModelViewSet):
     search_fields = '__all__'
 
 
-class ListExcellentStudents(generics.ListAPIView):
-    serializer_class = StudentsSerializer
+class ListExcellentStudents(viewsets.ViewSet):
 
-    def get_queryset(self):
+    def list(self, request):
         """
         This view should return a list of all the purchases for
         the user as determined by the username portion of the URL.
         """
-        return Students.objects.filter(average_rating=5.0)
+        queryset = Students.objects.filter(average_rating=5.0)
+        serializer = StudentsSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        pass
+
+    def retrieve(self, request, pk=None):
+        pass
+
+    def update(self, request, pk=None):
+        pass
+
+    def partial_update(self, request, pk=None):
+        pass
+
+    def destroy(self, request, pk=None):
+        pass
