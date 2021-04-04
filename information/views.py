@@ -57,5 +57,4 @@ class ListExcellentStudents(generics.ListAPIView):
         This view should return a list of all the purchases for
         the user as determined by the username portion of the URL.
         """
-        username = self.kwargs['username']
         return Students.objects.filter(average_rating=5.0)
