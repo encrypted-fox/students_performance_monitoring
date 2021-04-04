@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions, authentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
+from rest_framework.decorators import api_view, permission_classes
 from .serializers import *
 from people.models import Students
 
@@ -49,8 +49,8 @@ class ControlTypesViewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     search_fields = '__all__'
 
-
-class ListAllStudentsWithExcellentMarks(viewsets.ModelViewSet):
-    def get(self, request, format=None):
-        students = [student for student in Students.objects.filter('average_rating'==5)]
-        return Response(usernames)
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def list_all_students_with_excellent_marks(request):
+    students = [student for student in Students.objects.filter('average_rating'==5)]
+    return Response(usernames)
