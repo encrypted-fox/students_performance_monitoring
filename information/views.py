@@ -52,5 +52,5 @@ class ControlTypesViewSet(viewsets.ModelViewSet):
 
 class ListAllStudentsWithExcellentMarks(APIView):
     def get(self, request, format=None):
-        students = [student for student in Students.objects.filter('average_rating'=5)]
+        students = [student for student in Students.objects.filter('average_rating'==5)]
         return Response(usernames)
