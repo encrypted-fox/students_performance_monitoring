@@ -91,31 +91,31 @@ class ListGoodStudentsWithMore5(viewsets.ViewSet):
 
         records = Records.objects.all()
 
-        if request.data.is_final:
+        if 'is_final' in request.data:
             records = records.filter(is_final=request.data.is_final)
         
-        if request.data.teacher_id:
+        if 'teacher_id' in request.data:
             records = records.filter(teacher_id=request.data.teacher_id)
         
-        if request.data.group_id:
+        if 'group_id' in request.data:
             records = records.filter(group_id=request.data.group_id)
         
-        if request.data.subject_id:
+        if 'subject_id' in request.data:
             records = records.filter(subject_id=request.data.subject_id)
         
-        if request.data.subject_block_id:
+        if 'subject_block_id' in request.data:
             records = records.filter(subject_block_id=request.data.subject_block_id)
 
-        if request.data.control_type_id:
+        if 'control_type_id' in request.data:
             records = records.filter(control_type_id=request.data.control_type_id)
 
-        if request.data.term_id:
+        if 'term_id' in request.data:
             records = records.filter(term_id=request.data.term_id)
 
-        if request.data.mark_id:
+        if 'mark_id' in request.data:
             records = records.filter(mark_id=request.data.mark_id)
 
-        if request.data.retake_count:
+        if 'retake_count' in request.data:
             records = records.filter(retake_count=request.data.retake_count)
         
         else:
