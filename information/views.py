@@ -117,7 +117,7 @@ class ListGoodStudentsWithMore5(viewsets.ViewSet):
         if request.data.retake_count:
             records = records.filter(retake_count=request.data.retake_count)
         
-        else 
+        else:
             records = Records.objects.all()
        
         students = Students.objects.all()
