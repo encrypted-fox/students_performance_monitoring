@@ -93,33 +93,43 @@ class ListGoodStudentsWithMore5(viewsets.ViewSet):
 
         if 'is_final' in request.data:
             records = records.filter(is_final=request.data.is_final)
+            print(records)
         
         if 'teacher_id' in request.data:
             records = records.filter(teacher_id=request.data.teacher_id)
+            print(records)
         
         if 'group_id' in request.data:
             records = records.filter(group_id=request.data.group_id)
+            print(records)
         
         if 'subject_id' in request.data:
             records = records.filter(subject_id=request.data.subject_id)
+            print(records)
         
         if 'subject_block_id' in request.data:
             records = records.filter(subject_block_id=request.data.subject_block_id)
+            print(records)
 
         if 'control_type_id' in request.data:
             records = records.filter(control_type_id=request.data.control_type_id)
+            print(records)
 
         if 'term_id' in request.data:
             records = records.filter(term_id=request.data.term_id)
+            print(records)
 
         if 'mark_id' in request.data:
             records = records.filter(mark_id=request.data.mark_id)
+            print(records)
 
         if 'retake_count' in request.data:
             records = records.filter(retake_count=request.data.retake_count)
+            print(records)
         
         else:
             records = Records.objects.all()
+            print(records)
        
         students = Students.objects.all()
 
@@ -127,6 +137,7 @@ class ListGoodStudentsWithMore5(viewsets.ViewSet):
         
         for student in students:
             student_records = records.filter(student_id=student.id)
+            print(student_records)
             
             counter_5 = 0
             counter_4 = 0
@@ -134,6 +145,10 @@ class ListGoodStudentsWithMore5(viewsets.ViewSet):
 
             for record in student_records:
                 
+                print(record.mark_id)
+                print(mark_id_4[0])
+                print(mark_id_4[0].id)
+
                 if record.mark_id == mark_id_5[0].id:
                     counter_5 += 1
                     counter_all += 1
