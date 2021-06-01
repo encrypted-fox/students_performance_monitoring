@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .serializers import *
 from people.models import Students
+from subjects.models import Records
 from people.serializers import StudentsSerializer
 
 
