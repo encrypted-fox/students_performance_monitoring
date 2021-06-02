@@ -56,32 +56,7 @@ class ControlTypesViewSet(viewsets.ModelViewSet):
     search_fields = '__all__'
 
 
-class ListExcellentStudents(viewsets.ViewSet):
-
-    def list(self, request):
-        """
-        This view should return a list of all excellent students.
-        """
-        queryset = Students.objects.filter(average_rating=5.0)
-        serializer = StudentsSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def create(self, request):
-        pass
-
-    def retrieve(self, request, pk=None):
-        pass
-
-    def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
-
-    def destroy(self, request, pk=None):
-        pass
-
-class ListGoodStudentsWithMore5(viewsets.ViewSet):
+class ListStudentsWithMore5(viewsets.ViewSet):
 
     def list(self, request):
         """
@@ -160,86 +135,924 @@ class ListGoodStudentsWithMore5(viewsets.ViewSet):
 
         return Response(serializer.data)
 
-class ListGoodStudentsWithMore4(viewsets.ViewSet):
+class ListStudentsWithMore4(viewsets.ViewSet):
 
     def list(self, request):
         """
-        This view should return a list of all with more 4s and good marks only.
+        This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
         """
-        queryset = Students.objects.filter(average_rating=5.0)
-        serializer = StudentsSerializer(queryset, many=True)
+
+        marks = Marks.objects.all()
+
+        mark_id_5 = marks.filter(name='5')
+        mark_id_4 = marks.filter(name='4')
+        mark_id_pass = marks.filter(name='Зачтено')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+            
+            counter_5 = 0
+            counter_4 = 0
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_5[0].id):
+                    counter_5 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_4[0].id):
+                    counter_4 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records) and counter_4 > counter_5:
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
         return Response(serializer.data)
 
-    def create(self, request):
-        pass
+class ListStudentsWithMore4(viewsets.ViewSet):
 
-    def retrieve(self, request, pk=None):
-        pass
+    def list(self, request):
+        """
+        This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
+        """
 
-    def update(self, request, pk=None):
-        pass
+        marks = Marks.objects.all()
 
-    def partial_update(self, request, pk=None):
-        pass
+        mark_id_5 = marks.filter(name='5')
+        mark_id_4 = marks.filter(name='4')
+        mark_id_pass = marks.filter(name='Зачтено')
 
-    def destroy(self, request, pk=None):
-        pass
+        records = Records.objects.all()
 
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+            
+            counter_5 = 0
+            counter_4 = 0
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_5[0].id):
+                    counter_5 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_4[0].id):
+                    counter_4 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records) and counter_4 > counter_5:
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
+        return Response(serializer.data)
+
+class ListStudentsWithMore3(viewsets.ViewSet):
+
+    def list(self, request):
+        """
+        This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
+        """
+
+        marks = Marks.objects.all()
+
+        mark_id_5 = marks.filter(name='5')
+        mark_id_4 = marks.filter(name='4')
+        mark_id_3 = marks.filter(name='3')
+        mark_id_pass = marks.filter(name='Зачтено')
+        mark_id_not_pass = marks.filter(name='Незачтено')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+            
+            counter_5 = 0
+            counter_4 = 0
+            counter_3 = 0
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_5[0].id):
+                    counter_5 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_4[0].id):
+                    counter_4 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_3[0].id):
+                    counter_3 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_not_pass[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records) and counter_3 > counter_4 + counter_5:
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
+        return Response(serializer.data)
+
+
+class ListStudentsWithMore2(viewsets.ViewSet):
+
+    def list(self, request):
+        """
+        This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
+        """
+
+        marks = Marks.objects.all()
+
+        mark_id_5 = marks.filter(name='5')
+        mark_id_4 = marks.filter(name='4')
+        mark_id_3 = marks.filter(name='3')
+        mark_id_2 = marks.filter(name='2')
+        mark_id_pass = marks.filter(name='Зачтено')
+        mark_id_not_pass = marks.filter(name='Незачтено')
+        mark_id_not_appointed = marks.filter(name='Неявка')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+            
+            counter_5 = 0
+            counter_4 = 0
+            counter_3 = 0
+            counter_2 = 0
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_5[0].id):
+                    counter_5 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_4[0].id):
+                    counter_4 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_3[0].id):
+                    counter_3 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_2[0].id):
+                    counter_2 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_not_pass[0].id):
+                    counter_all += 1
+
+                lif str(mark) == str(mark_id_not_appointed[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records) and counter_2 > counter_3 + counter_4 + counter_5:
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
+        return Response(serializer.data)
+
+class ListStudentsWithLess3(viewsets.ViewSet):
+
+    def list(self, request):
+        """
+        This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
+        """
+
+        marks = Marks.objects.all()
+
+        mark_id_5 = marks.filter(name='5')
+        mark_id_4 = marks.filter(name='4')
+        mark_id_3 = marks.filter(name='3')
+        mark_id_pass = marks.filter(name='Зачтено')
+        mark_id_not_pass = marks.filter(name='Незачтено')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+            
+            counter_5 = 0
+            counter_4 = 0
+            counter_3 = 0
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_5[0].id):
+                    counter_5 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_4[0].id):
+                    counter_4 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_3[0].id):
+                    counter_4 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_not_pass[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records) and counter_3 < counter_4 + counter_5 and counter_3 > 0:
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
+        return Response(serializer.data)
+
+class ListStudentsWithLess2(viewsets.ViewSet):
+    def list(self, request):
+        """
+        This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
+        """
+
+        marks = Marks.objects.all()
+
+        mark_id_5 = marks.filter(name='5')
+        mark_id_4 = marks.filter(name='4')
+        mark_id_3 = marks.filter(name='3')
+        mark_id_2 = marks.filter(name='2')
+        mark_id_pass = marks.filter(name='Зачтено')
+        mark_id_not_pass = marks.filter(name='Незачтено')
+        mark_id_not_appointed = marks.filter(name='Неявка')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+            
+            counter_5 = 0
+            counter_4 = 0
+            counter_3 = 0
+            counter_2 = 0
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_5[0].id):
+                    counter_5 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_4[0].id):
+                    counter_4 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_3[0].id):
+                    counter_3 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_2[0].id):
+                    counter_2 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_not_pass[0].id):
+                    counter_all += 1
+
+                lif str(mark) == str(mark_id_not_appointed[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records) and counter_2 < counter_3 + counter_4 + counter_5:
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
+        return Response(serializer.data)
 class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
 
     def list(self, request):
         """
-        This view should return a list of all students without 3s and less.
+        This view should return a list of all students. In addition, there should be only good marks.
         """
-        queryset = Students.objects.filter(average_rating=5.0)
-        serializer = StudentsSerializer(queryset, many=True)
+
+        marks = Marks.objects.all()
+
+        mark_id_5 = marks.filter(name='5')
+        mark_id_4 = marks.filter(name='4')
+        mark_id_pass = marks.filter(name='Зачтено')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+            
+            counter_5 = 0
+            counter_4 = 0
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_5[0].id):
+                    counter_5 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_4[0].id):
+                    counter_4 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records):
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
         return Response(serializer.data)
-
-    def create(self, request):
-        pass
-
-    def retrieve(self, request, pk=None):
-        pass
-
-    def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
-
-    def destroy(self, request, pk=None):
-        pass
 
 class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
 
     def list(self, request):
         """
-        This view should return a list of all tstudents that pass exams.
+        This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
         """
-        queryset = Students.objects.filter(average_rating=5.0)
-        serializer = StudentsSerializer(queryset, many=True)
+
+        marks = Marks.objects.all()
+
+        mark_id_5 = marks.filter(name='5')
+        mark_id_4 = marks.filter(name='4')
+        mark_id_3 = marks.filter(name='3')
+        mark_id_pass = marks.filter(name='Зачтено')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+            
+            counter_5 = 0
+            counter_4 = 0
+            counter_3 = 0
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_5[0].id):
+                    counter_5 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_4[0].id):
+                    counter_4 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_3[0].id):
+                    counter_3 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records):
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
         return Response(serializer.data)
 
-    def create(self, request):
-        pass
-
-    def retrieve(self, request, pk=None):
-        pass
-
-    def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
-
-    def destroy(self, request, pk=None):
-        pass
-
-class ListStudentsWith2(viewsets.ViewSet):
+class ListStudentsWithOne3(viewsets.ViewSet):
 
     def list(self, request):
         """
-        This view should return a list of all students with mark 2 or not pass, or not appointed.
+        This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
+        """
+
+        marks = Marks.objects.all()
+
+        mark_id_2 = marks.filter(name='2')
+        mark_id_3 = marks.filter(name='3')
+        mark_id_pass = marks.filter(name='Зачтено')
+        mark_id_not_pass = marks.filter(name='Незачтено')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+
+            counter
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_2[0].id):
+                    counter_2 += 1
+                    counter_all += 1
+
+                if str(mark) == str(mark_id_3[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_not_pass[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records) and counter_2 == 0 and counter_3 == 1:
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
+        return Response(serializer.data)
+
+class ListStudentsWithOne2(viewsets.ViewSet):
+
+    def list(self, request):
+        """
+        This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
+        """
+
+        marks = Marks.objects.all()
+
+        mark_id_5 = marks.filter(name='5')
+        mark_id_4 = marks.filter(name='4')
+        mark_id_3 = marks.filter(name='3')
+        mark_id_2 = marks.filter(name='2')
+        mark_id_pass = marks.filter(name='Зачтено')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+            
+            counter_5 = 0
+            counter_4 = 0
+            counter_3 = 0
+            counter_2 = 0
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_5[0].id):
+                    counter_5 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_4[0].id):
+                    counter_4 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_3[0].id):
+                    counter_3 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_2[0].id):
+                    counter_2 += 1
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records) and counter_2 == 1:
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
+        return Response(serializer.data)
+
+class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
+
+    def list(self, request):
+        """
+        This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
+        """
+
+        marks = Marks.objects.all()
+
+        mark_id_not_appointed = marks.filter(name='Неявка')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+            
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_not_appointed[0].id):
+                    counter_all += 1
+
+            if counter_all == 1:
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
+        return Response(serializer.data)
+class ListStudentsOnlyWith5(viewsets.ViewSet):
+
+    def list(self, request):
+        """
+        This view should return a list of all excellent students.
         """
         queryset = Students.objects.filter(average_rating=5.0)
         serializer = StudentsSerializer(queryset, many=True)
@@ -259,115 +1072,342 @@ class ListStudentsWith2(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         pass
+
+class ListStudentsOnlyWith4(viewsets.ViewSet):
+
+    def list(self, request):
+        """
+        This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
+        """
+
+        marks = Marks.objects.all()
+
+        mark_id_4 = marks.filter(name='4')
+        mark_id_pass = marks.filter(name='Зачтено')
+        mark_id_not_pass = marks.filter(name='Незачтено')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_4[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_not_pass[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records):
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
+        return Response(serializer.data)
+
+class ListStudentsOnlyWith3(viewsets.ViewSet):
+
+    def list(self, request):
+        """
+        This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
+        """
+
+        marks = Marks.objects.all()
+
+        mark_id_3 = marks.filter(name='3')
+        mark_id_pass = marks.filter(name='Зачтено')
+        mark_id_not_pass = marks.filter(name='Незачтено')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_3[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_not_pass[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records):
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
+        return Response(serializer.data)
 
 class ListStudentsOnlyWith2(viewsets.ViewSet):
 
     def list(self, request):
         """
-        This view should return a list of all students with only marks 2 or not pass, or not appointed.
+        This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
         """
-        queryset = Students.objects.filter(average_rating=5.0)
-        serializer = StudentsSerializer(queryset, many=True)
+
+        marks = Marks.objects.all()
+
+        mark_id_2 = marks.filter(name='2')
+        mark_id_pass = marks.filter(name='Зачтено')
+        mark_id_not_pass = marks.filter(name='Незачтено')
+
+        records = Records.objects.all()
+
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_2[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_pass[0].id):
+                    counter_all += 1
+
+                elif str(mark) == str(mark_id_not_pass[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records):
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
         return Response(serializer.data)
 
-    def create(self, request):
-        pass
+class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
+    
+    def list(self, request):
+        """
+        This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
+        """
 
-    def retrieve(self, request, pk=None):
-        pass
+        marks = Marks.objects.all()
 
-    def update(self, request, pk=None):
-        pass
+        mark_id_not_appointed = marks.filter(name='Неявка')
 
-    def partial_update(self, request, pk=None):
-        pass
+        records = Records.objects.all()
 
-    def destroy(self, request, pk=None):
-        pass
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
 
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
+
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
+       
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
+            
+            counter_all = 0
+
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
+
+                if str(mark) == str(mark_id_not_appointed[0].id):
+                    counter_all += 1
+
+            if counter_all == len(student_records):
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
+
+        return Response(serializer.data)
 class ListStudentsWith(viewsets.ViewSet):
 
     def list(self, request):
         """
-        This view should return a list of all students with the given mark.
+        This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
         """
-        queryset = Students.objects.filter(average_rating=5.0)
-        serializer = StudentsSerializer(queryset, many=True)
-        return Response(serializer.data)
 
-    def create(self, request):
-        pass
+        records = Records.objects.all()
 
-    def retrieve(self, request, pk=None):
-        pass
+        if 'student_id' in request.query_params:
+            records = records.filter(student_id=request.query_params.get('student_id'))
 
-    def update(self, request, pk=None):
-        pass
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
+        
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+        
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
+        
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
+        
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
 
-    def partial_update(self, request, pk=None):
-        pass
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
 
-    def destroy(self, request, pk=None):
-        pass
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
 
-class ListExcellentStudents(viewsets.ViewSet):
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
 
-    def list(self, request):
-        """
-        This view should return a list of all the purchases for
-        the user as determined by the username portion of the URL.
-        """
-        queryset = Students.objects.filter(average_rating=5.0)
-        serializer = StudentsSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def create(self, request):
-        pass
-
-    def retrieve(self, request, pk=None):
-        pass
-
-    def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
-
-    def destroy(self, request, pk=None):
-        pass        
-
-
-
-
-        # def list(self, request):
-        # """
-        # This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
-        # """
-        # records = Records.objects.all()
-        # if request.data.teacher_id:
-        #     records = records.filter(teacher_id=request.data.teacher_id)
-        # if request.data.group_id:
-        #     records = records.filter(group_id=request.data.group_id)
-        # if request.data.subject_id:
-        #     records = records.filter(subject_id=request.data.subject_id)
-        # if request.data.subject_block_id:
-        #     records = records.filter(subject_block_id=request.data.subject_block_id)
-        # if request.data.control_type_id:
-        #     records = records.filter(control_type_id=request.data.control_type_id)
-        # if request.data.term_id:
-        #     records = records.filter(term_id=request.data.term_id)
-        # if request.data.mark_id:
-        #     records = records.filter(mark_id=request.data.mark_id)
-        # if request.data.retake_count:
-        #     records = records.filter(retake_count=request.data.retake_count)
-        # else 
-        #     records = Records.objects.all()
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
+        
+        else:
+            records = Records.objects.all()
        
-        # students = Students.objects.all()
+        students = Students.objects.all()
+        students_to_return = []
+        
+        for student in students:
+            student_records = records.filter(student_id=student.id)
 
-        # mark_names = 
+            if len(student_records) > 0:
+                students_to_return.append(student)
+        
+        serializer = StudentsSerializer(students_to_return, many=True)
 
-        # for student in students:
-        #     student_records = records.filter(student_id=student.id)
-        #     for record in student_records:
-        #         if 
+        return Response(serializer.data)
+
