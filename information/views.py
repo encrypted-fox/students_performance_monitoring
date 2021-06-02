@@ -464,7 +464,7 @@ class ListStudentsWithMore2(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_not_pass[0].id):
                     counter_all += 1
 
-                lif str(mark) == str(mark_id_not_appointed[0].id):
+                elif str(mark) == str(mark_id_not_appointed[0].id):
                     counter_all += 1
 
             if counter_all == len(student_records) and counter_2 > counter_3 + counter_4 + counter_5:
@@ -647,7 +647,7 @@ class ListStudentsWithLess2(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_not_pass[0].id):
                     counter_all += 1
 
-                lif str(mark) == str(mark_id_not_appointed[0].id):
+                elif str(mark) == str(mark_id_not_appointed[0].id):
                     counter_all += 1
 
             if counter_all == len(student_records) and counter_2 < counter_3 + counter_4 + counter_5:
