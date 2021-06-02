@@ -1,4 +1,5 @@
 from rest_framework import viewsets, permissions, authentication, generics
+from django.forms.models import model_to_dict
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -86,6 +87,9 @@ class ListGoodStudentsWithMore5(viewsets.ViewSet):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
         """
+
+        logger.error(request.query_params)
+
         marks = Marks.objects.all()
 
         mark_id_5 = marks.filter(name='5')
@@ -94,73 +98,59 @@ class ListGoodStudentsWithMore5(viewsets.ViewSet):
 
         records = Records.objects.all()
 
-        if 'is_final' in request.data:
-            records = records.filter(is_final=request.data.is_final)
-            logger.error(records)
+        if 'is_final' in request.query_params:
+            records = records.filter(is_final=request.query_params.get('is_final'))
         
-        if 'teacher_id' in request.data:
-            records = records.filter(teacher_id=request.data.teacher_id)
-            logger.error(records)
+        if 'teacher_id' in request.query_params:
+            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
         
-        if 'group_id' in request.data:
-            records = records.filter(group_id=request.data.group_id)
-            logger.error(records)
+        if 'group_id' in request.query_params:
+            records = records.filter(group_id=request.query_params.get('group_id'))
         
-        if 'subject_id' in request.data:
-            records = records.filter(subject_id=request.data.subject_id)
-            logger.error(records)
+        if 'subject_id' in request.query_params:
+            records = records.filter(subject_id=request.query_params.get('subject_id'))
         
-        if 'subject_block_id' in request.data:
-            records = records.filter(subject_block_id=request.data.subject_block_id)
-            logger.error(records)
+        if 'subject_block_id' in request.query_params:
+            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
 
-        if 'control_type_id' in request.data:
-            records = records.filter(control_type_id=request.data.control_type_id)
-            logger.error(records)
+        if 'control_type_id' in request.query_params:
+            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
 
-        if 'term_id' in request.data:
-            records = records.filter(term_id=request.data.term_id)
-            logger.error(records)
+        if 'term_id' in request.query_params:
+            records = records.filter(term_id=request.query_params.get('term_id'))
 
-        if 'mark_id' in request.data:
-            records = records.filter(mark_id=request.data.mark_id)
-            logger.error(records)
+        if 'mark_id' in request.query_params:
+            records = records.filter(mark_id=request.query_params.get('mark_id'))
 
-        if 'retake_count' in request.data:
-            records = records.filter(retake_count=request.data.retake_count)
-            logger.error(records)
+        if 'retake_count' in request.query_params:
+            records = records.filter(retake_count=request.query_params.get('retake_count'))
         
         else:
             records = Records.objects.all()
-            logger.error(records)
        
         students = Students.objects.all()
-
         students_to_return = []
         
         for student in students:
             student_records = records.filter(student_id=student.id)
-            logger.error(student_records)
             
             counter_5 = 0
             counter_4 = 0
             counter_all = 0
 
             for record in student_records:
-                
-                logger.error(record.mark_id)
-                logger.error(mark_id_4[0])
-                logger.error(mark_id_4[0].id)
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['name'] 
 
-                if record.mark_id == mark_id_5[0].id:
+                if str(mark) == str(mark_id_5[0].id):
                     counter_5 += 1
                     counter_all += 1
 
-                elif record.mark_id == mark_id_4[0].id:
+                elif str(mark) == str(mark_id_4[0].id):
                     counter_4 += 1
                     counter_all += 1
 
-                elif record.mark_id == mark_id_pass[0].id:
+                elif str(mark) == str(mark_id_pass[0].id):
                     counter_all += 1
 
             if counter_all == len(student_records) and counter_4 < counter_5:
