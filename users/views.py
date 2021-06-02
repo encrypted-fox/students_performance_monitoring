@@ -6,9 +6,9 @@ from rest_framework.response import Response
 
 from .serializers import CreateUserSerializer
 
-CLIENT_ID = os.getenv('SP_OAUTH2_CLIENT_ID')
-CLIENT_SECRET = os.getenv('SP_OAUTH2_CLIENT_SECRET')
-HOST = 'https://students-monitor.herokuapp.com/api/v0/auth/'
+CLIENT_ID = "o2zCJ7WtfcmIfxZhkBGloDqScUP1xIfJLjLXTme8"
+CLIENT_SECRET = "kPviatOpCKXC1Gw2k7PaKAem0kJXvXlxKgWAHjgx9KkEHFfjcYPhAqd6IntPkxSI4gQqzAG51OonqfQdtv6Seg10AwUSiP33NYkKYylEYNrAou5ZpZaHpXPjO0rdb6OC"
+HOST = 'http://127.0.0.1:8000/api/v0/auth/'
 
 
 @api_view(['POST'])
@@ -25,6 +25,13 @@ def register(request):
         serializer.save()
         # Then we get a token for the created user.
         # This could be done differentley 
+        print({
+                              'grant_type': 'password',
+                              'username': request.data.get('username', None),
+                              'password': request.data.get('password', None),
+                              'client_id': CLIENT_ID,
+                              'client_secret': CLIENT_SECRET,
+                          })
         r = requests.post(HOST + 'o/token/',
                           data={
                               'grant_type': 'password',
@@ -34,6 +41,7 @@ def register(request):
                               'client_secret': CLIENT_SECRET,
                           },
                           )
+        print(r)
         return Response(r.json())
     return Response(serializer.errors)
 

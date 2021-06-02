@@ -3,7 +3,9 @@ from django.utils.translation import gettext as _
 from django.db import models
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, password=None, settings="{}"):
+    def create_user(self, username, email, first_name, last_name, password=None, settings="{}"):
+        if not username:
+            raise ValueError("User must have a username")
         if not email:
             raise ValueError("User must have an email")
         if not password:
@@ -16,6 +18,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email)
         )
+        user.username = username
         user.first_name = first_name
         user.last_name = last_name
         user.set_password(password)  # change password to hash
@@ -25,7 +28,9 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, first_name, last_name, password=None):
+    def create_superuser(self, username, email, first_name, last_name, password=None, settings="{}"):
+        if not username:
+            raise ValueError("User must have a username")
         if not email:
             raise ValueError("User must have an email")
         if not password:
@@ -38,15 +43,18 @@ class CustomUserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email)
         )
+        user.username = username
         user.first_name = first_name
         user.last_name = last_name
         user.set_password(password)  # change password to hash
         user.is_admin = True
         user.is_staff = True
+        user.is_superuser = True
+        user.settings = settings
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self, email, first_name, last_name,  password=None):
+    def create_staffuser(self, username, email, first_name, last_name, password=None, settings="{}"):
         if not email:
             raise ValueError("User must have an email")
         if not password:
@@ -59,11 +67,13 @@ class CustomUserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email)
         )
+        user.username = username
         user.first_name = first_name
         user.last_name = last_name
         user.set_password(password)  # change password to hash
         user.is_admin = False
         user.is_staff = True
+        user.settings = settings
         user.save(using=self._db)
         return user
 
@@ -74,6 +84,7 @@ class CustomUser(AbstractBaseUser):
         (ADMIN, _('Admin User')),
         (STAFF, _('Staff User')),
     ]
+    username = models.CharField(_('username'), unique=True, max_length=30)
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(_('first name'), max_length=30)
     last_name = models.CharField(_('last name'), max_length=30)
@@ -82,8 +93,8 @@ class CustomUser(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     settings = models.TextField(default="{}")
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
 
     objects = CustomUserManager()
 
@@ -100,4 +111,4 @@ class CustomUser(AbstractBaseUser):
         return True
 
     def __str__(self):
-        return "{}".format(self.email)
+        return "{}".format(self.username)
