@@ -30,7 +30,7 @@ logger = logging.getLogger()
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def getXLSXFromJSON(request):
+def getCSV(request):
     '''
     Gets xlsx document from data given. Expected input should be in format:
     {"documentData": [<number>]}, where numbers are student identificators.
