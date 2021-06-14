@@ -22,13 +22,11 @@ logger = logging.getLogger()
 @permission_classes([AllowAny])
 def getXLSXFromJSON(request):
     documentData = request.data.get('documentData', None)
-    userId = request.data.get('userId', None)
     students = Students.objects.all()
     groups = Groups.objects.all()
 
-    if documentData and userId:
-        workbook = xlsxwriter.Workbook(
-            str(userId) + "-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.xlsx')
+    if documentData:
+        workbook = xlsxwriter.Workbook(datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.xlsx')
         worksheet = workbook.add_worksheet()
 
 
