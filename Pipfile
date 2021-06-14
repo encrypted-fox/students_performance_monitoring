@@ -16,6 +16,7 @@ gunicorn = "*"
 whitenoise = "*"
 django-filter = "*"
 xlsxwriter = "*"
+django_extensions = "*"
 
 [requires]
 python_version = "3.8.3"
