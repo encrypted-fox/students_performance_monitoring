@@ -6,7 +6,7 @@ from .serializers import *
 class StudentsViewSet(viewsets.ModelViewSet):
     queryset = Students.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = StudentsSerializer
     filter_fields = '__all__'
@@ -17,7 +17,7 @@ class StudentsViewSet(viewsets.ModelViewSet):
 class TeachersViewSet(viewsets.ModelViewSet):
     queryset = Teachers.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = TeachersSerializer
     filter_fields = '__all__'

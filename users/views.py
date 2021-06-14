@@ -16,7 +16,7 @@ HOST = 'http://127.0.0.1:8000/api/v0/auth/'
 def register(request):
     '''
     Registers user to the server. Input should be in the format:
-    {"username": "username", "password": "1234abcd"}
+    {"username": "username", "password": "1234abcd", "email": "email@mail.com", "first_name": "Oleg", "last_name": "Olegov"}
     '''
     # Put the data from the request into the serializer 
     serializer = CreateUserSerializer(data=request.data)

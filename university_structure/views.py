@@ -6,7 +6,7 @@ from .serializers import *
 class FacultiesViewSet(viewsets.ModelViewSet):
     queryset = Faculties.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = FacultiesSerializer
     filter_fields = '__all__'
@@ -17,7 +17,7 @@ class FacultiesViewSet(viewsets.ModelViewSet):
 class DepartmentsViewSet(viewsets.ModelViewSet):
     queryset = Departments.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = DepartmentsSerializer
     filter_fields = '__all__'
@@ -28,7 +28,7 @@ class DepartmentsViewSet(viewsets.ModelViewSet):
 class SpecializationsViewSet(viewsets.ModelViewSet):
     queryset = Specializations.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = SpecializationsSerializer
     filter_fields = '__all__'
@@ -39,7 +39,7 @@ class SpecializationsViewSet(viewsets.ModelViewSet):
 class EducationLevelsViewSet(viewsets.ModelViewSet):
     queryset = EducationLevels.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = EducationLevelsSerializer
     filter_fields = '__all__'
@@ -50,7 +50,7 @@ class EducationLevelsViewSet(viewsets.ModelViewSet):
 class EducationProgramsViewSet(viewsets.ModelViewSet):
     queryset = EducationPrograms.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = EducationProgramsSerializer
     filter_fields = '__all__'
@@ -61,7 +61,7 @@ class EducationProgramsViewSet(viewsets.ModelViewSet):
 class GroupsViewSet(viewsets.ModelViewSet):
     queryset = Groups.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = GroupsSerializer
     filter_fields = '__all__'

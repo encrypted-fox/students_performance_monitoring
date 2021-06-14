@@ -6,7 +6,7 @@ from .serializers import *
 class SubjectsViewSet(viewsets.ModelViewSet):
     queryset = Subjects.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = SubjectsSerializer
     filter_fields = '__all__'
@@ -17,7 +17,7 @@ class SubjectsViewSet(viewsets.ModelViewSet):
 class SubjectBlocksViewSet(viewsets.ModelViewSet):
     queryset = SubjectBlocks.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = SubjectBlocksSerializer
     filter_fields = '__all__'
@@ -28,7 +28,7 @@ class SubjectBlocksViewSet(viewsets.ModelViewSet):
 class SubjectsSubjectBlocksViewSet(viewsets.ModelViewSet):
     queryset = SubjectsSubjectBlocks.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = SubjectsSubjectBlocksSerializer
     filter_fields = '__all__'
@@ -39,7 +39,7 @@ class SubjectsSubjectBlocksViewSet(viewsets.ModelViewSet):
 class RecordsViewSet(viewsets.ModelViewSet):
     queryset = Records.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = RecordsSerializer
     filter_fields = '__all__'

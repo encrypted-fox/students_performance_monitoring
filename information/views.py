@@ -12,10 +12,10 @@ import logging
 logger = logging.getLogger()
 
 
-class StartYearsViewSet(viewsets.ModelViewSet):
+class StartYearsViewSet(viewsets.ModelViewSet): 
     queryset = StartYears.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = StartYearsSerializer
     filter_fields = '__all__'
@@ -26,7 +26,7 @@ class StartYearsViewSet(viewsets.ModelViewSet):
 class TermsViewSet(viewsets.ModelViewSet):
     queryset = Terms.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = TermsSerializer
     filter_fields = '__all__'
@@ -37,7 +37,7 @@ class TermsViewSet(viewsets.ModelViewSet):
 class MarksViewSet(viewsets.ModelViewSet):
     queryset = Marks.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = MarksSerializer
     filter_fields = '__all__'
@@ -48,7 +48,7 @@ class MarksViewSet(viewsets.ModelViewSet):
 class ControlTypesViewSet(viewsets.ModelViewSet):
     queryset = ControlTypes.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = ControlTypesSerializer
     filter_fields = '__all__'
@@ -57,7 +57,9 @@ class ControlTypesViewSet(viewsets.ModelViewSet):
 
 
 class ListStudentsWithMore5(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
@@ -136,7 +138,9 @@ class ListStudentsWithMore5(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsWithMore4(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
@@ -213,7 +217,9 @@ class ListStudentsWithMore4(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsWithMore4(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
@@ -290,7 +296,9 @@ class ListStudentsWithMore4(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsWithMore3(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
@@ -378,7 +386,9 @@ class ListStudentsWithMore3(viewsets.ViewSet):
 
 
 class ListStudentsWithMore2(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
@@ -475,7 +485,9 @@ class ListStudentsWithMore2(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsWithLess3(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
@@ -562,6 +574,9 @@ class ListStudentsWithLess3(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsWithLess2(viewsets.ViewSet):
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
@@ -657,7 +672,9 @@ class ListStudentsWithLess2(viewsets.ViewSet):
 
         return Response(serializer.data)
 class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students. In addition, there should be only good marks.
@@ -734,7 +751,9 @@ class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
@@ -817,7 +836,9 @@ class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsWithOne3(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
@@ -898,7 +919,9 @@ class ListStudentsWithOne3(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsWithOne2(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
@@ -987,7 +1010,9 @@ class ListStudentsWithOne2(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
@@ -1051,7 +1076,9 @@ class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
 
         return Response(serializer.data)
 class ListStudentsOnlyWith5(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all excellent students.
@@ -1076,7 +1103,9 @@ class ListStudentsOnlyWith5(viewsets.ViewSet):
         pass
 
 class ListStudentsOnlyWith4(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
@@ -1149,7 +1178,9 @@ class ListStudentsOnlyWith4(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsOnlyWith3(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
@@ -1222,7 +1253,9 @@ class ListStudentsOnlyWith3(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsOnlyWith2(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
@@ -1295,7 +1328,9 @@ class ListStudentsOnlyWith2(viewsets.ViewSet):
         return Response(serializer.data)
 
 class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
-    
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
@@ -1359,7 +1394,9 @@ class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
 
         return Response(serializer.data)
 class ListStudentsWith(viewsets.ViewSet):
-
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
