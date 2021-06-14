@@ -8,7 +8,7 @@ from .serializers import CreateUserSerializer
 
 CLIENT_ID = "o2zCJ7WtfcmIfxZhkBGloDqScUP1xIfJLjLXTme8"
 CLIENT_SECRET = "kPviatOpCKXC1Gw2k7PaKAem0kJXvXlxKgWAHjgx9KkEHFfjcYPhAqd6IntPkxSI4gQqzAG51OonqfQdtv6Seg10AwUSiP33NYkKYylEYNrAou5ZpZaHpXPjO0rdb6OC"
-HOST = 'http://127.0.0.1:8000/api/v0/auth/'
+HOST = 'http://students-motitor.herokuapp.com/api/v0/auth/'
 
 
 @api_view(['POST'])
