@@ -45,6 +45,7 @@ urlpatterns = [
     path('api/v0/admin/', admin.site.urls),
     path('api/v0/auth/', include("users.urls")),
     path('api/v0/', include("information.urls")),
+    path('api/v0/', include("documents.urls")),
     path('api/v0/', include("subjects.urls")),
     path('api/v0/', include("people.urls")),
     path('api/v0/', include("university_structure.urls")),

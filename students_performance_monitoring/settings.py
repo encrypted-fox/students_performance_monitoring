@@ -84,7 +84,8 @@ INSTALLED_APPS = [
     'people',
     'university_structure',
     'users',
-    'django_extensions'
+    'django_extensions',
+    'documents'
 ]
 
 MIDDLEWARE = [

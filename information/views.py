@@ -868,7 +868,8 @@ class ListStudentsWithOne3(viewsets.ViewSet):
         for student in students:
             student_records = records.filter(student_id=student.id)
 
-            counter
+            counter_2 = 0
+            counter_3 = 0
             counter_all = 0
 
             for record in student_records:
@@ -880,6 +881,7 @@ class ListStudentsWithOne3(viewsets.ViewSet):
                     counter_all += 1
 
                 if str(mark) == str(mark_id_3[0].id):
+                    counter_3 += 1
                     counter_all += 1
 
                 elif str(mark) == str(mark_id_pass[0].id):
