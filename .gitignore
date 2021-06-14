@@ -108,3 +108,5 @@ venv.bak/
 /node_modules/
 /.scripts/setSecretKeys.bat
 .vscode
+
+.DS_Store
