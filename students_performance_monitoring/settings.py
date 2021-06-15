@@ -125,16 +125,16 @@ WSGI_APPLICATION = 'students_performance_monitoring.wsgi.application'
 # Database (!!!!!!!!LOCALHOST_DEFAULTS)!!!!!!!!)
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('SP_POSTGRESQL_DATABASE_NAME'),
-        'USER': os.getenv('SP_POSTGRESQL_DATABASE_USER'),
-        'PASSWORD': os.getenv('SP_POSTGRESQL_DATABASE_PASSWORD'),
-        'HOST': os.getenv('SP_POSTGRESQL_DATABASE_HOST'),
-        'PORT': os.getenv('SP_POSTGRESQL_DATABASE_PORT'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.getenv('SP_POSTGRESQL_DATABASE_NAME'),
+#         'USER': os.getenv('SP_POSTGRESQL_DATABASE_USER'),
+#         'PASSWORD': os.getenv('SP_POSTGRESQL_DATABASE_PASSWORD'),
+#         'HOST': os.getenv('SP_POSTGRESQL_DATABASE_HOST'),
+#         'PORT': os.getenv('SP_POSTGRESQL_DATABASE_PORT'),
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -147,12 +147,12 @@ DATABASES = {
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 # Rest Framework
 # https://www.django-rest-framework.org/
