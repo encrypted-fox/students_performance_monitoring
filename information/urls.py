@@ -33,6 +33,5 @@ router.register('list_students_only_with_pass',         ListStudentsOnlyWithPass
 router.register('list_students_only_with_not_pass',     ListStudentsOnlyWithNotPass,        basename="students_only_with_not_pass")
 router.register('list_students_only_with_appointed',    ListStudentsOnlyWithNotAppointed,   basename="students_only_with_not_appointed")
 router.register('list_students_with',                   ListStudentsWith,                   basename="students_with")
-router.register('list_menu_categories/',                views.listMenuCategories,           basename="menu_categories")
 
 urlpatterns = router.urls
