@@ -17,6 +17,7 @@ whitenoise = "*"
 django-filter = "*"
 xlsxwriter = "*"
 django_extensions = "*"
+openpyxl = "*"
 
 [requires]
 python_version = "3.8.3"
