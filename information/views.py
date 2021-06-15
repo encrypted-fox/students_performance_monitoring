@@ -62,8 +62,6 @@ class ListStudentsWithMore5(viewsets.ViewSet):
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
         """
 
-        logger.error(request.query_params)
-
         marks = Marks.objects.all()
 
         mark_id_5 = marks.filter(name='5')
