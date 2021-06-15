@@ -2135,7 +2135,7 @@ class ListStudentsWith(viewsets.ViewSet):
 
         return Response(serializer.data)
 
-@api_view(['POST'])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def listMenuCategories(request):
     return Response([   'Студенты с большим количеством пятерок', 
