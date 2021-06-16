@@ -7,7 +7,7 @@ from .serializers import CreateUserSerializer
 
 CLIENT_ID = "o2zCJ7WtfcmIfxZhkBGloDqScUP1xIfJLjLXTme8"
 CLIENT_SECRET = "kPviatOpCKXC1Gw2k7PaKAem0kJXvXlxKgWAHjgx9KkEHFfjcYPhAqd6IntPkxSI4gQqzAG51OonqfQdtv6Seg10AwUSiP33NYkKYylEYNrAou5ZpZaHpXPjO0rdb6OC"
-HOST = 'https://students-motitor.herokuapp.com/api/v0/auth/'
+HOST = 'https://students-monitor.herokuapp.com/api/v0/auth/'
 
 
 @api_view(['POST'])
@@ -33,7 +33,7 @@ def register(request):
                               'client_secret': CLIENT_SECRET,
                           },
                           )
-        return Response(r)
+        return Response(r.json())
     return Response(serializer.errors, status=400)
 
 
