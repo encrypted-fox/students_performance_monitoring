@@ -33,7 +33,7 @@ def register(request):
                               'client_secret': CLIENT_SECRET,
                           },
                           )
-        return Response(r.json())
+        return Response(r)
     return Response(serializer.errors, status=400)
 
 
