@@ -97,8 +97,7 @@ class ListStudentsWithMore5(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -111,7 +110,8 @@ class ListStudentsWithMore5(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -176,8 +176,7 @@ class ListStudentsWithMore4(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -190,86 +189,8 @@ class ListStudentsWithMore4(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
-                mark = mark_dict['name'] 
-
-                if str(mark) == str(mark_id_5[0].id):
-                    counter_5 += 1
-                    counter_all += 1
-
-                elif str(mark) == str(mark_id_4[0].id):
-                    counter_4 += 1
-                    counter_all += 1
-
-                elif str(mark) == str(mark_id_pass[0].id):
-                    counter_all += 1
-
-            if counter_all == len(student_records) and counter_4 > counter_5:
-                students_to_return.append(student)
-        
-        serializer = StudentsSerializer(students_to_return, many=True)
-
-        return Response(serializer.data)
-
-class ListStudentsWithMore4(viewsets.ViewSet):
-    permission_classes = [
-        permissions.IsAuthenticated
-    ]
-    def list(self, request):
-        """
-        This view should return a list of all students with more 4s then 5s. In addition, there should be only good marks.
-        """
-
-        marks = Marks.objects.all()
-
-        mark_id_5 = marks.filter(name='5')
-        mark_id_4 = marks.filter(name='4')
-        mark_id_pass = marks.filter(name='Зачтено')
-
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        else:
-            records = Records.objects.all()
-       
-        students = Students.objects.all()
-        students_to_return = []
-        
-        for student in students:
-            student_records = records.filter(student_id=student.id)
-            
-            counter_5 = 0
-            counter_4 = 0
-            counter_all = 0
-
-            for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -336,8 +257,7 @@ class ListStudentsWithMore3(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -351,7 +271,8 @@ class ListStudentsWithMore3(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -428,8 +349,7 @@ class ListStudentsWithMore2(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -444,8 +364,9 @@ class ListStudentsWithMore2(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
-                mark = mark_dict['name'] 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name'] 
+                
 
                 if str(mark) == str(mark_id_5[0].id):
                     counter_5 += 1
@@ -529,8 +450,7 @@ class ListStudentsWithMorePass(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -543,7 +463,8 @@ class ListStudentsWithMorePass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -625,8 +546,7 @@ class ListStudentsWithMoreNotPass(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -639,7 +559,8 @@ class ListStudentsWithMoreNotPass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -720,8 +641,7 @@ class ListStudentsWithMoreNotAppointed(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -739,7 +659,8 @@ class ListStudentsWithMoreNotAppointed(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -823,8 +744,7 @@ class ListStudentsWithLess3(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -838,7 +758,8 @@ class ListStudentsWithLess3(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -914,8 +835,7 @@ class ListStudentsWithLess2(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -930,7 +850,8 @@ class ListStudentsWithLess2(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1008,8 +929,7 @@ class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1022,7 +942,8 @@ class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1088,8 +1009,7 @@ class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1103,7 +1023,8 @@ class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1173,8 +1094,7 @@ class ListStudentsWithOne3(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1187,7 +1107,8 @@ class ListStudentsWithOne3(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_2[0].id):
@@ -1258,8 +1179,7 @@ class ListStudentsWithOne2(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1274,7 +1194,8 @@ class ListStudentsWithOne2(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1349,8 +1270,7 @@ class ListStudentsWithOnePass(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1366,7 +1286,8 @@ class ListStudentsWithOnePass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1443,8 +1364,7 @@ class ListStudentsWithOneNotPass(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1461,7 +1381,8 @@ class ListStudentsWithOneNotPass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1538,8 +1459,7 @@ class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1550,7 +1470,8 @@ class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_not_appointed[0].id):
@@ -1618,8 +1539,7 @@ class ListStudentsOnlyWith4(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1630,7 +1550,8 @@ class ListStudentsOnlyWith4(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_4[0].id):
@@ -1693,8 +1614,7 @@ class ListStudentsOnlyWith3(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1705,7 +1625,8 @@ class ListStudentsOnlyWith3(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_3[0].id):
@@ -1768,8 +1689,7 @@ class ListStudentsOnlyWith2(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1780,7 +1700,8 @@ class ListStudentsOnlyWith2(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_2[0].id):
@@ -1816,7 +1737,8 @@ class ListStudentsOnlyWithPass(viewsets.ViewSet):
         mark_id_2 = marks.filter(name='2')
         mark_id_pass = marks.filter(name='Зачтено')
         mark_id_not_pass = marks.filter(name='Незачтено')
-        mark_id_not_appointed = marks.filter(name='Незачтено')
+        mark_id_not_appointed = marks.filter(name='Неявка')
+
 
         records = Records.objects.all()
 
@@ -1847,8 +1769,7 @@ class ListStudentsOnlyWithPass(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1866,7 +1787,8 @@ class ListStudentsOnlyWithPass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1922,7 +1844,7 @@ class ListStudentsOnlyWithNotPass(viewsets.ViewSet):
         mark_id_2 = marks.filter(name='2')
         mark_id_pass = marks.filter(name='Зачтено')
         mark_id_not_pass = marks.filter(name='Незачтено')
-        mark_id_not_appointed = marks.filter(name='Незачтено')
+        mark_id_not_appointed = marks.filter(name='Неявка')
 
         records = Records.objects.all()
 
@@ -1953,8 +1875,7 @@ class ListStudentsOnlyWithNotPass(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -1972,7 +1893,8 @@ class ListStudentsOnlyWithNotPass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -2052,8 +1974,7 @@ class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
@@ -2064,7 +1985,8 @@ class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
+                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark= mark_dict['name']  
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_not_appointed[0].id):
@@ -2117,8 +2039,7 @@ class ListStudentsWith(viewsets.ViewSet):
         if 'retake_count' in request.query_params:
             records = records.filter(retake_count=request.query_params.get('retake_count'))
         
-        else:
-            records = Records.objects.all()
+        
        
         students = Students.objects.all()
         students_to_return = []
