@@ -42,7 +42,7 @@ def register(request):
                           )
         print(r)
         return Response(r.json())
-    return Response(serializer.errors)
+    return Response(serializer.errors, status=400)
 
 
 @api_view(['POST'])
