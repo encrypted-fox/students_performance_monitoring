@@ -7,7 +7,7 @@ from .serializers import CreateUserSerializer
 
 CLIENT_ID = "o2zCJ7WtfcmIfxZhkBGloDqScUP1xIfJLjLXTme8"
 CLIENT_SECRET = "kPviatOpCKXC1Gw2k7PaKAem0kJXvXlxKgWAHjgx9KkEHFfjcYPhAqd6IntPkxSI4gQqzAG51OonqfQdtv6Seg10AwUSiP33NYkKYylEYNrAou5ZpZaHpXPjO0rdb6OC"
-HOST = 'http://students-motitor.herokuapp.com/api/v0/auth/'
+HOST = 'https://students-motitor.herokuapp.com/api/v0/auth/'
 
 
 @api_view(['POST'])
@@ -24,13 +24,6 @@ def register(request):
         serializer.save()
         # Then we get a token for the created user.
         # This could be done differentley 
-        print({
-                              'grant_type': 'password',
-                              'username': request.data.get('username', None),
-                              'password': request.data.get('password', None),
-                              'client_id': CLIENT_ID,
-                              'client_secret': CLIENT_SECRET,
-                          })
         r = requests.post(HOST + 'o/token/',
                           data={
                               'grant_type': 'password',
@@ -40,7 +33,6 @@ def register(request):
                               'client_secret': CLIENT_SECRET,
                           },
                           )
-        print(r)
         return Response(r.json())
     return Response(serializer.errors, status=400)
 
