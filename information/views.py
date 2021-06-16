@@ -110,8 +110,7 @@ class ListStudentsWithMore5(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -189,8 +188,7 @@ class ListStudentsWithMore4(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -271,8 +269,7 @@ class ListStudentsWithMore3(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -364,9 +361,9 @@ class ListStudentsWithMore2(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
+                mark_dict = model_to_dict(record.mark_id) 
                 mark= mark_dict['name'] 
-                
+                return Response(mark)
 
                 if str(mark) == str(mark_id_5[0].id):
                     counter_5 += 1
@@ -463,8 +460,7 @@ class ListStudentsWithMorePass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -559,8 +555,7 @@ class ListStudentsWithMoreNotPass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -659,8 +654,7 @@ class ListStudentsWithMoreNotAppointed(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -758,8 +752,7 @@ class ListStudentsWithLess3(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -850,8 +843,7 @@ class ListStudentsWithLess2(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -942,8 +934,7 @@ class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1023,8 +1014,7 @@ class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1107,8 +1097,7 @@ class ListStudentsWithOne3(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_2[0].id):
@@ -1194,8 +1183,7 @@ class ListStudentsWithOne2(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1286,8 +1274,7 @@ class ListStudentsWithOnePass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1381,8 +1368,7 @@ class ListStudentsWithOneNotPass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1470,8 +1456,7 @@ class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_not_appointed[0].id):
@@ -1550,8 +1535,7 @@ class ListStudentsOnlyWith4(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_4[0].id):
@@ -1625,8 +1609,7 @@ class ListStudentsOnlyWith3(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_3[0].id):
@@ -1700,8 +1683,7 @@ class ListStudentsOnlyWith2(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_2[0].id):
@@ -1787,8 +1769,7 @@ class ListStudentsOnlyWithPass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1893,8 +1874,7 @@ class ListStudentsOnlyWithNotPass(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_5[0].id):
@@ -1985,8 +1965,7 @@ class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
             counter_all = 0
 
             for record in student_records:
-                mark_dict = model_to_dict(marks.filter(id=record.mark_id)) 
-                mark= mark_dict['name']  
+                mark_dict = model_to_dict(record.mark_id) 
                 mark = mark_dict['name'] 
 
                 if str(mark) == str(mark_id_not_appointed[0].id):
