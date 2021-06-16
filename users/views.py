@@ -5,8 +5,8 @@ from rest_framework.response import Response
 
 from .serializers import CreateUserSerializer
 
-CLIENT_ID = "o2zCJ7WtfcmIfxZhkBGloDqScUP1xIfJLjLXTme8"
-CLIENT_SECRET = "kPviatOpCKXC1Gw2k7PaKAem0kJXvXlxKgWAHjgx9KkEHFfjcYPhAqd6IntPkxSI4gQqzAG51OonqfQdtv6Seg10AwUSiP33NYkKYylEYNrAou5ZpZaHpXPjO0rdb6OC"
+CLIENT_ID = "FFkBdq6jhLkR8E9fZ2yXT1TWqchqfs0KHvA4QpmZ"
+CLIENT_SECRET = "jVUu2AllmRbYdvSGbPCDKzwfVWzViEUpwcilEuy0eI3wteFM2ol8XLwNA3CQb9E0wW9S1aJ14TKeS5X3xaezRnaIazkOD13gZT0iaBdu9ZBWQ5NRLzNMmHp5fpqN6nr7"
 HOST = 'https://students-monitor.herokuapp.com/api/v0/auth/'
 
 
