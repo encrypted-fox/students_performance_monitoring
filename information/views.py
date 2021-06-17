@@ -7,6 +7,7 @@ from people.models import Students
 from subjects.models import Records
 from people.serializers import StudentsSerializer
 from rest_framework.permissions import IsAuthenticated
+from university_structure.models import Groups
 
 
 class StartYearsViewSet(viewsets.ModelViewSet): 
@@ -127,9 +128,24 @@ class ListStudentsWithMore5(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_4 < counter_5:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsWithMore4(viewsets.ViewSet):
     permission_classes = [
@@ -205,9 +221,24 @@ class ListStudentsWithMore4(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_4 > counter_5:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsWithMore3(viewsets.ViewSet):
     permission_classes = [
@@ -293,9 +324,24 @@ class ListStudentsWithMore3(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_3 > counter_4 + counter_5:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 
 class ListStudentsWithMore2(viewsets.ViewSet):
@@ -392,9 +438,24 @@ class ListStudentsWithMore2(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_2 > counter_3 + counter_4 + counter_5:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 
 
@@ -488,9 +549,24 @@ class ListStudentsWithMorePass(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_pass > counter_not_pass:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 
 class ListStudentsWithMoreNotPass(viewsets.ViewSet):
@@ -583,9 +659,24 @@ class ListStudentsWithMoreNotPass(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_pass < counter_not_pass:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsWithMoreNotAppointed(viewsets.ViewSet):
     permission_classes = [
@@ -687,9 +778,24 @@ class ListStudentsWithMoreNotAppointed(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_not_appointed > counter_5 + counter_4 + counter_3 + counter_2 + counter_pass + counter_not_pass:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsWithLess3(viewsets.ViewSet):
     permission_classes = [
@@ -775,9 +881,24 @@ class ListStudentsWithLess3(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_3 < counter_4 + counter_5 and counter_3 > 0:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsWithLess2(viewsets.ViewSet):
     permission_classes = [
@@ -873,9 +994,24 @@ class ListStudentsWithLess2(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_2 < counter_3 + counter_4 + counter_5 and counter_2 > 0:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
     permission_classes = [
         permissions.IsAuthenticated
@@ -950,9 +1086,24 @@ class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
             if counter_all == len(student_records):
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
     permission_classes = [
@@ -1034,9 +1185,24 @@ class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
             if counter_all == len(student_records):
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 
 class ListStudentsWithOne5(viewsets.ViewSet):
@@ -1106,9 +1272,24 @@ class ListStudentsWithOne5(viewsets.ViewSet):
             if counter_5 == 1:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsWithOne4(viewsets.ViewSet):
     permission_classes = [
@@ -1191,9 +1372,24 @@ class ListStudentsWithOne4(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_2 == 0 and counter_3 == 0 and counter_4 == 1:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsWithOne3(viewsets.ViewSet):
     permission_classes = [
@@ -1273,9 +1469,24 @@ class ListStudentsWithOne3(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_2 == 0 and counter_3 == 1:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 
 class ListStudentsWithOne2(viewsets.ViewSet):
@@ -1364,9 +1575,24 @@ class ListStudentsWithOne2(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_2 == 1:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsWithOnePass(viewsets.ViewSet):
     permission_classes = [
@@ -1459,9 +1685,24 @@ class ListStudentsWithOnePass(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_pass == 1:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsWithOneNotPass(viewsets.ViewSet):
     permission_classes = [
@@ -1561,9 +1802,24 @@ class ListStudentsWithOneNotPass(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_not_pass == 1:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
     permission_classes = [
@@ -1627,9 +1883,24 @@ class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
             if counter_all == 1:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 class ListStudentsOnlyWith5(viewsets.ViewSet):
     permission_classes = [
         permissions.IsAuthenticated
@@ -1712,9 +1983,24 @@ class ListStudentsOnlyWith4(viewsets.ViewSet):
             if counter_all == len(student_records):
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsOnlyWith3(viewsets.ViewSet):
     permission_classes = [
@@ -1786,9 +2072,24 @@ class ListStudentsOnlyWith3(viewsets.ViewSet):
             if counter_all == len(student_records):
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsOnlyWith2(viewsets.ViewSet):
     permission_classes = [
@@ -1860,9 +2161,24 @@ class ListStudentsOnlyWith2(viewsets.ViewSet):
             if counter_all == len(student_records):
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsOnlyWithPass(viewsets.ViewSet):
     permission_classes = [
@@ -1965,9 +2281,24 @@ class ListStudentsOnlyWithPass(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_not_appointed == 0 and counter_not_pass == 0:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 
 class ListStudentsOnlyWithNotPass(viewsets.ViewSet):
@@ -2070,9 +2401,24 @@ class ListStudentsOnlyWithNotPass(viewsets.ViewSet):
             if counter_all == len(student_records) and counter_not_appointed == 0 and counter_pass == 0:
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
     permission_classes = [
@@ -2136,9 +2482,24 @@ class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
             if counter_all == len(student_records):
                 students_to_return.append(student)
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 class ListStudentsWith(viewsets.ViewSet):
     permission_classes = [
         permissions.IsAuthenticated
@@ -2190,10 +2551,26 @@ class ListStudentsWith(viewsets.ViewSet):
 
             if len(student_records) > 0:
                 students_to_return.append(student)
+            
         
-        serializer = StudentsSerializer(students_to_return, many=True)
+        groups = Groups.objects.all()
+        students_to_send = []
+        for elem in students_to_return:
+            dict_elem_before = model_to_dict(elem)
+            dict_elem = {}
+            dict_elem['id'] = dict_elem_before['id']
+            dict_elem['number'] = dict_elem_before['number']
+            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+            dict_elem['first_name'] = dict_elem_before['first_name']
+            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+            dict_elem['last_name'] = dict_elem_before['last_name']
+            dict_elem['email'] = dict_elem_before['email']
+            dict_elem['average_rating'] = dict_elem_before['average_rating']
+            dict_elem['update_date'] = dict_elem_before['update_date']
+            students_to_send.append(dict_elem)
+            
 
-        return Response(serializer.data)
+        return Response(students_to_send)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
