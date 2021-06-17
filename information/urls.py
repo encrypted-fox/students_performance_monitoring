@@ -20,6 +20,8 @@ router.register('list_students_only_with_more_then_2',      ListStudentsOnlyWith
 router.register('list_students_only_with_more_then_3',      ListStudentsOnlyWithMoreThen3,      basename="students_only_with_more_then_3")
 router.register('list_students_with_less_3',                ListStudentsWithLess3,              basename="students_with_less_3")
 router.register('list_students_with_less_2',                ListStudentsWithLess2,              basename="students_with_less_2")
+router.register('list_students_with_one_5',                 ListStudentsWithOne5,               basename="students_with_one_5")
+router.register('list_students_with_one_4',                 ListStudentsWithOne4,               basename="students_with_one_4")
 router.register('list_students_with_one_3',                 ListStudentsWithOne3,               basename="students_with_one_3")
 router.register('list_students_with_one_2',                 ListStudentsWithOne2,               basename="students_with_one_2")
 router.register('list_students_with_one_pass',              ListStudentsWithOnePass,            basename="students_with_one_pass")

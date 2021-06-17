@@ -58,6 +58,8 @@ class DocsView(APIView):
                     "list_students_only_with_more_then_3": request.build_absolute_uri("list_students_only_with_more_then_3"),      
                     "list_students_with_less_3": request.build_absolute_uri("list_students_with_less_3"),                
                     "list_students_with_less_2": request.build_absolute_uri("list_students_with_less_2"),                
+                    "list_students_with_one_5": request.build_absolute_uri("list_students_with_one_5"),                 
+                    "list_students_with_one_4": request.build_absolute_uri("list_students_with_one_4"),                 
                     "list_students_with_one_3": request.build_absolute_uri("list_students_with_one_3"),                 
                     "list_students_with_one_2": request.build_absolute_uri("list_students_with_one_2"),                 
                     "list_students_with_one_pass": request.build_absolute_uri("list_students_with_one_pass"),              
