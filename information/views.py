@@ -10,6 +10,56 @@ from rest_framework.permissions import IsAuthenticated
 from university_structure.models import Groups
 
 
+def normalize_students(students_to_return):
+    groups = Groups.objects.all()
+    students_to_send = []
+    for elem in students_to_return:
+        dict_elem_before = model_to_dict(elem)
+        dict_elem = {}
+        dict_elem['id'] = dict_elem_before['id']
+        dict_elem['number'] = dict_elem_before['number']
+        dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+        dict_elem['first_name'] = dict_elem_before['first_name']
+        dict_elem['fathers_name'] = dict_elem_before['fathers_name']
+        dict_elem['last_name'] = dict_elem_before['last_name']
+        dict_elem['email'] = dict_elem_before['email']
+        dict_elem['average_rating'] = dict_elem_before['average_rating']
+        dict_elem['update_date'] = dict_elem_before['update_date']
+        students_to_send.append(dict_elem)
+    return students_to_send
+
+def filter_against_records(request):
+    records = Records.objects.all()
+
+    if 'is_final' in request.query_params:
+        records = records.filter(is_final=request.query_params.get('is_final'))
+    
+    if 'teacher_id' in request.query_params:
+        records = records.filter(teacher_id=request.query_params.get('teacher_id'))
+    
+    if 'group_id' in request.query_params:
+        records = records.filter(group_id=request.query_params.get('group_id'))
+    
+    if 'subject_id' in request.query_params:
+        records = records.filter(subject_id=request.query_params.get('subject_id'))
+    
+    if 'subject_block_id' in request.query_params:
+        records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
+
+    if 'control_type_id' in request.query_params:
+        records = records.filter(control_type_id=request.query_params.get('control_type_id'))
+
+    if 'term_id' in request.query_params:
+        records = records.filter(term_id=request.query_params.get('term_id'))
+
+    if 'mark_id' in request.query_params:
+        records = records.filter(mark_id=request.query_params.get('mark_id'))
+
+    if 'retake_count' in request.query_params:
+        records = records.filter(retake_count=request.query_params.get('retake_count'))
+
+    return records
+
 class StartYearsViewSet(viewsets.ModelViewSet): 
     queryset = StartYears.objects.all()
     permission_classes = [
@@ -69,37 +119,8 @@ class ListStudentsWithMore5(viewsets.ViewSet):
         mark_id_4 = marks.filter(name='4')
         mark_id_pass = marks.filter(name='Зачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -129,21 +150,7 @@ class ListStudentsWithMore5(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -162,37 +169,8 @@ class ListStudentsWithMore4(viewsets.ViewSet):
         mark_id_4 = marks.filter(name='4')
         mark_id_pass = marks.filter(name='Зачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -222,21 +200,7 @@ class ListStudentsWithMore4(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -257,37 +221,8 @@ class ListStudentsWithMore3(viewsets.ViewSet):
         mark_id_pass = marks.filter(name='Зачтено')
         mark_id_not_pass = marks.filter(name='Незачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -325,21 +260,7 @@ class ListStudentsWithMore3(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -363,37 +284,8 @@ class ListStudentsWithMore2(viewsets.ViewSet):
         mark_id_not_pass = marks.filter(name='Незачтено')
         mark_id_not_appointed = marks.filter(name='Неявка')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -439,21 +331,7 @@ class ListStudentsWithMore2(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -478,37 +356,8 @@ class ListStudentsWithMorePass(viewsets.ViewSet):
         mark_id_not_pass = marks.filter(name='Незачтено')
         mark_id_not_appointed = marks.filter(name='Неявка')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -550,21 +399,7 @@ class ListStudentsWithMorePass(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -588,37 +423,8 @@ class ListStudentsWithMoreNotPass(viewsets.ViewSet):
         mark_id_not_pass = marks.filter(name='Незачтено')
         mark_id_not_appointed = marks.filter(name='Неявка')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -660,21 +466,7 @@ class ListStudentsWithMoreNotPass(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -697,37 +489,8 @@ class ListStudentsWithMoreNotAppointed(viewsets.ViewSet):
         mark_id_not_pass = marks.filter(name='Незачтено')
         mark_id_not_appointed = marks.filter(name='Неявка')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -779,21 +542,7 @@ class ListStudentsWithMoreNotAppointed(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -814,37 +563,8 @@ class ListStudentsWithLess3(viewsets.ViewSet):
         mark_id_pass = marks.filter(name='Зачтено')
         mark_id_not_pass = marks.filter(name='Незачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -882,21 +602,7 @@ class ListStudentsWithLess3(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -919,37 +625,8 @@ class ListStudentsWithLess2(viewsets.ViewSet):
         mark_id_not_pass = marks.filter(name='Незачтено')
         mark_id_not_appointed = marks.filter(name='Неявка')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -995,21 +672,7 @@ class ListStudentsWithLess2(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
@@ -1027,37 +690,8 @@ class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
         mark_id_4 = marks.filter(name='4')
         mark_id_pass = marks.filter(name='Зачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -1087,21 +721,7 @@ class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -1121,37 +741,8 @@ class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
         mark_id_3 = marks.filter(name='3')
         mark_id_pass = marks.filter(name='Зачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -1186,21 +777,7 @@ class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -1223,37 +800,8 @@ class ListStudentsWithOne5(viewsets.ViewSet):
         mark_id_pass = marks.filter(name='Зачтено')
         mark_id_not_pass = marks.filter(name='Незачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -1273,21 +821,7 @@ class ListStudentsWithOne5(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -1308,37 +842,8 @@ class ListStudentsWithOne4(viewsets.ViewSet):
         mark_id_pass = marks.filter(name='Зачтено')
         mark_id_not_pass = marks.filter(name='Незачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -1373,21 +878,7 @@ class ListStudentsWithOne4(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -1407,37 +898,8 @@ class ListStudentsWithOne3(viewsets.ViewSet):
         mark_id_pass = marks.filter(name='Зачтено')
         mark_id_not_pass = marks.filter(name='Незачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -1470,21 +932,7 @@ class ListStudentsWithOne3(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -1506,37 +954,8 @@ class ListStudentsWithOne2(viewsets.ViewSet):
         mark_id_2 = marks.filter(name='2')
         mark_id_pass = marks.filter(name='Зачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -1576,21 +995,7 @@ class ListStudentsWithOne2(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -1611,37 +1016,8 @@ class ListStudentsWithOnePass(viewsets.ViewSet):
         mark_id_2 = marks.filter(name='2')
         mark_id_pass = marks.filter(name='Зачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -1686,21 +1062,7 @@ class ListStudentsWithOnePass(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -1722,36 +1084,7 @@ class ListStudentsWithOneNotPass(viewsets.ViewSet):
         mark_id_pass = marks.filter(name='Зачтено')
         mark_id_not_pass = marks.filter(name='Незачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
+        records = filter_against_records(request)      
        
         students = Students.objects.all()
         students_to_return = []
@@ -1803,21 +1136,7 @@ class ListStudentsWithOneNotPass(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -1834,36 +1153,7 @@ class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
 
         mark_id_not_appointed = marks.filter(name='Неявка')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
+        records = filter_against_records(request)
        
         students = Students.objects.all()
         students_to_return = []
@@ -1884,21 +1174,7 @@ class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 class ListStudentsOnlyWith5(viewsets.ViewSet):
@@ -1928,36 +1204,7 @@ class ListStudentsOnlyWith4(viewsets.ViewSet):
         mark_id_pass = marks.filter(name='Зачтено')
         mark_id_not_pass = marks.filter(name='Незачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
+        records = filter_against_records(request)
        
         students = Students.objects.all()
         students_to_return = []
@@ -1984,21 +1231,7 @@ class ListStudentsOnlyWith4(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -2017,37 +1250,8 @@ class ListStudentsOnlyWith3(viewsets.ViewSet):
         mark_id_pass = marks.filter(name='Зачтено')
         mark_id_not_pass = marks.filter(name='Незачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
+        records = filter_against_records(request)
         
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
         students = Students.objects.all()
         students_to_return = []
         
@@ -2073,21 +1277,7 @@ class ListStudentsOnlyWith3(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -2106,37 +1296,8 @@ class ListStudentsOnlyWith2(viewsets.ViewSet):
         mark_id_pass = marks.filter(name='Зачтено')
         mark_id_not_pass = marks.filter(name='Незачтено')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -2162,21 +1323,7 @@ class ListStudentsOnlyWith2(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -2200,37 +1347,8 @@ class ListStudentsOnlyWithPass(viewsets.ViewSet):
         mark_id_not_appointed = marks.filter(name='Неявка')
 
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -2282,21 +1400,7 @@ class ListStudentsOnlyWithPass(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -2320,37 +1424,8 @@ class ListStudentsOnlyWithNotPass(viewsets.ViewSet):
         mark_id_not_pass = marks.filter(name='Незачтено')
         mark_id_not_appointed = marks.filter(name='Неявка')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -2402,21 +1477,7 @@ class ListStudentsOnlyWithNotPass(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 
@@ -2433,37 +1494,8 @@ class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
 
         mark_id_not_appointed = marks.filter(name='Неявка')
 
-        records = Records.objects.all()
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
-        
-       
+        records = filter_against_records(request)
+  
         students = Students.objects.all()
         students_to_return = []
         
@@ -2483,21 +1515,7 @@ class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
 class ListStudentsWith(viewsets.ViewSet):
@@ -2509,38 +1527,10 @@ class ListStudentsWith(viewsets.ViewSet):
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
         """
 
-        records = Records.objects.all()
-
+        records = filter_against_records(request)
+        
         if 'student_id' in request.query_params:
             records = records.filter(student_id=request.query_params.get('student_id'))
-
-        if 'is_final' in request.query_params:
-            records = records.filter(is_final=request.query_params.get('is_final'))
-        
-        if 'teacher_id' in request.query_params:
-            records = records.filter(teacher_id=request.query_params.get('teacher_id'))
-        
-        if 'group_id' in request.query_params:
-            records = records.filter(group_id=request.query_params.get('group_id'))
-        
-        if 'subject_id' in request.query_params:
-            records = records.filter(subject_id=request.query_params.get('subject_id'))
-        
-        if 'subject_block_id' in request.query_params:
-            records = records.filter(subject_block_id=request.query_params.get('subject_block_id'))
-
-        if 'control_type_id' in request.query_params:
-            records = records.filter(control_type_id=request.query_params.get('control_type_id'))
-
-        if 'term_id' in request.query_params:
-            records = records.filter(term_id=request.query_params.get('term_id'))
-
-        if 'mark_id' in request.query_params:
-            records = records.filter(mark_id=request.query_params.get('mark_id'))
-
-        if 'retake_count' in request.query_params:
-            records = records.filter(retake_count=request.query_params.get('retake_count'))
-        
         
        
         students = Students.objects.all()
@@ -2553,24 +1543,13 @@ class ListStudentsWith(viewsets.ViewSet):
                 students_to_return.append(student)
             
         
-        groups = Groups.objects.all()
-        students_to_send = []
-        for elem in students_to_return:
-            dict_elem_before = model_to_dict(elem)
-            dict_elem = {}
-            dict_elem['id'] = dict_elem_before['id']
-            dict_elem['number'] = dict_elem_before['number']
-            dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
-            dict_elem['first_name'] = dict_elem_before['first_name']
-            dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-            dict_elem['last_name'] = dict_elem_before['last_name']
-            dict_elem['email'] = dict_elem_before['email']
-            dict_elem['average_rating'] = dict_elem_before['average_rating']
-            dict_elem['update_date'] = dict_elem_before['update_date']
-            students_to_send.append(dict_elem)
-            
+        students_to_send = normalize_students(students_to_return)
 
         return Response(students_to_send)
+
+
+
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
