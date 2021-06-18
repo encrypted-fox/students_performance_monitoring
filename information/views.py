@@ -1559,7 +1559,7 @@ def listMenuCategories(request):
                         {"id": 3, "activity": "list_students_with_more_3", "name": "Студенты с большим количеством троек"}, 
                         {"id": 4, "activity": "list_students_with_more_2", "name": "Студенты с большим количеством двоек"}, 
                         {"id": 5, "activity": "list_students_with_more_pass", "name": "Студенты с большим количеством оценок зачтено"},
-                        {"id": 6, "activity": "list_students_with_more_not_pass", "name": "Студенты с большим количеством оценок зачтено"},
+                        {"id": 6, "activity": "list_students_with_more_not_pass", "name": "Студенты с большим количеством оценок незачтено"},
                         {"id": 7, "activity": "list_students_with_more_not_appointed", "name": "Студенты с большим количеством неявок"},
                         {"id": 8, "activity": "list_students_only_with_more_then_3", "name": "Студенты со всеми оценками больше тройки"}, 
                         {"id": 9, "activity": "list_students_only_with_more_then_2", "name": "Студенты со всеми оценками больше двойки"}, 
