@@ -41,7 +41,7 @@ def getCSV(request):
     groups = Groups.objects.all()
 
     if documentData:
-        file_name = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.xlsx'
+        file_name = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.csv'
         file_path = "documents/uploads/" + file_name
         # workbook = xlsxwriter.Workbook(file_path)
         with open(file_path, 'w', newline='') as file:
