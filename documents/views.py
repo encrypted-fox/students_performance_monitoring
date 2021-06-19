@@ -71,3 +71,97 @@ def getCSV(request):
         return Response(400)
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getXLSX(request):
+    '''
+    Gets xlsx document from data given. Expected input should be in format:
+    {"documentData": [<number>]}, where numbers are student identificators.
+    '''
+
+    documentData = json.loads(request.query_params.get("document_data")) 
+    students = Students.objects.all()
+    groups = Groups.objects.all()
+
+    if documentData:
+        file_name = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.xlsx'
+        file_path = "documents/uploads/" + file_name
+        # workbook = xlsxwriter.Workbook(file_path)
+        workbook = xlsxwriter.Workbook(file_path)
+        worksheet = workbook.add_worksheet()
+
+
+        worksheet.set_column('A:A', 20)
+        worksheet.set_column('B:B', 15)
+        worksheet.set_column('C:E', 15)
+        worksheet.set_column('F:F', 25)
+        worksheet.set_column('G:G', 15)
+
+
+
+        # Add a bold format to use to highlight cells.
+        bold = workbook.add_format({'bold': True})
+
+        col = 0
+        row = 0
+
+        worksheet.write(row, col, "Номер", bold)
+        col += 1
+        worksheet.write(row, col, "Номер группы", bold)
+        col += 1
+        worksheet.write(row, col, "Фамилия", bold)
+        col += 1
+        worksheet.write(row, col, "Имя", bold)
+        col += 1
+        worksheet.write(row, col, "Отчество", bold)
+        col += 1
+        worksheet.write(row, col, "Email", bold)
+        col += 1
+        worksheet.write(row, col, "Средний рейтинг", bold)
+
+        col = 0
+        row += 1
+
+        for element in documentData:
+            current_student = students.filter(
+                id=element)[0]
+            current_student_group = groups.filter(id=model_to_dict(current_student).get("group_id"))[0]
+            logger.log(1, current_student_group)
+
+            worksheet.write(row, col, current_student.number)
+            col += 1
+            worksheet.write(row, col, current_student_group.number)
+            col += 1
+            worksheet.write(row, col, current_student.last_name)
+            col += 1
+            worksheet.write(row, col, current_student.first_name)
+            col += 1
+            worksheet.write(row, col, current_student.fathers_name)
+            col += 1
+            worksheet.write(row, col, current_student.email)
+            col += 1
+            worksheet.write(
+                row, col, current_student.average_rating)
+
+            col = 0
+            row += 1
+
+        workbook.close()
+        
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        filename = file_name
+        filepath = BASE_DIR + '/documents/uploads/' + filename
+        path = open(filepath, 'rb')
+        from django.utils.encoding import smart_str
+        mimetype, _ = mimetypes.guess_type(smart_str(file_path))
+        response = HttpResponse(path, content_type=mimetype) # mimetype is replaced by content_type for django 1.7
+        response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(file_name)
+        response['X-Sendfile'] = smart_str(file_path)
+ 
+        # response = FileResponse(path)
+    
+        return response
+    else: 
+        return Response(400)
+
+
