@@ -57,7 +57,7 @@ def token(request):
     )
     if 'error' not in r.json():
         return Response(r.json())
-    return Response(status=400)
+    return Response('Неверный логин или пароль', status=400)
 
 
 @api_view(['POST'])
