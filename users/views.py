@@ -55,7 +55,7 @@ def token(request):
             'client_secret': CLIENT_SECRET,
         },
     )
-    return Response(json.loads(r.json()))
+    return Response(r.json())
 
 
 @api_view(['POST'])
