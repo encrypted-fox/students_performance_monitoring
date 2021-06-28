@@ -55,7 +55,7 @@ def token(request):
         },
     )
     if "error" not in r:
-        return Response(r.json())
+        return Response(r['error'])
     return Response(status=400)
 
 
