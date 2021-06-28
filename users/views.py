@@ -54,7 +54,9 @@ def token(request):
             'client_secret': CLIENT_SECRET,
         },
     )
-    return Response(r.json())
+    if "errors" not in r:
+        return Response(r.json())
+    return Response(status=400)
 
 
 @api_view(['POST'])
