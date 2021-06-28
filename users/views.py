@@ -1,7 +1,8 @@
+from users.models import CustomUser
 import requests
 import json
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from .serializers import CreateUserSerializer
@@ -99,3 +100,19 @@ def revoke_token(request):
         return Response({'message': 'token revoked'}, r.status_code)
     # Return the error if it goes badly
     return Response(r.json(), r.status_code)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_settings(request):
+    '''
+    Method to revoke tokens.
+    {"token": "<token>"}
+    '''
+    if 'settings' in request.data and 'id' in request.data:
+        try:
+            CustomUser.objects.filter(id=id).update(settings=request.data.settings)
+        except: 
+            return Response('Произошла неизвестная ошибка')
+        return Response(204)
+    return Response(400)
