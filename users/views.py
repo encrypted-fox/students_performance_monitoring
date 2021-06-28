@@ -56,7 +56,7 @@ def token(request):
         },
     )
     
-    return Response(json.load(r))
+    return Response(json.loads(r))
     return Response(status=400)
 
 
