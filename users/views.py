@@ -54,7 +54,7 @@ def token(request):
             'client_secret': CLIENT_SECRET,
         },
     )
-    if "errors" not in r:
+    if "error" not in r:
         return Response(r.json())
     return Response(status=400)
 
