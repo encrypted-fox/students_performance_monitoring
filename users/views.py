@@ -54,8 +54,8 @@ def token(request):
             'client_secret': CLIENT_SECRET,
         },
     )
-    if "error" not in dict(r):
-        return Response(dict(r)['error'])
+    
+    return Response(r)
     return Response(status=400)
 
 
