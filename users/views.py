@@ -112,7 +112,7 @@ def update_settings(request):
     {"token": "<token>"}
     '''
     try:
-        CustomUser.objects.filter(username=request.data.get('username'))[0].update(settings=request.data.get('settings'))
+        CustomUser.objects.filter(username=request.data.get('username')).update(settings=request.data.get('settings'))
     except: 
         return Response(request.data)
     return Response(status=204)
