@@ -129,5 +129,5 @@ def get_user_settings(request):
         settings = CustomUser.objects.filter(username=request.data.get('username'))[0].settings
         return Response(settings)
     except: 
-        return Response('Произошла неизвестная ошибка')
+        return Response(CustomUser.objects.filter(username=request.data.get('username'))[0].settings)
     
