@@ -57,7 +57,7 @@ def token(request):
         },
     )
     if 'error' not in r.json():
-        sett = getattr(CustomUser.objects.filter(username=request.data.get('username')), 'settings')
+        sett = CustomUser.objects.filter(username=request.data.get('username'))[0].settings
         resp = {'username': request.data.get('username'), 'settings': sett, **r.json()}
         return Response(resp)
     return Response('Неверный логин или пароль', status=400)
