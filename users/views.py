@@ -111,10 +111,8 @@ def update_settings(request):
     Method to revoke tokens.
     {"token": "<token>"}
     '''
-    if 'settings' in request.data and 'username' in request.data:
-        try:
-            CustomUser.objects.filter(username=request.data.username).update(settings=request.data.settings)
-        except: 
-            return Response('Произошла неизвестная ошибка')
-        return Response(status=204)
-    return Response(status=400)
+    try:
+        CustomUser.objects.filter(username=request.data.get('username')).update(settings=request.data.get('settings'))
+    except: 
+        return Response('Произошла неизвестная ошибка')
+    return Response(status=204)
