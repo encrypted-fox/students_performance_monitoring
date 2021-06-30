@@ -112,10 +112,10 @@ def update_settings(request):
     {"token": "<token>"}
     '''
     try:
-        CustomUser.objects.filter(username=request.data.get('username')).update(settings=request.data.get('settings'))
+        CustomUser.objects.filter(username=request.data.get('username'))[0].update(settings=request.data.get('settings'))
     except: 
         return Response('Произошла неизвестная ошибка')
-    return Response(CustomUser.objects.filter(username=request.data.get('username')), status=204)
+    return Response(status=204)
 
 
 @api_view(['POST'])
