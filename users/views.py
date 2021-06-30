@@ -116,3 +116,18 @@ def update_settings(request):
     except: 
         return Response('Произошла неизвестная ошибка')
     return Response(status=204)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def get_user_settings(request):
+    '''
+    Method to revoke tokens.
+    {"token": "<token>"}
+    '''
+    try:
+        settings = CustomUser.objects.filter(username=request.data.get('username'))[0].settings
+        return Response(settings)
+    except: 
+        return Response('Произошла неизвестная ошибка')
+    
