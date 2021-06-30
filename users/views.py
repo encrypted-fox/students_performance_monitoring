@@ -114,7 +114,7 @@ def update_settings(request):
     try:
         CustomUser.objects.filter(username=request.data.get('username'))[0].update(settings=request.data.get('settings'))
     except: 
-        return Response('Произошла неизвестная ошибка')
+        return Response(CustomUser.objects.filter(username=request.data.get('username'))[0])
     return Response(status=204)
 
 
