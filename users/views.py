@@ -114,7 +114,7 @@ def update_settings(request):
     try:
         CustomUser.objects.filter(username=request.data.get('username'))[0].update(settings=request.data.get('settings'))
     except: 
-        return Response(json.loads(request.data))
+        return Response(request.data)
     return Response(status=204)
 
 

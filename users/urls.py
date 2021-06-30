@@ -9,4 +9,5 @@ urlpatterns = [
     path('token/refresh/', views.refresh_token),
     path('token/revoke/', views.revoke_token),
     path('update_settings/', views.update_settings),
+    path('get_user_settings/', views.get_user_settings),
 ]
