@@ -57,7 +57,8 @@ def token(request):
         },
     )
     if 'error' not in r.json():
-        resp = {'username': request.data.get('username'), **r.json()}
+        sett = CustomUser.objects.filter(username=request.data.get('username')).get('settings')
+        resp = {'username': request.data.get('username'), 'settings': sett, **r.json()}
         return Response(resp)
     return Response('Неверный логин или пароль', status=400)
 
@@ -110,10 +111,10 @@ def update_settings(request):
     Method to revoke tokens.
     {"token": "<token>"}
     '''
-    if 'settings' in request.data and 'username' in request.data:
+    if 'settings' in json.loads(request.data) and 'username' in json.loads(request.data):
         try:
             CustomUser.objects.filter(username=request.data.username).update(settings=request.data.settings)
         except: 
             return Response('Произошла неизвестная ошибка')
-        return Response(204)
-    return Response(400)
+        return Response(status=204)
+    return Response(status=400)
