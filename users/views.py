@@ -111,7 +111,7 @@ def update_settings(request):
     Method to revoke tokens.
     {"token": "<token>"}
     '''
-    if 'settings' in json.loads(request.data) and 'username' in json.loads(request.data):
+    if 'settings' in request.data and 'username' in request.data:
         try:
             CustomUser.objects.filter(username=request.data.username).update(settings=request.data.settings)
         except: 
