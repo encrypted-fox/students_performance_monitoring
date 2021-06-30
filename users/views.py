@@ -57,7 +57,8 @@ def token(request):
         },
     )
     if 'error' not in r.json():
-        return Response(r.json())
+        resp = {'username': request.data.get('username'), **r.json()}
+        return Response(resp)
     return Response('Неверный логин или пароль', status=400)
 
 
