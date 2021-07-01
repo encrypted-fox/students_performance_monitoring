@@ -86,7 +86,7 @@ def getXLSX(request):
         file_path = "documents/uploads/" + file_name
         # workbook = xlsxwriter.Workbook(file_path)
         workbook = xlwt.Workbook(file_path)
-        worksheet = workbook.add_worksheet('Лист')
+        worksheet = workbook.add_sheet('Лист')
 
 
         # worksheet.set_column('A:A', 20)
