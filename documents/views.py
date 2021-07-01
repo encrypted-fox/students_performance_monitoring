@@ -83,7 +83,7 @@ def getXLSX(request):
     groups = Groups.objects.all()
 
     if documentData:
-        file_name = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.xls'
+        file_name = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.xlsx'
         file_path = "documents/uploads/" + file_name
         # workbook = xlsxwriter.Workbook(file_path)
         workbook = xlwt.Workbook(encoding='utf-8')
