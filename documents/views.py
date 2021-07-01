@@ -71,7 +71,7 @@ def getCSV(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def getXLSX(request):
     '''
     Gets xlsx document from data given. Expected input should be in format:
