@@ -150,7 +150,7 @@ def getXLSX(request):
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         filename = file_name
         filepath = BASE_DIR + '/documents/uploads/' + filename
-        path = open(filepath)
+        path = open(filepath, 'rb')
         from django.utils.encoding import smart_str
         mimetype, _ = mimetypes.guess_type(smart_str(file_path))
         response = HttpResponse(path, content_type=mimetype) # mimetype is replaced by content_type for django 1.7
