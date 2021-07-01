@@ -150,9 +150,7 @@ class ListStudentsWithMore5(viewsets.ViewSet):
                 students_to_return.append(student)
                 
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsWithMore4(viewsets.ViewSet):
@@ -200,9 +198,7 @@ class ListStudentsWithMore4(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_4 > counter_5:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsWithMore3(viewsets.ViewSet):
@@ -260,9 +256,7 @@ class ListStudentsWithMore3(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_3 > counter_4 + counter_5:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 
@@ -331,9 +325,7 @@ class ListStudentsWithMore2(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_2 > counter_3 + counter_4 + counter_5:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 
@@ -399,9 +391,7 @@ class ListStudentsWithMorePass(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_pass > counter_not_pass:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 
@@ -466,9 +456,7 @@ class ListStudentsWithMoreNotPass(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_pass < counter_not_pass:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsWithMoreNotAppointed(viewsets.ViewSet):
@@ -542,9 +530,7 @@ class ListStudentsWithMoreNotAppointed(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_not_appointed > counter_5 + counter_4 + counter_3 + counter_2 + counter_pass + counter_not_pass:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsWithLess3(viewsets.ViewSet):
@@ -602,9 +588,7 @@ class ListStudentsWithLess3(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_3 < counter_4 + counter_5 and counter_3 > 0:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsWithLess2(viewsets.ViewSet):
@@ -672,9 +656,7 @@ class ListStudentsWithLess2(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_2 < counter_3 + counter_4 + counter_5 and counter_2 > 0:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
     permission_classes = [
@@ -721,9 +703,7 @@ class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
@@ -777,9 +757,7 @@ class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 
@@ -821,9 +799,7 @@ class ListStudentsWithOne5(viewsets.ViewSet):
             if counter_5 == 1:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsWithOne4(viewsets.ViewSet):
@@ -878,9 +854,7 @@ class ListStudentsWithOne4(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_2 == 0 and counter_3 == 0 and counter_4 == 1:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsWithOne3(viewsets.ViewSet):
@@ -932,9 +906,7 @@ class ListStudentsWithOne3(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_2 == 0 and counter_3 == 1:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 
@@ -995,9 +967,7 @@ class ListStudentsWithOne2(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_2 == 1:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsWithOnePass(viewsets.ViewSet):
@@ -1062,9 +1032,7 @@ class ListStudentsWithOnePass(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_pass == 1:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsWithOneNotPass(viewsets.ViewSet):
@@ -1136,9 +1104,7 @@ class ListStudentsWithOneNotPass(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_not_pass == 1:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
@@ -1174,9 +1140,7 @@ class ListStudentsWithOneNotAppointed(viewsets.ViewSet):
             if counter_all == 1:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 class ListStudentsOnlyWith5(viewsets.ViewSet):
     permission_classes = [
@@ -1187,8 +1151,8 @@ class ListStudentsOnlyWith5(viewsets.ViewSet):
         This view should return a list of all excellent students.
         """
         queryset = Students.objects.filter(average_rating=5.0)
-        serializer = StudentsSerializer(queryset, many=True)
-        return Response(serializer.data)
+        students = normalize_students(queryset)
+        return Response(students)
 
 class ListStudentsOnlyWith4(viewsets.ViewSet):
     permission_classes = [
@@ -1231,9 +1195,7 @@ class ListStudentsOnlyWith4(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsOnlyWith3(viewsets.ViewSet):
@@ -1277,9 +1239,7 @@ class ListStudentsOnlyWith3(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsOnlyWith2(viewsets.ViewSet):
@@ -1323,9 +1283,7 @@ class ListStudentsOnlyWith2(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsOnlyWithPass(viewsets.ViewSet):
@@ -1400,9 +1358,7 @@ class ListStudentsOnlyWithPass(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_not_appointed == 0 and counter_not_pass == 0:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 
@@ -1477,9 +1433,7 @@ class ListStudentsOnlyWithNotPass(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0 and counter_not_appointed == 0 and counter_pass == 0:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 
 class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
@@ -1515,9 +1469,7 @@ class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
             if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
-        groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
-
         return Response(students_to_send)
 class ListStudentsWith(viewsets.ViewSet):
     permission_classes = [
