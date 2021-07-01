@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from django.forms.models import model_to_dict
 from people.models import Students
 from university_structure.models import Groups
-import xlwt
+
 from django.http import HttpResponse
 from shutil import make_archive
 from django.shortcuts import redirect
@@ -18,7 +18,7 @@ from django.http import FileResponse
 import json
 
 
-# import xlsxwriter
+import xlsxwriter
 
 import logging
 
@@ -86,7 +86,7 @@ def getXLSX(request):
         file_name = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.xlsx'
         file_path = "documents/uploads/" + file_name
         # workbook = xlsxwriter.Workbook(file_path)
-        workbook = xlwt.Workbook(encoding='utf-8')
+        workbook = xlsxwriter.Workbook(file_path)
         worksheet = workbook.add_sheet('Лист')
 
 
@@ -145,7 +145,7 @@ def getXLSX(request):
             col = 0
             row += 1
 
-        workbook.save(file_path)
+        workbook.close()
         
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         filename = file_name
