@@ -1,6 +1,7 @@
 import os
 import mimetypes
 from datetime import datetime
+from django.utils import encoding
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -85,7 +86,7 @@ def getXLSX(request):
         file_name = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.xlsx'
         file_path = "documents/uploads/" + file_name
         # workbook = xlsxwriter.Workbook(file_path)
-        workbook = xlwt.Workbook(file_path)
+        workbook = xlwt.Workbook(encoding='utf-8')
         worksheet = workbook.add_sheet('Лист')
 
 
@@ -144,7 +145,7 @@ def getXLSX(request):
             col = 0
             row += 1
 
-        workbook.close()
+        workbook.save(file_path)
         
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         filename = file_name
