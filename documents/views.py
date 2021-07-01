@@ -90,33 +90,33 @@ def getXLSX(request):
         worksheet = workbook.add_worksheet('Лист')
 
 
-        # worksheet.set_column('A:A', 20)
-        # worksheet.set_column('B:B', 15)
-        # worksheet.set_column('C:E', 15)
-        # worksheet.set_column('F:F', 25)
-        # worksheet.set_column('G:G', 15)
+        worksheet.set_column('A:A', 20)
+        worksheet.set_column('B:B', 15)
+        worksheet.set_column('C:E', 15)
+        worksheet.set_column('F:F', 25)
+        worksheet.set_column('G:G', 15)
 
 
 
-        # # Add a bold format to use to highlight cells.
-        # bold = workbook.add_format({'bold': True})
+        # Add a bold format to use to highlight cells.
+        bold = workbook.add_format({'bold': True})
 
         col = 0
         row = 0
 
-        worksheet.write(row, col, "Номер")
+        worksheet.write(row, col, "Номер", bold)
         col += 1
-        worksheet.write(row, col, "Номер группы")
+        worksheet.write(row, col, "Номер группы", bold)
         col += 1
-        worksheet.write(row, col, "Фамилия")
+        worksheet.write(row, col, "Фамилия", bold)
         col += 1
-        worksheet.write(row, col, "Имя")
+        worksheet.write(row, col, "Имя", bold)
         col += 1
-        worksheet.write(row, col, "Отчество")
+        worksheet.write(row, col, "Отчество", bold)
         col += 1
-        worksheet.write(row, col, "Email")
+        worksheet.write(row, col, "Email", bold)
         col += 1
-        worksheet.write(row, col, "Средний рейтинг")
+        worksheet.write(row, col, "Средний рейтинг", bold)
 
         col = 0
         row += 1
