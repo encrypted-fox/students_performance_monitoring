@@ -1,5 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.utils.translation import gettext as _
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
 class CustomUserManager(BaseUserManager):
@@ -78,7 +79,7 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     ADMIN = 'admin'
     STAFF = 'staff'
     STATUS = [
