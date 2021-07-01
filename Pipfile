@@ -15,7 +15,7 @@ django-cors-headers = "*"
 gunicorn = "*"
 whitenoise = "*"
 django-filter = "*"
-xlsxwriter = "*"
+xlwt = "*"
 django_extensions = "*"
 openpyxl = "*"
 

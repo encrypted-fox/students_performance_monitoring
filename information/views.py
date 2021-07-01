@@ -1526,8 +1526,8 @@ def recount_average_rating(request):
                 mark = mark_dict['id'] 
 
                 if (str(mark) != str(mark_id_pass[0].id) 
-                    or str(mark) != str(mark_id_not_pass[0].id) 
-                    or str(mark) != str(mark_id_not_appointed[0].id)):
+                    and str(mark) != str(mark_id_not_pass[0].id) 
+                    and str(mark) != str(mark_id_not_appointed[0].id)):
                     rating_all += int(mark_dict['name'])
                     valuable_records_len += 1
             

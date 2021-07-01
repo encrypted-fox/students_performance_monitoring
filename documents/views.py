@@ -1,8 +1,6 @@
 import os
 import mimetypes
 from datetime import datetime
-from django.views.generic.base import RedirectView
-from openpyxl import Workbook
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -10,7 +8,7 @@ from rest_framework.response import Response
 from django.forms.models import model_to_dict
 from people.models import Students
 from university_structure.models import Groups
-from subjects.models import Records
+import xlwt
 from django.http import HttpResponse
 from shutil import make_archive
 from django.shortcuts import redirect
@@ -19,7 +17,7 @@ from django.http import FileResponse
 import json
 
 
-import xlsxwriter
+# import xlsxwriter
 
 import logging
 
@@ -87,37 +85,37 @@ def getXLSX(request):
         file_name = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '.xlsx'
         file_path = "documents/uploads/" + file_name
         # workbook = xlsxwriter.Workbook(file_path)
-        workbook = xlsxwriter.Workbook(file_path)
-        worksheet = workbook.add_worksheet()
+        workbook = xlwt.Workbook(file_path)
+        worksheet = workbook.add_worksheet('Лист')
 
 
-        worksheet.set_column('A:A', 20)
-        worksheet.set_column('B:B', 15)
-        worksheet.set_column('C:E', 15)
-        worksheet.set_column('F:F', 25)
-        worksheet.set_column('G:G', 15)
+        # worksheet.set_column('A:A', 20)
+        # worksheet.set_column('B:B', 15)
+        # worksheet.set_column('C:E', 15)
+        # worksheet.set_column('F:F', 25)
+        # worksheet.set_column('G:G', 15)
 
 
 
-        # Add a bold format to use to highlight cells.
-        bold = workbook.add_format({'bold': True})
+        # # Add a bold format to use to highlight cells.
+        # bold = workbook.add_format({'bold': True})
 
         col = 0
         row = 0
 
-        worksheet.write(row, col, "Номер", bold)
+        worksheet.write(row, col, "Номер")
         col += 1
-        worksheet.write(row, col, "Номер группы", bold)
+        worksheet.write(row, col, "Номер группы")
         col += 1
-        worksheet.write(row, col, "Фамилия", bold)
+        worksheet.write(row, col, "Фамилия")
         col += 1
-        worksheet.write(row, col, "Имя", bold)
+        worksheet.write(row, col, "Имя")
         col += 1
-        worksheet.write(row, col, "Отчество", bold)
+        worksheet.write(row, col, "Отчество")
         col += 1
-        worksheet.write(row, col, "Email", bold)
+        worksheet.write(row, col, "Email")
         col += 1
-        worksheet.write(row, col, "Средний рейтинг", bold)
+        worksheet.write(row, col, "Средний рейтинг")
 
         col = 0
         row += 1
