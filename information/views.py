@@ -1543,7 +1543,7 @@ def recount_average_rating(request):
 def retrieve_student_records(request):
     if 'id' in request.query_params:
         student = Students.objects.filter(id=request.query_params.get('id'))[0]
-        records = Records.objects.filter(student_id=model_to_dict(student).id)
+        records = Records.objects.filter(student_id=student.id)
         if (len(records) > 0):
             resp = [model_to_dict(x) for x in records]
             return Response(resp, status=200)
