@@ -146,8 +146,9 @@ class ListStudentsWithMore5(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_pass[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_4 < counter_5:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_4 < counter_5:
                 students_to_return.append(student)
+                
         
         groups = Groups.objects.all()
         students_to_send = normalize_students(students_to_return)
@@ -196,7 +197,7 @@ class ListStudentsWithMore4(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_pass[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_4 > counter_5:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_4 > counter_5:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -256,7 +257,7 @@ class ListStudentsWithMore3(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_not_pass[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_3 > counter_4 + counter_5:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_3 > counter_4 + counter_5:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -327,7 +328,7 @@ class ListStudentsWithMore2(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_not_appointed[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_2 > counter_3 + counter_4 + counter_5:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_2 > counter_3 + counter_4 + counter_5:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -395,7 +396,7 @@ class ListStudentsWithMorePass(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_not_appointed[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_pass > counter_not_pass:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_pass > counter_not_pass:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -462,7 +463,7 @@ class ListStudentsWithMoreNotPass(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_not_appointed[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_pass < counter_not_pass:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_pass < counter_not_pass:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -538,7 +539,7 @@ class ListStudentsWithMoreNotAppointed(viewsets.ViewSet):
                     counter_not_appointed += 1
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_not_appointed > counter_5 + counter_4 + counter_3 + counter_2 + counter_pass + counter_not_pass:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_not_appointed > counter_5 + counter_4 + counter_3 + counter_2 + counter_pass + counter_not_pass:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -598,7 +599,7 @@ class ListStudentsWithLess3(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_not_pass[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_3 < counter_4 + counter_5 and counter_3 > 0:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_3 < counter_4 + counter_5 and counter_3 > 0:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -668,7 +669,7 @@ class ListStudentsWithLess2(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_not_appointed[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_2 < counter_3 + counter_4 + counter_5 and counter_2 > 0:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_2 < counter_3 + counter_4 + counter_5 and counter_2 > 0:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -717,7 +718,7 @@ class ListStudentsOnlyWithMoreThen3(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_pass[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records):
+            if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -773,7 +774,7 @@ class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_pass[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records):
+            if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -874,7 +875,7 @@ class ListStudentsWithOne4(viewsets.ViewSet):
                 else:
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_2 == 0 and counter_3 == 0 and counter_4 == 1:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_2 == 0 and counter_3 == 0 and counter_4 == 1:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -928,7 +929,7 @@ class ListStudentsWithOne3(viewsets.ViewSet):
                 else:
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_2 == 0 and counter_3 == 1:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_2 == 0 and counter_3 == 1:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -991,7 +992,7 @@ class ListStudentsWithOne2(viewsets.ViewSet):
                 else:
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_2 == 1:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_2 == 1:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -1058,7 +1059,7 @@ class ListStudentsWithOnePass(viewsets.ViewSet):
                 else:
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_pass == 1:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_pass == 1:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -1132,7 +1133,7 @@ class ListStudentsWithOneNotPass(viewsets.ViewSet):
                     counter_all += 1
                 
 
-            if counter_all == len(student_records) and counter_not_pass == 1:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_not_pass == 1:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -1227,7 +1228,7 @@ class ListStudentsOnlyWith4(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_not_pass[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records):
+            if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -1273,7 +1274,7 @@ class ListStudentsOnlyWith3(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_not_pass[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records):
+            if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -1319,7 +1320,7 @@ class ListStudentsOnlyWith2(viewsets.ViewSet):
                 elif str(mark) == str(mark_id_not_pass[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records):
+            if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -1396,7 +1397,7 @@ class ListStudentsOnlyWithPass(viewsets.ViewSet):
                     counter_not_appointed += 1
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_not_appointed == 0 and counter_not_pass == 0:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_not_appointed == 0 and counter_not_pass == 0:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -1473,7 +1474,7 @@ class ListStudentsOnlyWithNotPass(viewsets.ViewSet):
                     counter_not_appointed += 1
                     counter_all += 1
 
-            if counter_all == len(student_records) and counter_not_appointed == 0 and counter_pass == 0:
+            if counter_all == len(student_records) and len(student_records) > 0 and counter_not_appointed == 0 and counter_pass == 0:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -1511,7 +1512,7 @@ class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
                 if str(mark) == str(mark_id_not_appointed[0].id):
                     counter_all += 1
 
-            if counter_all == len(student_records):
+            if counter_all == len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
         
         groups = Groups.objects.all()
@@ -1539,7 +1540,7 @@ class ListStudentsWith(viewsets.ViewSet):
         for student in students:
             student_records = records.filter(student_id=student.id)
 
-            if len(student_records) > 0:
+            if len(student_records) and len(student_records) > 0 > 0:
                 students_to_return.append(student)
             
         
@@ -1548,7 +1549,55 @@ class ListStudentsWith(viewsets.ViewSet):
         return Response(students_to_send)
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def recount_average_rating(request):
+    students = Students.objects.all()
+    records = Records.objects.filter(is_final=True)
+    marks = Marks.objects.all()
 
+    mark_id_5 = marks.filter(name='5')
+    mark_id_4 = marks.filter(name='4')
+    mark_id_3 = marks.filter(name='3')
+    mark_id_2 = marks.filter(name='2')
+    mark_id_pass = marks.filter(name='Зачтено')
+    mark_id_not_pass = marks.filter(name='Незачтено')
+    mark_id_not_appointed = marks.filter(name='Неявка')
+
+    try:
+        for student in students:
+            student_records = records.filter(student_id=model_to_dict(student).id)
+            rating_all = 0
+            valuable_records_len = 0
+            for record in student_records:
+                mark_dict = model_to_dict(record.mark_id) 
+                mark = mark_dict['id'] 
+
+                if (str(mark) != str(mark_id_pass[0].id) 
+                    or str(mark) != str(mark_id_not_pass[0].id) 
+                    or str(mark) != str(mark_id_not_appointed[0].id)):
+                    rating_all += int(mark_dict['name'])
+                    valuable_records_len += 1
+            
+            rating = rating_all / valuable_records_len
+            Students.objects.filter(id=model_to_dict(student).id)[0].update(average_rating=rating)
+    except:
+        return Response(status=500)
+    return Response(200)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def retrieve_student_records(request):
+    if 'id' in request.query_params:
+        student = Students.objects.filter(id=request.query_params.get('id'))[0]
+        records = Records.objects.filter(student_id=model_to_dict(student).id)
+        if (len(records) > 0):
+            resp = [model_to_dict(x) for x in records]
+            return Response(resp, status=200)
+        else:
+            return Response([], status=204)
+    return Response(status=500)
 
 
 @api_view(['GET'])

@@ -22,6 +22,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
 
 from students_performance_monitoring.views import DocsView
+from information.views import recount_average_rating, retrieve_student_records
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -44,6 +45,8 @@ urlpatterns = [
     path('api/v0/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('api/v0/admin/', admin.site.urls),
     path('api/v0/auth/', include("users.urls")),
+    path('api/v0/retrieve_student_records/', retrieve_student_records),
+    path('api/v0/recount_average_rating/', recount_average_rating),
     path('api/v0/', include("information.urls")),
     path('api/v0/', include("documents.urls")),
     path('api/v0/', include("subjects.urls")),
