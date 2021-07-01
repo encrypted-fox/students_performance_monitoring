@@ -29,7 +29,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, email, first_name, last_name, password=None, settings="{}"):
+    def create_superuser(self, username, email, first_name, last_name, password=None, settings="[]"):
         if not username:
             raise ValueError("User must have a username")
         if not email:
@@ -55,7 +55,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self, username, email, first_name, last_name, password=None, settings="{}"):
+    def create_staffuser(self, username, email, first_name, last_name, password=None, settings="[]"):
         if not email:
             raise ValueError("User must have an email")
         if not password:
