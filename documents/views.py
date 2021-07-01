@@ -153,7 +153,7 @@ def getXLSX(request):
         path = open(filepath, 'rb')
         from django.utils.encoding import smart_str
         mimetype, _ = mimetypes.guess_type(smart_str(file_path))
-        response = HttpResponse(path, content_type='application/vnd.ms-excel') # mimetype is replaced by content_type for django 1.7
+        response = HttpResponse(path, content_type='application/octet-stream') # mimetype is replaced by content_type for django 1.7
         response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(file_name)
         response['X-Sendfile'] = smart_str(file_path)
  
