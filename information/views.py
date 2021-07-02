@@ -1566,7 +1566,7 @@ def recount_average_rating(request):
     mark_id_not_appointed = marks.filter(name='Неявка')
 
     for student in students:
-        student_records = records.filter(student_id=model_to_dict(student).id)
+        student_records = records.filter(student_id=model_to_dict(student)['id'])
         rating_all = 0
         valuable_records_len = 0
         for record in student_records:
@@ -1580,7 +1580,7 @@ def recount_average_rating(request):
                 valuable_records_len += 1
         
         rating = rating_all / valuable_records_len
-        Students.objects.filter(id=model_to_dict(student).id)[0].update(average_rating=rating)
+        Students.objects.filter(id=model_to_dict(student)['id'])[0].update(average_rating=rating)
     return Response(status=200)
 
 
