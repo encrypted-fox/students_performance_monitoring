@@ -53,7 +53,7 @@ def normalize_student_records(student_records):
         dict_elem['teacher'] = teacher['first_name'] + teacher['last_name']
         term = model_to_dict(terms.filter(id=model_to_dict(elem)['term_id'])[0])
         start_year = model_to_dict(start_years.filter(id=term['start_year_id'])[0])['year']
-        dict_elem['term'] = term['number'] + ' семестр ' + start_year + ' года'
+        dict_elem['term'] = term['number'] + ' семестр ' + str(start_year) + ' года'
         dict_elem['control_type'] = model_to_dict(control_types.filter(id=model_to_dict(elem)['control_type_id'])[0])['name']
         dict_elem['mark'] = model_to_dict(marks.filter(id=model_to_dict(elem)['mark_id'])[0])['name']
         dict_elem['datetime'] = dict_elem_before['datetime']
