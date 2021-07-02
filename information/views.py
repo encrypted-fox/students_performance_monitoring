@@ -1515,6 +1515,20 @@ class ListStudentsWith(viewsets.ViewSet):
         
         if 'student_id' in request.query_params:
             records = records.filter(student_id=request.query_params.get('student_id'))
+
+        if 'student_id' in request.query_params:
+            records = records.filter(student_id=request.query_params.get('student_id'))
+
+        if 'student_id' in request.query_params:
+            records = records.filter(student_id=request.query_params.get('student_id'))
+
+        if 'student_id' in request.query_params:
+            records = records.filter(student_id=request.query_params.get('student_id'))
+
+        
+
+        if 'student_id' in request.query_params:
+            records = records.filter(student_id=request.query_params.get('student_id'))
         
        
         students = Students.objects.all()
@@ -1537,26 +1551,23 @@ def recount_average_rating(request):
     mark_id_not_pass = marks.filter(name='Незачтено')
     mark_id_not_appointed = marks.filter(name='Неявка')
 
-    try:
-        for student in students:
-            student_records = records.filter(student_id=model_to_dict(student).id)
-            rating_all = 0
-            valuable_records_len = 0
-            for record in student_records:
-                mark_dict = model_to_dict(record.mark_id) 
-                mark = mark_dict['id'] 
+    for student in students:
+        student_records = records.filter(student_id=model_to_dict(student).id)
+        rating_all = 0
+        valuable_records_len = 0
+        for record in student_records:
+            mark_dict = model_to_dict(record.mark_id) 
+            mark = mark_dict['id'] 
 
-                if (str(mark) != str(mark_id_pass[0].id) 
-                    and str(mark) != str(mark_id_not_pass[0].id) 
-                    and str(mark) != str(mark_id_not_appointed[0].id)):
-                    rating_all += int(mark_dict['name'])
-                    valuable_records_len += 1
-            
-            rating = rating_all / valuable_records_len
-            Students.objects.filter(id=model_to_dict(student).id)[0].update(average_rating=rating)
-    except:
-        return Response(status=500)
-    return Response(200)
+            if (str(mark) != str(mark_id_pass[0].id) 
+                and str(mark) != str(mark_id_not_pass[0].id) 
+                and str(mark) != str(mark_id_not_appointed[0].id)):
+                rating_all += int(mark_dict['name'])
+                valuable_records_len += 1
+        
+        rating = rating_all / valuable_records_len
+        Students.objects.filter(id=model_to_dict(student).id)[0].update(average_rating=rating)
+    return Response(status=200)
 
 
 @api_view(['GET'])
