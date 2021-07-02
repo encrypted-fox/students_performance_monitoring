@@ -7,7 +7,7 @@ from people.models import Students, Teachers
 from subjects.models import Records, SubjectBlocks, Subjects
 from people.serializers import StudentsSerializer
 from rest_framework.permissions import IsAuthenticated
-from university_structure.models import EducationLevels, EducationPrograms, Groups, Specializations
+from university_structure.models import Departments, EducationLevels, EducationPrograms, Faculties, Groups, Specializations
 
 
 def normalize_students(students_to_return):
@@ -1514,13 +1514,45 @@ class ListStudentsWith(viewsets.ViewSet):
         records = filter_against_records(request)
         
         if 'faculty_id' in request.query_params:
-            records = records.filter(student_id=request.query_params.get('student_id'))
+            faculty = Faculties.objects.filter(id=request.query_params.get('faculty_id'))[0]
+            departments = Departments.objects.filter(faculty_id=model_to_dict(faculty)['id'])
+            for department in departments:
+                education_programs = EducationPrograms.objects.filter(department_id=model_to_dict(department)['id'])[0]
+                new_records = []
+                for education_program in education_programs:
+                    groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
+                    new_records = []
+                    for group in groups:
+                        for record in records:
+                            if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
+                                new_records.append(record)
+            records = new_records
 
         if 'department_id' in request.query_params:
-            records = records.filter(student_id=request.query_params.get('student_id'))
+            department = Departments.objects.filter(id=request.query_params.get('department_id'))[0]
+            education_programs = EducationPrograms.objects.filter(department_id=model_to_dict(department)['id'])[0]
+            new_records = []
+            for education_program in education_programs:
+                groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
+                new_records = []
+                for group in groups:
+                    for record in records:
+                        if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
+                            new_records.append(record)
+            records = new_records
 
         if 'start_year_id' in request.query_params:
-            records = records.filter(student_id=request.query_params.get('student_id'))
+            start_year = StartYears.objects.filter(id=request.query_params.get('start_year_id'))[0]
+            education_programs = EducationPrograms.objects.filter(start_year_id=model_to_dict(start_year)['id'])[0]
+            new_records = []
+            for education_program in education_programs:
+                groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
+                new_records = []
+                for group in groups:
+                    for record in records:
+                        if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
+                            new_records.append(record)
+            records = new_records
 
         if 'specialization_id' in request.query_params:
             specialization = Specializations.objects.filter(id=request.query_params.get('specialization_id'))[0]
@@ -1531,7 +1563,7 @@ class ListStudentsWith(viewsets.ViewSet):
                 new_records = []
                 for group in groups:
                     for record in records:
-                        if group['id'] == record['group_id']:
+                        if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
                             new_records.append(record)
             records = new_records
 
@@ -1541,7 +1573,7 @@ class ListStudentsWith(viewsets.ViewSet):
             new_records = []
             for group in groups:
                 for record in records:
-                    if group['id'] == record['group_id']:
+                    if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
                         new_records.append(record)
             records = new_records
 
