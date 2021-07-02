@@ -1521,7 +1521,7 @@ class ListStudentsWith(viewsets.ViewSet):
             faculty = Faculties.objects.filter(id=request.query_params.get('faculty_id'))[0]
             departments = Departments.objects.filter(faculty_id=model_to_dict(faculty)['id'])
             for department in departments:
-                education_programs = EducationPrograms.objects.filter(department_id=model_to_dict(department)['id'])[0]
+                education_programs = EducationPrograms.objects.filter(main_department_id=model_to_dict(department)['id'])[0]
                 new_records_id = []
                 for education_program in education_programs:
                     groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
