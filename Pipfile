@@ -18,6 +18,7 @@ django-filter = "*"
 xlwt = "*"
 django_extensions = "*"
 openpyxl = "*"
+drf-extensions = "*"
 
 [requires]
 python_version = "3.8.3"

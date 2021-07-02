@@ -10,6 +10,9 @@ from rest_framework.permissions import IsAuthenticated
 from university_structure.models import Departments, EducationLevels, EducationPrograms, Faculties, Groups, Specializations
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from rest_framework_extensions.cache.decorators import (
+    cache_response
+)
 
 def normalize_students(students_to_return):
     groups = Groups.objects.all()
@@ -1529,7 +1532,7 @@ class ListStudentsWith(viewsets.ViewSet):
                         for record in records:
                             if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
                                 new_records_id.append(model_to_dict(record)['id'])
-            records = new_records
+            records = records.filter(id__in=new_records_id)
 
         if 'department_id' in request.query_params:
             department = Departments.objects.filter(id=request.query_params.get('department_id'))[0]
@@ -1542,7 +1545,7 @@ class ListStudentsWith(viewsets.ViewSet):
                     for record in records:
                         if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
                             new_records_id.append(model_to_dict(record)['id'])
-            records = new_records
+            records = records.filter(id__in=new_records_id)
 
         if 'start_year_id' in request.query_params:
             start_year = StartYears.objects.filter(id=request.query_params.get('start_year_id'))[0]
@@ -1555,7 +1558,7 @@ class ListStudentsWith(viewsets.ViewSet):
                     for record in records:
                         if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
                             new_records_id.append(model_to_dict(record)['id'])
-            records = new_records
+            records = records.filter(id__in=new_records_id)
 
         if 'specialization_id' in request.query_params:
             specialization = Specializations.objects.filter(id=request.query_params.get('specialization_id'))[0]
@@ -1580,7 +1583,7 @@ class ListStudentsWith(viewsets.ViewSet):
                     for record in records:
                         if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
                             new_records_id.append(model_to_dict(record)['id'])
-            records = new_records
+            records = records.filter(id__in=new_records_id)
 
         if 'education_program_id' in request.query_params:
             education_program = EducationPrograms.objects.filter(id=request.query_params.get('education_program_id'))[0]
@@ -1590,7 +1593,7 @@ class ListStudentsWith(viewsets.ViewSet):
                     for record in records:
                         if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
                             new_records_id.append(model_to_dict(record)['id'])
-            records = new_records
+            records = records.filter(id__in=new_records_id)
 
         if 'student_id' in request.query_params:
             records = records.filter(student_id=request.query_params.get('student_id'))
