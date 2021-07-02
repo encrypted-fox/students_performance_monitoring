@@ -1521,11 +1521,11 @@ class ListStudentsWith(viewsets.ViewSet):
                 new_records = []
                 for education_program in education_programs:
                     groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
-                    new_records = []
+                    new_records_id = []
                     for group in groups:
                         for record in records:
                             if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
-                                new_records.append(record)
+                                new_records_id.append(model_to_dict(record)['id'])
             records = new_records
 
         if 'department_id' in request.query_params:
@@ -1534,11 +1534,11 @@ class ListStudentsWith(viewsets.ViewSet):
             new_records = []
             for education_program in education_programs:
                 groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
-                new_records = []
+                new_records_id = []
                 for group in groups:
                     for record in records:
                         if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
-                            new_records.append(record)
+                            new_records_id.append(model_to_dict(record)['id'])
             records = new_records
 
         if 'start_year_id' in request.query_params:
@@ -1547,11 +1547,11 @@ class ListStudentsWith(viewsets.ViewSet):
             new_records = []
             for education_program in education_programs:
                 groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
-                new_records = []
+                new_records_id = []
                 for group in groups:
                     for record in records:
                         if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
-                            new_records.append(record)
+                            new_records_id.append(model_to_dict(record)['id'])
             records = new_records
 
         if 'specialization_id' in request.query_params:
@@ -1572,11 +1572,11 @@ class ListStudentsWith(viewsets.ViewSet):
             education_programs = EducationPrograms.objects.filter(education_level_id=model_to_dict(education_level)['id'])
             for education_program in education_programs:
                 groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
-                new_records = []
+                new_records_id = []
                 for group in groups:
                     for record in records:
                         if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
-                            new_records.append(record)
+                            new_records_id.append(model_to_dict(record)['id'])
             records = new_records
 
         if 'education_program_id' in request.query_params:
@@ -1584,9 +1584,9 @@ class ListStudentsWith(viewsets.ViewSet):
             groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
             new_records = []
             for group in groups:
-                for record in records:
-                    if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
-                        new_records.append(record)
+                    for record in records:
+                        if model_to_dict(group)['id'] == model_to_dict(record)['group_id']:
+                            new_records_id.append(model_to_dict(record)['id'])
             records = new_records
 
         if 'student_id' in request.query_params:
