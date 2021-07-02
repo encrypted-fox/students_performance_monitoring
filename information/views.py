@@ -1518,18 +1518,8 @@ class ListStudentsWith(viewsets.ViewSet):
         
        
         students = Students.objects.all()
-        students_to_return = []
-        
-        for student in students:
-            student_records = records.filter(student_id=student.id)
 
-            if len(student_records) and len(student_records) > 0:
-                students_to_return.append(student)
-            
-        
-        students_to_send = normalize_students(students_to_return)
-
-        return Response(students_to_send)
+        return Response(normalize_students(students))
 
 
 @api_view(['GET'])
