@@ -3,8 +3,8 @@ from django.forms.models import model_to_dict
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .serializers import *
-from people.models import Students
-from subjects.models import Records
+from people.models import Students, Teachers
+from subjects.models import Records, SubjectBlocks, Subjects
 from people.serializers import StudentsSerializer
 from rest_framework.permissions import IsAuthenticated
 from university_structure.models import Groups
@@ -19,14 +19,48 @@ def normalize_students(students_to_return):
         dict_elem['id'] = dict_elem_before['id']
         dict_elem['number'] = dict_elem_before['number']
         dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+        dict_elem['last_name'] = dict_elem_before['last_name']
         dict_elem['first_name'] = dict_elem_before['first_name']
         dict_elem['fathers_name'] = dict_elem_before['fathers_name']
-        dict_elem['last_name'] = dict_elem_before['last_name']
         dict_elem['email'] = dict_elem_before['email']
         dict_elem['average_rating'] = dict_elem_before['average_rating']
         dict_elem['update_date'] = dict_elem_before['update_date']
         students_to_send.append(dict_elem)
     return students_to_send
+
+def normalize_student_records(student_records):
+    groups = Groups.objects.all()
+    marks = Marks.objects.all()
+    terms = Terms.objects.all()
+    students = Students.objects.all()
+    subjects = Subjects.objects.all()
+    subject_blocks = SubjectBlocks.objects.all()
+    teachers = Teachers.objects.all()
+    control_types = ControlTypes.objects.all()
+    start_years = StartYears.objects.all()
+
+    records_to_send = []
+    for elem in student_records:
+        dict_elem_before = model_to_dict(elem)
+        dict_elem = {}
+        dict_elem['id'] = dict_elem_before['id']
+        student = model_to_dict(students.filter(id=model_to_dict(elem)['student_id'])[0])
+        dict_elem['student'] = student['first_name'] + student['last_name']
+        dict_elem['subject'] = model_to_dict(subjects.filter(id=model_to_dict(elem)['subject_id'])[0])['name']
+        dict_elem['subject_block'] = model_to_dict(subject_blocks.filter(id=model_to_dict(elem)['subject_block_id'])[0])['name']
+        dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
+        teacher = model_to_dict(teachers.filter(id=model_to_dict(elem)['teacher_id'])[0])
+        dict_elem['teacher'] = teacher['first_name'] + teacher['last_name']
+        term = model_to_dict(terms.filter(id=model_to_dict(elem)['term_id'])[0])
+        start_year = model_to_dict(start_years.filter(id=term['start_year_id'])[0])['name']
+        dict_elem['term'] = term['number'] + ' семестр ' + start_year + ' года'
+        dict_elem['control_type'] = model_to_dict(control_types.filter(id=model_to_dict(elem)['control_type_id'])[0])['name']
+        dict_elem['mark'] = model_to_dict(marks.filter(id=model_to_dict(elem)['mark_id'])[0])['name']
+        dict_elem['datetime'] = dict_elem_before['datetime']
+        dict_elem['retake_count'] = dict_elem_before['retake_count']
+        dict_elem['is_final'] = dict_elem_before['is_final']
+        records_to_send.append(dict_elem)
+    return records_to_send
 
 def filter_against_records(request):
     records = Records.objects.all()
@@ -143,7 +177,7 @@ class ListStudentsWithMore5(viewsets.ViewSet):
                     counter_4 += 1
                     counter_all += 1
 
-                elif str(mark) == str(mark_id_pass[0].id):
+                else:
                     counter_all += 1
 
             if counter_all == len(student_records) and len(student_records) > 0 and counter_4 < counter_5:
@@ -192,7 +226,7 @@ class ListStudentsWithMore4(viewsets.ViewSet):
                     counter_4 += 1
                     counter_all += 1
 
-                elif str(mark) == str(mark_id_pass[0].id):
+                else:
                     counter_all += 1
 
             if counter_all == len(student_records) and len(student_records) > 0 and counter_4 > counter_5:
@@ -247,10 +281,7 @@ class ListStudentsWithMore3(viewsets.ViewSet):
                     counter_3 += 1
                     counter_all += 1
 
-                elif str(mark) == str(mark_id_pass[0].id):
-                    counter_all += 1
-
-                elif str(mark) == str(mark_id_not_pass[0].id):
+                else:
                     counter_all += 1
 
             if counter_all == len(student_records) and len(student_records) > 0 and counter_3 > counter_4 + counter_5:
@@ -1492,7 +1523,7 @@ class ListStudentsWith(viewsets.ViewSet):
         for student in students:
             student_records = records.filter(student_id=student.id)
 
-            if len(student_records) and len(student_records) > 0 > 0:
+            if len(student_records) and len(student_records) > 0:
                 students_to_return.append(student)
             
         
@@ -1545,7 +1576,7 @@ def retrieve_student_records(request):
         student = Students.objects.filter(id=request.query_params.get('id'))[0]
         records = Records.objects.filter(student_id=student.id)
         if (len(records) > 0):
-            resp = [model_to_dict(x) for x in records]
+            resp = normalize_student_records(records)
             return Response(resp, status=200)
         else:
             return Response([], status=204)
@@ -1572,14 +1603,14 @@ def listMenuCategories(request):
                         # {"id": 15, "activity": "list_students_with_one_2", "name": "Студенты с одной двойкой"}, 
                         # {"id": 16, "activity": "list_students_with_one_not_pass", "name": "Студенты с одним незачетом"}, 
                         # {"id": 17, "activity": "list_students_with_one_pass", "name": "Студенты с одним зачетом"}, 
-                        {"id": 12, "activity": "list_students_with_one_not_appointed", "name": "Студенты с одной неявкой"}, 
-                        {"id": 13, "activity": "list_students_only_with_5", "name": "Студенты только с пятерками"}, 
-                        {"id": 14, "activity": "list_students_only_with_4", "name": "Студенты только с четверками"}, 
-                        {"id": 15, "activity": "list_students_only_with_3", "name": "Студенты только с тройками"}, 
-                        {"id": 16, "activity": "list_students_only_with_2", "name": "Студенты только с двойками"}, 
-                        {"id": 17, "activity": "list_students_only_with_pass", "name": "Студенты только с оценками зачтено"}, 
-                        {"id": 18, "activity": "list_students_only_with_not_pass", "name": "Студенты только с оценками незачтено"}, 
-                        {"id": 19, "activity": "list_students_only_with_not_appointed", "name": "Студенты только с неявками"}, 
-                        {"id": 20, "activity": "list_students_with", "name": "Найти студентов по запросу"}, 
+                        # {"id": 12, "activity": "list_students_with_one_not_appointed", "name": "Студенты с одной неявкой"}, 
+                        {"id": 12, "activity": "list_students_only_with_5", "name": "Студенты только с пятерками"}, 
+                        {"id": 13, "activity": "list_students_only_with_4", "name": "Студенты только с четверками"}, 
+                        {"id": 14, "activity": "list_students_only_with_3", "name": "Студенты только с тройками"}, 
+                        {"id": 15, "activity": "list_students_only_with_2", "name": "Студенты только с двойками"}, 
+                        {"id": 16, "activity": "list_students_only_with_pass", "name": "Студенты только с оценками зачтено"}, 
+                        {"id": 17, "activity": "list_students_only_with_not_pass", "name": "Студенты только с оценками незачтено"}, 
+                        {"id": 18, "activity": "list_students_only_with_not_appointed", "name": "Студенты только с неявками"}, 
+                        {"id": 19, "activity": "list_students_with", "name": "Найти студентов по запросу"}, 
                      ])
                      
