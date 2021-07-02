@@ -782,7 +782,7 @@ class ListStudentsOnlyWithMoreThen2(viewsets.ViewSet):
                     counter_3 += 1
                     counter_all += 1
 
-                elif str(mark) == str(mark_id_pass[0].id):
+                else:
                     counter_all += 1
 
             if counter_all == len(student_records) and len(student_records) > 0:
