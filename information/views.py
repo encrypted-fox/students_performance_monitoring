@@ -1556,7 +1556,7 @@ class ListStudentsWith(viewsets.ViewSet):
 
         if 'specialization_id' in request.query_params:
             specialization = Specializations.objects.filter(id=request.query_params.get('specialization_id'))[0]
-            education_programs = EducationPrograms.objects.filter(specialization_id=model_to_dict(specialization)['id'])[0]
+            education_programs = EducationPrograms.objects.filter(specialization_id=model_to_dict(specialization)['id'])
             new_records = []
             for education_program in education_programs:
                 groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
