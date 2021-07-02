@@ -1580,7 +1580,7 @@ def recount_average_rating(request):
                 valuable_records_len += 1
         
         rating = rating_all / valuable_records_len
-        Students.objects.filter(id=model_to_dict(student)['id'])[0].update(average_rating=rating)
+        Students.objects.filter(id=model_to_dict(student)['id']).update(average_rating=rating)
     return Response(status=200)
 
 
