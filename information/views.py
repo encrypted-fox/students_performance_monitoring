@@ -8,7 +8,8 @@ from subjects.models import Records, SubjectBlocks, Subjects
 from people.serializers import StudentsSerializer
 from rest_framework.permissions import IsAuthenticated
 from university_structure.models import Departments, EducationLevels, EducationPrograms, Faculties, Groups, Specializations
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 def normalize_students(students_to_return):
     groups = Groups.objects.all()
@@ -1471,6 +1472,7 @@ class ListStudentsOnlyWithNotAppointed(viewsets.ViewSet):
     permission_classes = [
         permissions.IsAuthenticated
     ]
+    
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
@@ -1506,6 +1508,7 @@ class ListStudentsWith(viewsets.ViewSet):
     permission_classes = [
         permissions.IsAuthenticated
     ]
+    @method_decorator(cache_page(60 * 60 * 24 * 30 * 6))
     def list(self, request):
         """
         This view should return a list of all students with more 5s then 4s. In addition, there should be only good marks.
