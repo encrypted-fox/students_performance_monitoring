@@ -45,12 +45,12 @@ def normalize_student_records(student_records):
         dict_elem = {}
         dict_elem['id'] = dict_elem_before['id']
         student = model_to_dict(students.filter(id=model_to_dict(elem)['student_id'])[0])
-        dict_elem['student'] = student['first_name'] + student['last_name']
+        dict_elem['student'] = student['first_name'] + " " + student['last_name']
         dict_elem['subject'] = model_to_dict(subjects.filter(id=model_to_dict(elem)['subject_id'])[0])['name']
         dict_elem['subject_block'] = model_to_dict(subject_blocks.filter(id=model_to_dict(elem)['subject_block_id'])[0])['name']
         dict_elem['group'] = model_to_dict(groups.filter(id=model_to_dict(elem)['group_id'])[0])['number']
         teacher = model_to_dict(teachers.filter(id=model_to_dict(elem)['teacher_id'])[0])
-        dict_elem['teacher'] = teacher['first_name'] + teacher['last_name']
+        dict_elem['teacher'] = teacher['first_name'] + " " + teacher['last_name']
         term = model_to_dict(terms.filter(id=model_to_dict(elem)['term_id'])[0])
         start_year = model_to_dict(start_years.filter(id=term['start_year_id'])[0])['year']
         dict_elem['term'] = str(term['number']) + ' семестр ' + str(start_year) + ' года'
