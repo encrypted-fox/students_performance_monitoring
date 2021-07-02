@@ -7,7 +7,7 @@ from people.models import Students, Teachers
 from subjects.models import Records, SubjectBlocks, Subjects
 from people.serializers import StudentsSerializer
 from rest_framework.permissions import IsAuthenticated
-from university_structure.models import EducationLevels, Groups
+from university_structure.models import EducationLevels, EducationPrograms, Groups, Specializations
 
 
 def normalize_students(students_to_return):
@@ -1513,25 +1513,6 @@ class ListStudentsWith(viewsets.ViewSet):
 
         records = filter_against_records(request)
         
-        if 'student_id' in request.query_params:
-            records = records.filter(student_id=request.query_params.get('student_id'))
-
-        if 'educational_level_id' in request.query_params:
-            education_level = EducationLevels.objects.filter(id=request.query_params.get('educational_level_id'))[0]
-            groups = Groups.objects.filter(education_level_id=model_to_dict(education_level)['id'])
-            new_records = []
-            for group in groups:
-                for record in records:
-                    if group['id'] == record['group_id']:
-                        new_records.append(record)
-            records = new_records
-
-        if 'educational_program_id' in request.query_params:
-            records = records.filter(student_id=request.query_params.get('student_id'))
-
-        if 'start_year_id' in request.query_params:
-            records = records.filter(student_id=request.query_params.get('student_id'))
-
         if 'faculty_id' in request.query_params:
             records = records.filter(student_id=request.query_params.get('student_id'))
 
@@ -1539,10 +1520,42 @@ class ListStudentsWith(viewsets.ViewSet):
             records = records.filter(student_id=request.query_params.get('student_id'))
 
         if 'specialization_id' in request.query_params:
-            records = records.filter(student_id=request.query_params.get('student_id'))
+            specialization = Specializations.objects.filter(id=request.query_params.get('specialization_id'))[0]
+            educational_programs = EducationPrograms.objects.filter(specialisation_id=model_to_dict(specialization)['id'])[0]
+            new_records = []
+            for educational_program in educational_programs:
+                groups = Groups.objects.filter(educational_program_id=model_to_dict(educational_program)['id'])
+                new_records = []
+                for group in groups:
+                    for record in records:
+                        if group['id'] == record['group_id']:
+                            new_records.append(record)
+            records = new_records
 
         if 'student_id' in request.query_params:
             records = records.filter(student_id=request.query_params.get('student_id'))
+
+        if 'educational_program_id' in request.query_params:
+            educational_program = EducationPrograms.objects.filter(id=request.query_params.get('educational_program_id'))[0]
+            groups = Groups.objects.filter(educational_program_id=model_to_dict(educational_program)['id'])
+            new_records = []
+            for group in groups:
+                for record in records:
+                    if group['id'] == record['group_id']:
+                        new_records.append(record)
+            records = new_records
+
+        if 'educational_level_id' in request.query_params:
+            records = records.filter(student_id=request.query_params.get('student_id'))
+
+        if 'start_year_id' in request.query_params:
+            records = records.filter(student_id=request.query_params.get('student_id'))
+
+        
+
+        
+
+        
         
        
         students = Students.objects.all()
