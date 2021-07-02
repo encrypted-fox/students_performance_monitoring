@@ -1546,6 +1546,8 @@ class ListStudentsWith(viewsets.ViewSet):
         
        
         students = Students.objects.all()
+        for student in students:
+            records.filter(student_id=model_to_dict(student)['id'])
 
         return Response(normalize_students(students))
 
@@ -1578,9 +1580,11 @@ def recount_average_rating(request):
                 and str(mark) != str(mark_id_not_appointed[0].id)):
                 rating_all += int(mark_dict['name'])
                 valuable_records_len += 1
-        
-        rating = rating_all / valuable_records_len
-        Students.objects.filter(id=model_to_dict(student)['id']).update(average_rating=rating)
+        if valuable_records_len == 0:
+            Students.objects.filter(id=model_to_dict(student)['id']).update(average_rating=0)
+        else:
+            rating = rating_all / valuable_records_len
+            Students.objects.filter(id=model_to_dict(student)['id']).update(average_rating=rating)
     return Response(status=200)
 
 
