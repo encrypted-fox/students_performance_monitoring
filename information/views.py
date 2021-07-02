@@ -1546,10 +1546,13 @@ class ListStudentsWith(viewsets.ViewSet):
         
        
         students = Students.objects.all()
+        res = []
         for student in students:
-            records.filter(student_id=model_to_dict(student)['id'])
+            student_records = records.filter(student_id=model_to_dict(student)['id'])
+            if len(student_records) > 0:
+                res.append(student)
 
-        return Response(normalize_students(students))
+        return Response(normalize_students(res))
 
 
 @api_view(['GET'])
