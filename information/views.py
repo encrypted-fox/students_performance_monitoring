@@ -1521,7 +1521,7 @@ class ListStudentsWith(viewsets.ViewSet):
             faculty = Faculties.objects.filter(id=request.query_params.get('faculty_id'))[0]
             departments = Departments.objects.filter(faculty_id=model_to_dict(faculty)['id'])
             for department in departments:
-                education_programs = EducationPrograms.objects.filter(main_department_id=model_to_dict(department)['id'])[0]
+                education_programs = EducationPrograms.objects.filter(main_department_id=model_to_dict(department)['id'])
                 new_records_id = []
                 for education_program in education_programs:
                     groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
@@ -1534,7 +1534,7 @@ class ListStudentsWith(viewsets.ViewSet):
 
         if 'department_id' in request.query_params:
             department = Departments.objects.filter(id=request.query_params.get('department_id'))[0]
-            education_programs = EducationPrograms.objects.filter(main_department_id=model_to_dict(department)['id'])[0]
+            education_programs = EducationPrograms.objects.filter(main_department_id=model_to_dict(department)['id'])
             new_records_id = []
             for education_program in education_programs:
                 groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
@@ -1547,7 +1547,7 @@ class ListStudentsWith(viewsets.ViewSet):
 
         if 'start_year_id' in request.query_params:
             start_year = StartYears.objects.filter(id=request.query_params.get('start_year_id'))[0]
-            education_programs = EducationPrograms.objects.filter(start_year_id=model_to_dict(start_year)['id'])[0]
+            education_programs = EducationPrograms.objects.filter(start_year_id=model_to_dict(start_year)['id'])
             new_records_id = []
             for education_program in education_programs:
                 groups = Groups.objects.filter(education_program_id=model_to_dict(education_program)['id'])
